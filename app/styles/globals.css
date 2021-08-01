@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .rules ol {
+    counter-reset: item;
+    list-style-type: none;
+  }
+
+  .rules ol > li {
+    counter-increment: item;
+  }
+
+  .rules ol > li::before {
+    content: counters(item, ".") " ";
+  }
+
+  .rules ol ol {
+    margin-left: 1em;
+  }
+}
