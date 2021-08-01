@@ -13,7 +13,7 @@
   }
 
   .rules ol > li::before {
-    content: counters(item, ".") " ";
+    content: counters(item, ".") " - ";
   }
 
   .rules ol ol {

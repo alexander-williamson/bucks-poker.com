@@ -12,7 +12,7 @@ export default function Home() {
       </Head>
 
       <main className="main mb-10 container mx-auto flex-auto">
-        <div className="hero py-20 text-center">
+        <div className="hero py-20 text-center mx-3">
           <h1 className="text-5xl font-bold font-sans pb-5">
             Welcome to <a href="https://bucks-poker.com">Bucks-poker.com</a>
           </h1>
@@ -22,7 +22,7 @@ export default function Home() {
           </p>
         </div>
 
-        <div className="grid grid-cols-2 gap-6">
+        <div className="grid grid-cols-2 gap-6 mx-3">
           <div className="rounded-lg border p-8">
             <Link href="/tournaments/2021">
               <a className="card ">
