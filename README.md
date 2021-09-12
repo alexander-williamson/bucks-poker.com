@@ -4,5 +4,6 @@
 cd app
 npx next build
 npx next export
+aws s3 rm --recursive s3://www.bucks-poker.com
 aws s3 sync .\out\ s3://www.bucks-poker.com --acl public-read
 ```
