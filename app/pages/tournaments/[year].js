@@ -2,6 +2,7 @@ import Head from "next/head";
 import Footer from "../../components/Footer";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import ResultsTable from "../../components/ResultsTable";
+import moment from "moment";
 
 const stats = require("../../data/stats.json");
 const getYearData = (year) => {
@@ -45,6 +46,7 @@ export async function getStaticProps({ params }) {
     props: {
       year: intYear,
       data: getYearData(intYear),
+      buildTimeDate: process.env.BUILD_TIME,
     },
   };
 }
@@ -81,6 +83,10 @@ export default function Year(props) {
         )}
 
         <ResultsTable data={props.data} />
+
+        <p className="pt-1 pb-6 px-1">
+          Data last updated {moment(props.buildTimeDate).fromNow()}.
+        </p>
       </main>
 
       <div className="justify-self-end">
