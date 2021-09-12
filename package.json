@@ -1,0 +1,22 @@
+{
+  "name": "bucks-poker.com",
+  "version": "1.0.0",
+  "description": "Deploy scripts for bucks-poker.com",
+  "scripts": {
+    "deploy:export": "cd app && npm run export",
+    "deploy:remove": "aws s3 rm --recursive s3://www.bucks-poker.com",
+    "deploy:sync": "aws s3 sync .\\app\\out\\ s3://www.bucks-poker.com --acl public-read",
+    "deploy": "npm run deploy:export && npm run deploy:remove && npm run deploy:sync"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/3686/bucks-poker.com.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://bitbucket.org/3686/bucks-poker.com/issues"
+  },
+  "homepage": "https://bitbucket.org/3686/bucks-poker.com#readme"
+}

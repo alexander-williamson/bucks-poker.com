@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "preexport": "next build",
+    "export": "next export"
   },
   "dependencies": {
     "moment": "^2.29.1",
