@@ -4,7 +4,7 @@ import Breadcrumbs from "../../components/Breadcrumbs";
 import Link from "next/link";
 
 function getYears() {
-  const stats = require("../../data/stats.json");
+  const stats = require("../../data/yearFigures.json");
   const years = [...new Set(stats.map((x) => x.Yr))];
   return years.reverse();
 }

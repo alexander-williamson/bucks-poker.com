@@ -1,0 +1,1505 @@
+[
+  {
+    "Yr": "2006",
+    "Person": "Matt",
+    "SRank": "1",
+    "Points": "21",
+    "Chips": "0",
+    "Winnings": "20",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2006",
+    "Person": "Bob",
+    "SRank": "2",
+    "Points": "20",
+    "Chips": "0",
+    "Winnings": "40",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2006",
+    "Person": "Stuart",
+    "SRank": "3",
+    "Points": "17",
+    "Chips": "0",
+    "Winnings": "30",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2006",
+    "Person": "Andy",
+    "SRank": "4",
+    "Points": "8",
+    "Chips": "0",
+    "Winnings": "10",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2006",
+    "Person": "Richard",
+    "SRank": "5",
+    "Points": "6",
+    "Chips": "0",
+    "Winnings": "0",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2006",
+    "Person": "Jon",
+    "SRank": "6",
+    "Points": "4",
+    "Chips": "0",
+    "Winnings": "10",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2006",
+    "Person": "Illya",
+    "SRank": "7",
+    "Points": "2",
+    "Chips": "0",
+    "Winnings": "0",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2007",
+    "Person": "Andy",
+    "SRank": "1",
+    "Points": "24",
+    "Chips": "0",
+    "Winnings": "40",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2007",
+    "Person": "Richard",
+    "SRank": "2",
+    "Points": "23",
+    "Chips": "0",
+    "Winnings": "10",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2007",
+    "Person": "Matt",
+    "SRank": "3",
+    "Points": "22",
+    "Chips": "0",
+    "Winnings": "80",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2007",
+    "Person": "Illya",
+    "SRank": "4",
+    "Points": "19",
+    "Chips": "0",
+    "Winnings": "80",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2007",
+    "Person": "Stuart",
+    "SRank": "5",
+    "Points": "18",
+    "Chips": "0",
+    "Winnings": "20",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2007",
+    "Person": "Jon",
+    "SRank": "6",
+    "Points": "12",
+    "Chips": "0",
+    "Winnings": "20",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2007",
+    "Person": "Keith",
+    "SRank": "7",
+    "Points": "6",
+    "Chips": "0",
+    "Winnings": "40",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2007",
+    "Person": "Bob",
+    "SRank": "8",
+    "Points": "4",
+    "Chips": "0",
+    "Winnings": "0",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2008",
+    "Person": "Richard",
+    "SRank": "1",
+    "Points": "49",
+    "Chips": "0",
+    "Winnings": "190",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2008",
+    "Person": "Andy",
+    "SRank": "2",
+    "Points": "47",
+    "Chips": "0",
+    "Winnings": "190",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2008",
+    "Person": "Stuart",
+    "SRank": "3",
+    "Points": "46",
+    "Chips": "0",
+    "Winnings": "180",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2008",
+    "Person": "Jon",
+    "SRank": "4",
+    "Points": "35",
+    "Chips": "0",
+    "Winnings": "80",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2008",
+    "Person": "Matt",
+    "SRank": "5",
+    "Points": "34",
+    "Chips": "0",
+    "Winnings": "100",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2008",
+    "Person": "Keith",
+    "SRank": "6",
+    "Points": "27",
+    "Chips": "0",
+    "Winnings": "40",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2008",
+    "Person": "Illya",
+    "SRank": "7",
+    "Points": "26",
+    "Chips": "0",
+    "Winnings": "130",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2008",
+    "Person": "John",
+    "SRank": "8",
+    "Points": "5",
+    "Chips": "0",
+    "Winnings": "10",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2008",
+    "Person": "Jonathan",
+    "SRank": "9",
+    "Points": "2",
+    "Chips": "0",
+    "Winnings": "0",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2008",
+    "Person": "Richard",
+    "SRank": "10",
+    "Points": "1",
+    "Chips": "0",
+    "Winnings": "0",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2008",
+    "Person": "Bob",
+    "SRank": "11",
+    "Points": "0",
+    "Chips": "0",
+    "Winnings": "0",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2009",
+    "Person": "Illya",
+    "SRank": "1",
+    "Points": "45",
+    "Chips": "71350",
+    "Winnings": "130",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2009",
+    "Person": "Richard",
+    "SRank": "2",
+    "Points": "42",
+    "Chips": "66350",
+    "Winnings": "170",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2009",
+    "Person": "Andy",
+    "SRank": "3",
+    "Points": "41",
+    "Chips": "60275",
+    "Winnings": "90",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2009",
+    "Person": "Matt",
+    "SRank": "4",
+    "Points": "41",
+    "Chips": "54575",
+    "Winnings": "160",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2009",
+    "Person": "Keith",
+    "SRank": "5",
+    "Points": "40",
+    "Chips": "54750",
+    "Winnings": "90",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2009",
+    "Person": "Jon",
+    "SRank": "6",
+    "Points": "33",
+    "Chips": "51775",
+    "Winnings": "50",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2009",
+    "Person": "Stuart",
+    "SRank": "7",
+    "Points": "32",
+    "Chips": "45225",
+    "Winnings": "60",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2009",
+    "Person": "Jonathan",
+    "SRank": "8",
+    "Points": "28",
+    "Chips": "44550",
+    "Winnings": "60",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2009",
+    "Person": "John",
+    "SRank": "9",
+    "Points": "16",
+    "Chips": "24675",
+    "Winnings": "50",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2009",
+    "Person": "Matthew",
+    "SRank": "10",
+    "Points": "5",
+    "Chips": "5950",
+    "Winnings": "0",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2010",
+    "Person": "Richard",
+    "SRank": "1",
+    "Points": "59",
+    "Chips": "89700",
+    "Winnings": "170",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2010",
+    "Person": "Jon",
+    "SRank": "2",
+    "Points": "53",
+    "Chips": "63900",
+    "Winnings": "140",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2010",
+    "Person": "Andy",
+    "SRank": "3",
+    "Points": "41",
+    "Chips": "61850",
+    "Winnings": "110",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2010",
+    "Person": "Matt",
+    "SRank": "4",
+    "Points": "37",
+    "Chips": "62875",
+    "Winnings": "100",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2010",
+    "Person": "Keith",
+    "SRank": "5",
+    "Points": "37",
+    "Chips": "47600",
+    "Winnings": "70",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2010",
+    "Person": "John",
+    "SRank": "6",
+    "Points": "25",
+    "Chips": "38850",
+    "Winnings": "80",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2010",
+    "Person": "Illya",
+    "SRank": "7",
+    "Points": "17",
+    "Chips": "28825",
+    "Winnings": "20",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2010",
+    "Person": "Stuart",
+    "SRank": "8",
+    "Points": "17",
+    "Chips": "26925",
+    "Winnings": "30",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2010",
+    "Person": "Jonathan",
+    "SRank": "9",
+    "Points": "5",
+    "Chips": "9500",
+    "Winnings": "0",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2010",
+    "Person": "Jim",
+    "SRank": "10",
+    "Points": "4",
+    "Chips": "5050",
+    "Winnings": "0",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2010",
+    "Person": "Chris",
+    "SRank": "11",
+    "Points": "3",
+    "Chips": "4450",
+    "Winnings": "0",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2010",
+    "Person": "Mark",
+    "SRank": "12",
+    "Points": "0",
+    "Chips": "0",
+    "Winnings": "0",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2011",
+    "Person": "Stuart",
+    "SRank": "1",
+    "Points": "47",
+    "Chips": "89550",
+    "Winnings": "190",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2011",
+    "Person": "Keith",
+    "SRank": "2",
+    "Points": "43",
+    "Chips": "90425",
+    "Winnings": "90",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2011",
+    "Person": "Jon",
+    "SRank": "3",
+    "Points": "42",
+    "Chips": "95275",
+    "Winnings": "110",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2011",
+    "Person": "Andy",
+    "SRank": "4",
+    "Points": "41",
+    "Chips": "104775",
+    "Winnings": "80",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2011",
+    "Person": "Mark",
+    "SRank": "5",
+    "Points": "41",
+    "Chips": "59300",
+    "Winnings": "120",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2011",
+    "Person": "Bob",
+    "SRank": "6",
+    "Points": "32",
+    "Chips": "90250",
+    "Winnings": "60",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2011",
+    "Person": "Richard",
+    "SRank": "7",
+    "Points": "31",
+    "Chips": "67725",
+    "Winnings": "60",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2011",
+    "Person": "Matt",
+    "SRank": "8",
+    "Points": "30",
+    "Chips": "76850",
+    "Winnings": "100",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2011",
+    "Person": "Alex",
+    "SRank": "9",
+    "Points": "20",
+    "Chips": "55625",
+    "Winnings": "30",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2011",
+    "Person": "Jim",
+    "SRank": "10",
+    "Points": "4",
+    "Chips": "6500",
+    "Winnings": "10",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2012",
+    "Person": "Bob",
+    "SRank": "1",
+    "Points": "43",
+    "Chips": "98150",
+    "Winnings": "90",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2012",
+    "Person": "Alex",
+    "SRank": "2",
+    "Points": "41",
+    "Chips": "118675",
+    "Winnings": "90",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2012",
+    "Person": "Jon",
+    "SRank": "3",
+    "Points": "41",
+    "Chips": "114800",
+    "Winnings": "50",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2012",
+    "Person": "Andy",
+    "SRank": "4",
+    "Points": "40",
+    "Chips": "126300",
+    "Winnings": "70",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2012",
+    "Person": "Keith",
+    "SRank": "5",
+    "Points": "35",
+    "Chips": "99450",
+    "Winnings": "70",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2012",
+    "Person": "Matt",
+    "SRank": "6",
+    "Points": "32",
+    "Chips": "86725",
+    "Winnings": "50",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2012",
+    "Person": "Richard",
+    "SRank": "7",
+    "Points": "27",
+    "Chips": "80125",
+    "Winnings": "110",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2012",
+    "Person": "Maisy",
+    "SRank": "8",
+    "Points": "21",
+    "Chips": "60150",
+    "Winnings": "130",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2012",
+    "Person": "Mark",
+    "SRank": "9",
+    "Points": "20",
+    "Chips": "72950",
+    "Winnings": "90",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2012",
+    "Person": "Anthony",
+    "SRank": "10",
+    "Points": "10",
+    "Chips": "28200",
+    "Winnings": "60",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2012",
+    "Person": "Jim",
+    "SRank": "11",
+    "Points": "9",
+    "Chips": "29350",
+    "Winnings": "50",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2012",
+    "Person": "Stuart",
+    "SRank": "12",
+    "Points": "6",
+    "Chips": "16800",
+    "Winnings": "0",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2013",
+    "Person": "Andy",
+    "SRank": "1",
+    "Points": "45",
+    "Chips": "117800",
+    "Winnings": "120",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2013",
+    "Person": "Matt",
+    "SRank": "2",
+    "Points": "44",
+    "Chips": "122325",
+    "Winnings": "140",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2013",
+    "Person": "Keith",
+    "SRank": "3",
+    "Points": "36",
+    "Chips": "110675",
+    "Winnings": "80",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2013",
+    "Person": "Maisy",
+    "SRank": "4",
+    "Points": "36",
+    "Chips": "100900",
+    "Winnings": "70",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2013",
+    "Person": "Jon",
+    "SRank": "5",
+    "Points": "35",
+    "Chips": "93100",
+    "Winnings": "40",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2013",
+    "Person": "Anthony",
+    "SRank": "6",
+    "Points": "34",
+    "Chips": "95600",
+    "Winnings": "60",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2013",
+    "Person": "Alex",
+    "SRank": "7",
+    "Points": "33",
+    "Chips": "96425",
+    "Winnings": "170",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2013",
+    "Person": "Mark",
+    "SRank": "8",
+    "Points": "32",
+    "Chips": "87650",
+    "Winnings": "50",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2013",
+    "Person": "Pepe",
+    "SRank": "9",
+    "Points": "14",
+    "Chips": "41600",
+    "Winnings": "50",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2013",
+    "Person": "Bob",
+    "SRank": "10",
+    "Points": "11",
+    "Chips": "47100",
+    "Winnings": "60",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2013",
+    "Person": "Richard",
+    "SRank": "11",
+    "Points": "7",
+    "Chips": "17150",
+    "Winnings": "10",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2014",
+    "Person": "Jon",
+    "SRank": "1",
+    "Points": "53",
+    "Chips": "135900",
+    "Winnings": "140",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2014",
+    "Person": "Anthony",
+    "SRank": "2",
+    "Points": "48",
+    "Chips": "123250",
+    "Winnings": "90",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2014",
+    "Person": "Andy",
+    "SRank": "3",
+    "Points": "47",
+    "Chips": "123400",
+    "Winnings": "100",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2014",
+    "Person": "Pepe",
+    "SRank": "4",
+    "Points": "39",
+    "Chips": "98900",
+    "Winnings": "90",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2014",
+    "Person": "Matt",
+    "SRank": "5",
+    "Points": "36",
+    "Chips": "110000",
+    "Winnings": "100",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2014",
+    "Person": "Mark",
+    "SRank": "6",
+    "Points": "30",
+    "Chips": "86050",
+    "Winnings": "40",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2014",
+    "Person": "Maisy",
+    "SRank": "7",
+    "Points": "22",
+    "Chips": "78625",
+    "Winnings": "90",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2014",
+    "Person": "Richard",
+    "SRank": "8",
+    "Points": "22",
+    "Chips": "63250",
+    "Winnings": "90",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2014",
+    "Person": "Bob",
+    "SRank": "9",
+    "Points": "16",
+    "Chips": "45475",
+    "Winnings": "80",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2014",
+    "Person": "Alex",
+    "SRank": "10",
+    "Points": "13",
+    "Chips": "40075",
+    "Winnings": "10",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2014",
+    "Person": "Keith",
+    "SRank": "11",
+    "Points": "2",
+    "Chips": "6900",
+    "Winnings": "0",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2015",
+    "Person": "Matt",
+    "SRank": "1",
+    "Points": "52",
+    "Chips": "157875",
+    "Winnings": "180",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2015",
+    "Person": "Jon",
+    "SRank": "2",
+    "Points": "50",
+    "Chips": "142925",
+    "Winnings": "130",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2015",
+    "Person": "Andy",
+    "SRank": "3",
+    "Points": "45",
+    "Chips": "154950",
+    "Winnings": "70",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2015",
+    "Person": "Mark",
+    "SRank": "4",
+    "Points": "44",
+    "Chips": "133725",
+    "Winnings": "140",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2015",
+    "Person": "Maisy",
+    "SRank": "5",
+    "Points": "35",
+    "Chips": "121300",
+    "Winnings": "120",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2015",
+    "Person": "Richard",
+    "SRank": "6",
+    "Points": "32",
+    "Chips": "86425",
+    "Winnings": "180",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2015",
+    "Person": "Anthony",
+    "SRank": "7",
+    "Points": "31",
+    "Chips": "94275",
+    "Winnings": "30",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2015",
+    "Person": "Pepe",
+    "SRank": "8",
+    "Points": "28",
+    "Chips": "87350",
+    "Winnings": "80",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2015",
+    "Person": "Alex",
+    "SRank": "9",
+    "Points": "24",
+    "Chips": "71150",
+    "Winnings": "30",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2015",
+    "Person": "Keith",
+    "SRank": "10",
+    "Points": "12",
+    "Chips": "43325",
+    "Winnings": "10",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2015",
+    "Person": "Bob",
+    "SRank": "11",
+    "Points": "8",
+    "Chips": "29000",
+    "Winnings": "20",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2016",
+    "Person": "Andy",
+    "SRank": "1",
+    "Points": "75",
+    "Chips": "227600",
+    "Winnings": "280",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2016",
+    "Person": "Mark",
+    "SRank": "2",
+    "Points": "49",
+    "Chips": "156550",
+    "Winnings": "200",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2016",
+    "Person": "Matt",
+    "SRank": "3",
+    "Points": "47",
+    "Chips": "156650",
+    "Winnings": "130",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2016",
+    "Person": "Keith",
+    "SRank": "4",
+    "Points": "41",
+    "Chips": "140050",
+    "Winnings": "70",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2016",
+    "Person": "Anthony",
+    "SRank": "5",
+    "Points": "32",
+    "Chips": "96700",
+    "Winnings": "60",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2016",
+    "Person": "Pepe",
+    "SRank": "6",
+    "Points": "31",
+    "Chips": "95350",
+    "Winnings": "80",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2016",
+    "Person": "Jon",
+    "SRank": "7",
+    "Points": "27",
+    "Chips": "82950",
+    "Winnings": "30",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2016",
+    "Person": "Richard",
+    "SRank": "8",
+    "Points": "26",
+    "Chips": "90800",
+    "Winnings": "60",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2016",
+    "Person": "Maisy",
+    "SRank": "9",
+    "Points": "21",
+    "Chips": "71000",
+    "Winnings": "20",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2016",
+    "Person": "Bob",
+    "SRank": "10",
+    "Points": "5",
+    "Chips": "17550",
+    "Winnings": "10",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2016",
+    "Person": "Alex",
+    "SRank": "11",
+    "Points": "4",
+    "Chips": "11850",
+    "Winnings": "0",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2017",
+    "Person": "Andy",
+    "SRank": "1",
+    "Points": "55",
+    "Chips": "166450",
+    "Winnings": "190",
+    "Takehome": "70"
+  },
+  {
+    "Yr": "2017",
+    "Person": "Anthony",
+    "SRank": "2",
+    "Points": "48",
+    "Chips": "154650",
+    "Winnings": "160",
+    "Takehome": "70"
+  },
+  {
+    "Yr": "2017",
+    "Person": "Maisy",
+    "SRank": "3",
+    "Points": "43",
+    "Chips": "136150",
+    "Winnings": "110",
+    "Takehome": "10"
+  },
+  {
+    "Yr": "2017",
+    "Person": "Mark",
+    "SRank": "4",
+    "Points": "43",
+    "Chips": "130500",
+    "Winnings": "140",
+    "Takehome": "10"
+  },
+  {
+    "Yr": "2017",
+    "Person": "Matt",
+    "SRank": "5",
+    "Points": "38",
+    "Chips": "142150",
+    "Winnings": "100",
+    "Takehome": "-10"
+  },
+  {
+    "Yr": "2017",
+    "Person": "Pepe",
+    "SRank": "6",
+    "Points": "36",
+    "Chips": "114450",
+    "Winnings": "70",
+    "Takehome": "-30"
+  },
+  {
+    "Yr": "2017",
+    "Person": "Jon",
+    "SRank": "7",
+    "Points": "34",
+    "Chips": "95600",
+    "Winnings": "40",
+    "Takehome": "-60"
+  },
+  {
+    "Yr": "2017",
+    "Person": "Keith",
+    "SRank": "8",
+    "Points": "29",
+    "Chips": "92200",
+    "Winnings": "90",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2017",
+    "Person": "Richard",
+    "SRank": "9",
+    "Points": "25",
+    "Chips": "94250",
+    "Winnings": "70",
+    "Takehome": "40"
+  },
+  {
+    "Yr": "2017",
+    "Person": "Alex",
+    "SRank": "10",
+    "Points": "7",
+    "Chips": "32150",
+    "Winnings": "0",
+    "Takehome": "-30"
+  },
+  {
+    "Yr": "2018",
+    "Person": "Jon",
+    "SRank": "1",
+    "Points": "50",
+    "Chips": "169200",
+    "Winnings": "150",
+    "Takehome": "50"
+  },
+  {
+    "Yr": "2018",
+    "Person": "Mark",
+    "SRank": "2",
+    "Points": "45",
+    "Chips": "122500",
+    "Winnings": "170",
+    "Takehome": "70"
+  },
+  {
+    "Yr": "2018",
+    "Person": "Anthony",
+    "SRank": "3",
+    "Points": "43",
+    "Chips": "152000",
+    "Winnings": "190",
+    "Takehome": "100"
+  },
+  {
+    "Yr": "2018",
+    "Person": "Pepe",
+    "SRank": "4",
+    "Points": "41",
+    "Chips": "149600",
+    "Winnings": "90",
+    "Takehome": "-20"
+  },
+  {
+    "Yr": "2018",
+    "Person": "Andy",
+    "SRank": "5",
+    "Points": "37",
+    "Chips": "141400",
+    "Winnings": "110",
+    "Takehome": "10"
+  },
+  {
+    "Yr": "2018",
+    "Person": "Matt",
+    "SRank": "6",
+    "Points": "37",
+    "Chips": "119550",
+    "Winnings": "90",
+    "Takehome": "-10"
+  },
+  {
+    "Yr": "2018",
+    "Person": "Maisy",
+    "SRank": "7",
+    "Points": "36",
+    "Chips": "125300",
+    "Winnings": "50",
+    "Takehome": "-50"
+  },
+  {
+    "Yr": "2018",
+    "Person": "Richard",
+    "SRank": "8",
+    "Points": "27",
+    "Chips": "107450",
+    "Winnings": "80",
+    "Takehome": "20"
+  },
+  {
+    "Yr": "2018",
+    "Person": "Keith",
+    "SRank": "9",
+    "Points": "25",
+    "Chips": "101150",
+    "Winnings": "100",
+    "Takehome": "50"
+  },
+  {
+    "Yr": "2018",
+    "Person": "Alex",
+    "SRank": "10",
+    "Points": "12",
+    "Chips": "52550",
+    "Winnings": "10",
+    "Takehome": "-30"
+  },
+  {
+    "Yr": "2018",
+    "Person": "Crafty",
+    "SRank": "11",
+    "Points": "5",
+    "Chips": "18200",
+    "Winnings": "0",
+    "Takehome": "-20"
+  },
+  {
+    "Yr": "2019",
+    "Person": "Andy",
+    "SRank": "1",
+    "Points": "56",
+    "Chips": "183850",
+    "Winnings": "190",
+    "Takehome": "90"
+  },
+  {
+    "Yr": "2019",
+    "Person": "Maisy",
+    "SRank": "2",
+    "Points": "44",
+    "Chips": "138150",
+    "Winnings": "100",
+    "Takehome": "-10"
+  },
+  {
+    "Yr": "2019",
+    "Person": "Pepe",
+    "SRank": "3",
+    "Points": "43",
+    "Chips": "125550",
+    "Winnings": "70",
+    "Takehome": "-40"
+  },
+  {
+    "Yr": "2019",
+    "Person": "Mark",
+    "SRank": "4",
+    "Points": "39",
+    "Chips": "121700",
+    "Winnings": "70",
+    "Takehome": "-10"
+  },
+  {
+    "Yr": "2019",
+    "Person": "Jon",
+    "SRank": "5",
+    "Points": "37",
+    "Chips": "122050",
+    "Winnings": "130",
+    "Takehome": "50"
+  },
+  {
+    "Yr": "2019",
+    "Person": "Richard",
+    "SRank": "6",
+    "Points": "37",
+    "Chips": "119400",
+    "Winnings": "120",
+    "Takehome": "40"
+  },
+  {
+    "Yr": "2019",
+    "Person": "Anthony",
+    "SRank": "7",
+    "Points": "35",
+    "Chips": "111450",
+    "Winnings": "90",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2019",
+    "Person": "Matt",
+    "SRank": "8",
+    "Points": "35",
+    "Chips": "103900",
+    "Winnings": "90",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2019",
+    "Person": "Crafty",
+    "SRank": "9",
+    "Points": "23",
+    "Chips": "77750",
+    "Winnings": "50",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2019",
+    "Person": "Alex",
+    "SRank": "10",
+    "Points": "13",
+    "Chips": "41900",
+    "Winnings": "20",
+    "Takehome": "-10"
+  },
+  {
+    "Yr": "2020",
+    "Person": "Andy",
+    "SRank": "1",
+    "Points": "53",
+    "Chips": "201025",
+    "Winnings": "140",
+    "Takehome": "20"
+  },
+  {
+    "Yr": "2020",
+    "Person": "Maisy",
+    "SRank": "2",
+    "Points": "52",
+    "Chips": "168555",
+    "Winnings": "250",
+    "Takehome": "150"
+  },
+  {
+    "Yr": "2020",
+    "Person": "Anthony",
+    "SRank": "3",
+    "Points": "49",
+    "Chips": "148491",
+    "Winnings": "150",
+    "Takehome": "30"
+  },
+  {
+    "Yr": "2020",
+    "Person": "Matt",
+    "SRank": "4",
+    "Points": "38",
+    "Chips": "137200",
+    "Winnings": "110",
+    "Takehome": "-10"
+  },
+  {
+    "Yr": "2020",
+    "Person": "Mark",
+    "SRank": "5",
+    "Points": "36",
+    "Chips": "127250",
+    "Winnings": "70",
+    "Takehome": "-40"
+  },
+  {
+    "Yr": "2020",
+    "Person": "Alex",
+    "SRank": "6",
+    "Points": "33",
+    "Chips": "105200",
+    "Winnings": "60",
+    "Takehome": "-40"
+  },
+  {
+    "Yr": "2020",
+    "Person": "Richard",
+    "SRank": "7",
+    "Points": "31",
+    "Chips": "107575",
+    "Winnings": "70",
+    "Takehome": "-20"
+  },
+  {
+    "Yr": "2020",
+    "Person": "Jon",
+    "SRank": "8",
+    "Points": "19",
+    "Chips": "91204",
+    "Winnings": "20",
+    "Takehome": "-100"
+  },
+  {
+    "Yr": "2020",
+    "Person": "Prashant",
+    "SRank": "9",
+    "Points": "18",
+    "Chips": "75400",
+    "Winnings": "30",
+    "Takehome": "-10"
+  },
+  {
+    "Yr": "2020",
+    "Person": "Crafty",
+    "SRank": "10",
+    "Points": "17",
+    "Chips": "57600",
+    "Winnings": "130",
+    "Takehome": "90"
+  },
+  {
+    "Yr": "2020",
+    "Person": "Pepe",
+    "SRank": "11",
+    "Points": "15",
+    "Chips": "59150",
+    "Winnings": "10",
+    "Takehome": "-70"
+  },
+  {
+    "Yr": "2021",
+    "Person": "Andy",
+    "SRank": "1",
+    "Points": "47",
+    "Chips": "172579",
+    "Winnings": "200",
+    "Takehome": "100"
+  },
+  {
+    "Yr": "2021",
+    "Person": "Jon",
+    "SRank": "2",
+    "Points": "34",
+    "Chips": "143771",
+    "Winnings": "90",
+    "Takehome": "-10"
+  },
+  {
+    "Yr": "2021",
+    "Person": "Richard",
+    "SRank": "3",
+    "Points": "34",
+    "Chips": "125572",
+    "Winnings": "110",
+    "Takehome": "20"
+  },
+  {
+    "Yr": "2021",
+    "Person": "Alex",
+    "SRank": "4",
+    "Points": "33",
+    "Chips": "119792",
+    "Winnings": "100",
+    "Takehome": "0"
+  },
+  {
+    "Yr": "2021",
+    "Person": "Mark",
+    "SRank": "5",
+    "Points": "31",
+    "Chips": "116416",
+    "Winnings": "60",
+    "Takehome": "-40"
+  },
+  {
+    "Yr": "2021",
+    "Person": "Matt",
+    "SRank": "6",
+    "Points": "29",
+    "Chips": "94828",
+    "Winnings": "30",
+    "Takehome": "-70"
+  },
+  {
+    "Yr": "2021",
+    "Person": "Anthony",
+    "SRank": "7",
+    "Points": "24",
+    "Chips": "87404",
+    "Winnings": "50",
+    "Takehome": "-40"
+  },
+  {
+    "Yr": "2021",
+    "Person": "Maisy",
+    "SRank": "8",
+    "Points": "23",
+    "Chips": "93077",
+    "Winnings": "140",
+    "Takehome": "70"
+  },
+  {
+    "Yr": "2021",
+    "Person": "Prashant",
+    "SRank": "9",
+    "Points": "21",
+    "Chips": "72358",
+    "Winnings": "120",
+    "Takehome": "80"
+  },
+  {
+    "Yr": "2021",
+    "Person": "Pepe",
+    "SRank": "10",
+    "Points": "12",
+    "Chips": "41400",
+    "Winnings": "0",
+    "Takehome": "-60"
+  },
+  {
+    "Yr": "2021",
+    "Person": "Crafty",
+    "SRank": "11",
+    "Points": "11",
+    "Chips": "53303",
+    "Winnings": "10",
+    "Takehome": "-40"
+  }
+]
