@@ -7,12 +7,12 @@ import moment from "moment";
 const stats = require("../../data/stats.json");
 const getYearData = (year) => {
   const data = stats
-    .filter((x) => x.Yr === year)
+    .filter((x) => `${x.Yr}` === `${year}`)
     .sort((a, b) => {
-      if (a.SRank < b.SRank) {
+      if (parseInt(a.SRank) < parseInt(b.SRank)) {
         return -1;
       }
-      if (a.SRank > b.SRank) {
+      if (parseInt(a.SRank) > parseInt(b.SRank)) {
         return 1;
       }
       return 0;
@@ -41,7 +41,6 @@ export async function getStaticProps({ params }) {
   //  const router = useRouter();
   // z const { year } = router.query;
   const intYear = parseInt(params.year);
-  const data = getYearData(intYear);
   return {
     props: {
       year: intYear,
@@ -53,9 +52,8 @@ export async function getStaticProps({ params }) {
 
 export default function Year(props) {
   const currentYear = new Date().getFullYear();
-  const title = `${props.year} Tournament ${
-    props.year === currentYear ? "(Current)" : ""
-  }`;
+  const title = `${props.year} Tournament ${props.year === currentYear ? "(Current)" : ""
+    }`;
   return (
     <div className="flex flex-col min-h-screen">
       <Head>
