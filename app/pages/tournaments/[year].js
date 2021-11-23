@@ -23,9 +23,44 @@ const getTableData = (year) => {
   return data;
 };
 
+const getHighest = arr => {
+  const items = arr.reduce((result, item) => {
+    const keys = Object.keys(item).filter(key => item[key].length > 0)
+    return [...result, ...keys]
+  }, [])
+  const result = [...new Set(items)]
+  return result;
+}
+
+const getDateNumbersLowestFirst = year => {
+  const monthlyPositionsFilteredByYear = monthlyPositions.filter(x => x.Year === `${year}`)
+  const mergedProperties = getHighest(monthlyPositionsFilteredByYear)
+
+  const result = mergedProperties
+    .filter(x => parseInt(x) > 0)
+    .map(x => parseInt(x))
+    .sort((a, b) => a - b);
+
+  console.debug({ result })
+
+  return result;
+}
+
+const getEarliestDate = year => {
+  const lowestNumber = getDateNumbersLowestFirst(year)[0]
+  const result = new Date(Date.UTC(year, lowestNumber - 1, 1)).toISOString().substr(0, 10)
+  return result
+}
+
+const getLatestDate = year => {
+  const highestNumber = getDateNumbersLowestFirst(year).reverse()[0]
+  console.debug(getDateNumbersLowestFirst(year))
+  const result = new Date(Date.UTC(year, highestNumber - 1, 1)).toISOString().substr(0, 10)
+  return result
+}
+
 const randomColor = () => {
   const randomColor = "#000000".replace(/0/g, function () { return (~~(Math.random() * 16)).toString(16); });
-  console.debug(randomColor);
   return randomColor;
 }
 
@@ -53,16 +88,15 @@ const getChartData = (year) => {
   const people = thisYearsData.map(x => x.Person)
   const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
 
-  console.debug(thisYearsData);
-
   const data = people.map((name, i) => ({
     name: name,
     data: months.map((month, index) => ({
       category: month.substr(0, 3),
       value: parseInt(thisYearsData.find(x => x.Person === name)[`${index + 1}`]),
     })),
-    stroke: colors[i]
+    stroke: colors[i],
   }));
+
 
   return data;
 }
@@ -89,7 +123,9 @@ export async function getStaticProps({ params }) {
       year: intYear,
       tableData: getTableData(intYear),
       chartData: getChartData(intYear),
-      buildTimeDate: process.env.BUILD_TIME,
+      earliestDate: getEarliestDate(intYear),
+      latestDate: getLatestDate(intYear),
+      buildTimeDate: process.env.BUILD_TIME || new Date(),
     },
   };
 }
@@ -121,31 +157,44 @@ export default function Year(props) {
           current={title}
         />
 
-        <ResponsiveContainer width="95%" height={400}>
-          <LineChart className="pt-1 pb-6 px-1" reverseStackOrder>
+        {/* <ResponsiveContainer width="95%" height={400}>
+          <LineChart className="pt-1 pb-6 px-0" reverseStackOrder>
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="category" type="category" allowDuplicatedCategory={false} />
-            <YAxis dataKey="value" />
+            <XAxis dataKey="category" type="category" allowDuplicatedCategory={false} padding={{ left: 20, right: 20 }} />
+            <YAxis dataKey="value" reversed tick={true} />
             <Tooltip />
             <Legend />
             {props.chartData.map((s) => (
-              <Line dataKey="value" data={s.data} name={s.name} stroke={s.stroke} strokeWidth={3} />
+              <Line
+                connectNulls={true}
+                dataKey="value"
+                data={s.data}
+                name={s.name}
+                stroke={s.stroke}
+                strokeWidth={1}
+                points={true}
+                type="monotone" />
             ))}
           </LineChart>
-        </ResponsiveContainer>
+        </ResponsiveContainer> */}
 
-        {
-          currentYear === props.year && (
-            <p className="pt-3 pb-6 px-1">
-              This is the current year so the values here may change.
-            </p>
-          )
-        }
+
 
         <ResultsTable data={props.tableData} />
 
         <p className="pt-1 pb-6 px-1">
-          Data last updated {moment(props.buildTimeDate).fromNow()}.
+          The data on this page includes data from months {moment(props.earliestDate.substr(0, 10)).format("MMMM YYYY")} &rarr; {moment(props.latestDate.substr(0, 10)).format("MMMM YYYY")} inclusive.
+
+        </p>
+        {
+          currentYear === props.year && (
+            <p className="pt-1 pb-6 px-1">
+              This is the current year so the values here may change.
+            </p>
+          )
+        }
+        <p className="pt-1 pb-6 px-1">
+          This website was last updated <span title={moment(props.buildTimeDate).format('LLLL')}>{moment(props.buildTimeDate).fromNow()}</span>.
         </p>
       </main >
 
