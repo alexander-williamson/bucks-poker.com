@@ -1,0 +1,73 @@
+import Head from "next/head";
+import Footer from "../../components/Footer";
+import Breadcrumbs from "../../components/Breadcrumbs";
+import DataTable from "../../components/DataTable";
+import { GetYearDataAsync } from "../../services/data";
+
+async function getPlayerNames() {
+  const stats = await GetYearDataAsync();
+  const allNames = [...new Set(stats.map((x) => x.Person))].sort();
+  const latestYear = Math.max(...stats.map((x) => parseInt(x.Yr)));
+  const activePlayerNames = stats
+    .filter((x) => x.Yr === `${latestYear}`)
+    .map((x) => x.Person);
+  const otherPlayerNames = allNames.filter(
+    (x) => activePlayerNames.indexOf(x) < 0
+  );
+  return { activePlayerNames, otherPlayerNames };
+}
+
+export async function getStaticProps({ params }) {
+  const { activePlayerNames, otherPlayerNames } = await getPlayerNames();
+  return {
+    props: {
+      activePlayerNames,
+      otherPlayerNames,
+    },
+  };
+}
+
+export default function People(props) {
+  return (
+    <div className="flex flex-col min-h-screen">
+      <Head>
+        <html lang="en-gb" />
+        <title>Players</title>
+        <meta name="description" content="The Bucks Poker Tournament Results" />
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
+
+      <main className="main mb-10 container mx-auto flex-auto p-8">
+        <div className="hero py-20 text-center">
+          <h1 className="text-5xl font-bold font-sans pb-5">Players</h1>
+        </div>
+
+        <Breadcrumbs current="Players" />
+
+        <h2 className="text-3xl font-bold font-sans pb-5">Current Players</h2>
+        <p className="pb-5">
+          Players that sat for at least one Game the current Tournament.
+        </p>
+
+        <DataTable
+          headers={["Player Name"]}
+          rows={props.activePlayerNames.map((x) => ({ "Player Name": x }))}
+        />
+
+        <h2 className="text-3xl font-bold font-sans pb-5">Previous Players</h2>
+        <p className="pb-5">
+          Players that have not played in the current Tournament.
+        </p>
+
+        <DataTable
+          headers={["Player Name"]}
+          rows={props.otherPlayerNames.map((x) => ({ "Player Name": x }))}
+        />
+      </main>
+
+      <div className="justify-self-end">
+        <Footer />
+      </div>
+    </div>
+  );
+}

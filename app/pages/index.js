@@ -28,12 +28,22 @@ export default function Home() {
             <Link href="/tournaments/2021">
               <a className="card ">
                 <h2 className="pb-5 font-bold text-lg">
-                  The 2021 Tournament &rarr;
+                  The latest Tournament &rarr;
                 </h2>
                 <p>Learn more about this years trophy</p>
               </a>
             </Link>
           </div>
+
+          <div className="rounded-lg border p-8">
+            <Link href="/players">
+              <a className="card ">
+                <h2 className="pb-5 font-bold text-lg">The Players &rarr;</h2>
+                <p>Current and past players</p>
+              </a>
+            </Link>
+          </div>
+
           <div className="rounded-lg border p-8">
             <Link href="/tournaments">
               <a className="card">
@@ -44,6 +54,7 @@ export default function Home() {
               </a>
             </Link>
           </div>
+
           <div className="rounded-lg border p-8">
             <Link href="/rules">
               <a className="card">
@@ -52,6 +63,7 @@ export default function Home() {
               </a>
             </Link>
           </div>
+
           <div className="rounded-lg border p-8">
             <Link href="/resources">
               <a className="card">

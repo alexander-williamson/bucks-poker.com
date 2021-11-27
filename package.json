@@ -6,7 +6,8 @@
     "deploy:export": "cd app && npm run export",
     "deploy:remove": "aws s3 rm --recursive s3://www.bucks-poker.com",
     "deploy:sync": "aws s3 sync .\\app\\out\\ s3://www.bucks-poker.com --acl public-read",
-    "deploy": "npm run deploy:export && npm run deploy:remove && npm run deploy:sync"
+    "deploy": "npm run deploy:export && npm run deploy:remove && npm run deploy:sync",
+    "dev": "cd app && npm run dev"
   },
   "repository": {
     "type": "git",
