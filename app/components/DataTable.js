@@ -16,16 +16,20 @@ export default function ResultsTable(props) {
           <table className="table-auto w-full">
             <thead>
               <tr className="text-md font-semibold tracking-wide text-left text-blue-900 bg-gray-100 uppercase border-b border-gray-600">
-                {value.headers.map((header) => (
-                  <th className="px-4 py-3">{header}</th>
+                {value.headers.map((header, index) => (
+                  <th className="px-4 py-3" key={`th-${index}`}>
+                    {header}
+                  </th>
                 ))}
               </tr>
             </thead>
             <tbody className="bg-white">
               {value.rows.map((row, index) => (
-                <tr className="text-gray-700" key={`row-${index}`}>
+                <tr className="text-gray-700" key={`tr-${index}`}>
                   {Object.keys(row).map((key) => (
-                    <td className="px-4 py-3 border">{row[key]}</td>
+                    <td className="px-4 py-3 border" key={`td-${index}`}>
+                      {row[key]}
+                    </td>
                   ))}
                 </tr>
               ))}
