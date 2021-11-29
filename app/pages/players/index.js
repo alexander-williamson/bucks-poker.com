@@ -21,7 +21,6 @@ async function getPlayerNames() {
 
   const getTotalYearsPlayed = (playerName) => {
     const yearResults = stats.filter((x) => x.Person === playerName);
-    console.debug(yearResults.length);
     return yearResults.length;
   };
 
