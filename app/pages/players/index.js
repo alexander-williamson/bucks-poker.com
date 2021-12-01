@@ -35,7 +35,7 @@ async function getPlayerNames() {
     }));
 
   const otherPlayers = allNames
-    .filter((x) => activePlayers.indexOf(x) < 0)
+    .filter((name) => activePlayers.map((x) => x.name).indexOf(name) < 0)
     .map((name) => ({
       name,
       lastYearPlayed: getLastYear(name),
@@ -74,7 +74,7 @@ export default function People(props) {
 
         <h2 className="text-3xl font-bold font-sans pb-5">Current Players</h2>
         <p className="pb-5">
-          Players that sat for at least one Game the current Tournament.
+          Players that sat for at least one Game the Current Tournament.
         </p>
         <DataTable
           headers={["Player Name", "Years Played", "Total Lifetime Chips"]}
@@ -87,7 +87,7 @@ export default function People(props) {
 
         <h2 className="text-3xl font-bold font-sans pb-5">Previous Players</h2>
         <p className="pb-5">
-          Players that have not played in the current Tournament.
+          Players that have not played in the Current Tournament.
         </p>
         <DataTable
           headers={["Player Name", "Years Played", "Total Lifetime Chips"]}
