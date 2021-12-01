@@ -94,7 +94,8 @@ export default function People(props) {
           rows={props.otherPlayers.map((player) => ({
             "Player Name": player.name,
             "Years Played": player.yearsPlayed,
-            "Total Lifetime Chips": player.totalChips,
+            "Total Lifetime Chips":
+              player.totalChips > 0 ? player.totalChips : "(not recorded)",
           }))}
         />
       </main>
