@@ -3,10 +3,10 @@ import Footer from "../../components/Footer";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import ResultsTable from "../../components/ResultsTable";
 import moment from "moment";
-import { GetMonthlyPositionsDataAsync, GetYearDataAsync } from "../../services/data"
+import { GetMonthlyPositionsDataAsync, GetYearFiguresDataAsync } from "../../services/data"
 
 const getTableData = async (year) => {
-  const yearData = await GetYearDataAsync()
+  const yearData = await GetYearFiguresDataAsync()
   const data = yearData
     .filter((x) => `${x.Yr}` === `${year}`)
     .sort((a, b) => {
@@ -101,7 +101,7 @@ const getChartData = async (year) => {
 
 
 export async function getStaticPaths() {
-  const yearData = await GetYearDataAsync();
+  const yearData = await GetYearFiguresDataAsync();
   const years = [...new Set(yearData.map((x) => x.Yr))].reverse();
   return {
     paths: years.map((year) => ({

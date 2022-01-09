@@ -2,10 +2,10 @@ import Head from "next/head";
 import Footer from "../../components/Footer";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import Link from "next/link";
-import { GetYearDataAsync } from "../../services/data"
+import { GetYearFiguresDataAsync } from "../../services/data"
 
 async function getYears() {
-  const stats = await GetYearDataAsync();
+  const stats = await GetYearFiguresDataAsync();
   const years = [...new Set(stats.map((x) => x.Yr))];
   return years.reverse();
 }

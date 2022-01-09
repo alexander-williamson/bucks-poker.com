@@ -2,35 +2,62 @@ import Head from "next/head";
 import Footer from "../../components/Footer";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import DataTable from "../../components/DataTable";
-import { GetYearDataAsync } from "../../services/data";
+import { GetYearFiguresDataAsync } from "../../services/data";
 
-async function getPlayerNames() {
-  const stats = await GetYearDataAsync();
-  const allNames = [...new Set(stats.map((x) => x.Person))].sort();
-  const latestYear = Math.max(...stats.map((x) => parseInt(x.Yr)));
+async function getData() {
+  const yearFiguresData = await GetYearFiguresDataAsync();
+  const allNames = [...new Set(yearFiguresData.map((x) => x.Person))].sort();
+  const latestYear = Math.max(...yearFiguresData.map((x) => parseInt(x.Yr)));
 
-  const getLastYear = (playerName) =>
-    Math.max(...stats.filter((x) => x.Person === playerName).map((x) => x.Yr));
+  const rank = (dataSet, name, scoreFunc = (x) => x.totalPoints) => {
+    const result = dataSet
+      .map((x) => {
+        if (!x.totalPoints) throw new Error("x.totalPoints not provided");
+        return {
+          name: x.name,
+          score: scoreFunc(x),
+        };
+      })
+      .sort((a, b) => a.score - b.score)
+      .reverse();
+
+    return result.map((x) => x.name).indexOf(name);
+  };
+
+  const getLastYear = (playerName) => {
+    return Math.max(
+      ...yearFiguresData.filter((x) => x.Person === playerName).map((x) => x.Yr)
+    );
+  };
 
   const getTotalChips = (playerName) => {
-    const chipTotalsEachYear = stats
+    const chipTotalsEachYear = yearFiguresData
       .filter((x) => x.Person === playerName)
       .map((x) => parseInt(x.Chips));
     return chipTotalsEachYear.reduce((a, b) => a + b, 0);
   };
 
+  const getTotalPoints = (playerName) => {
+    const pointsTotalEachYear = yearFiguresData
+      .filter((x) => x.Person === playerName)
+      .map((x) => parseInt(x.Points));
+    const result = pointsTotalEachYear.reduce((a, b) => a + b, 0);
+    return result;
+  };
+
   const getTotalYearsPlayed = (playerName) => {
-    const yearResults = stats.filter((x) => x.Person === playerName);
+    const yearResults = yearFiguresData.filter((x) => x.Person === playerName);
     return yearResults.length;
   };
 
-  const activePlayers = stats
+  const activePlayers = yearFiguresData
     .filter((x) => x.Yr === `${latestYear}`)
     .map((x) => x.Person)
     .map((name) => ({
       name,
       lastYearPlayed: getLastYear(name),
       totalChips: getTotalChips(name),
+      totalPoints: getTotalPoints(name),
       yearsPlayed: getTotalYearsPlayed(name),
     }));
 
@@ -40,18 +67,35 @@ async function getPlayerNames() {
       name,
       lastYearPlayed: getLastYear(name),
       totalChips: getTotalChips(name),
+      totalPoints: getTotalPoints(name),
       yearsPlayed: getTotalYearsPlayed(name),
     }));
 
-  return { activePlayers, otherPlayers };
+  const overallRanking = allNames
+    .map((name) => ({
+      name,
+      lastYearPlayed: getLastYear(name),
+      totalChips: getTotalChips(name),
+      totalPoints: getTotalPoints(name),
+      yearsPlayed: getTotalYearsPlayed(name),
+    }))
+    .map((x, i, arr) => ({
+      ...x,
+      position: rank(arr, x.name),
+    }))
+    .sort((a, b) => a.position - b.position)
+    .map((data) => ({ ...data }));
+
+  return { activePlayers, otherPlayers, overallRanking };
 }
 
 export async function getStaticProps({ params }) {
-  const { activePlayers, otherPlayers } = await getPlayerNames();
+  const { activePlayers, otherPlayers, overallRanking } = await getData();
   return {
     props: {
       activePlayers,
       otherPlayers,
+      overallRanking,
     },
   };
 }
@@ -72,28 +116,78 @@ export default function People(props) {
         </div>
         <Breadcrumbs current="Players" />
 
-        <h2 className="text-3xl font-bold font-sans pb-5">Current Players</h2>
+        <h2 className="text-3xl font-bold font-sans pb-5">Active Players</h2>
         <p className="pb-5">
           Players that sat for at least one Game the Current Tournament.
         </p>
         <DataTable
-          headers={["Player Name", "Years Played", "Total Lifetime Chips"]}
+          headers={[
+            "Player Name",
+            "Years Played",
+            "Total Lifetime Points",
+            "Total Lifetime Chips",
+          ]}
           rows={props.activePlayers.map((player) => ({
-            "Player Name": player.name,
+            "Player Name": <a href={player.name}>{player.name}</a>,
             "Years Played": player.yearsPlayed,
-            "Total Lifetime Chips": player.totalChips,
+            "Total Lifetime Points":
+              player.totalPoints > 0 ? player.totalPoints : "(not recorded)",
+            "Total Lifetime Chips":
+              player.totalChips > 0 ? player.totalChips : "(not recorded)",
           }))}
         />
 
-        <h2 className="text-3xl font-bold font-sans pb-5">Previous Players</h2>
+        {/* <h2 className="text-3xl font-bold font-sans pb-5">Previous Players</h2>
         <p className="pb-5">
           Players that have not played in the Current Tournament.
         </p>
         <DataTable
-          headers={["Player Name", "Years Played", "Total Lifetime Chips"]}
+          headers={["Player Name", "Years Played", "Total Lifetime Points", "Total Lifetime Chips",]}
           rows={props.otherPlayers.map((player) => ({
-            "Player Name": player.name,
+            "Player Name": <a href={player.name}>{player.name}</a>,
             "Years Played": player.yearsPlayed,
+            "Total Lifetime Points": player.totalPoints > 0 ? player.totalPoints : "(not recorded)",
+            "Total Lifetime Chips":
+              player.totalChips > 0 ? player.totalChips : "(not recorded)",
+          }))}
+        /> */}
+
+        <h2 className="text-3xl font-bold font-sans pb-5">Overall Ranking</h2>
+        <p className="pb-5">
+          The best of the best. Calculated using most points from all
+          tournaments,
+        </p>
+        <DataTable
+          headers={[
+            "Player Name",
+            "Years Played",
+            "Total Lifetime Points",
+            "Total Lifetime Chips",
+          ]}
+          rows={props.overallRanking.map((player) => ({
+            "Player Name": (
+              <>
+                <a href={player.name}>{player.name}</a>
+                {player.position === 0 && (
+                  <span className="bg-amber-500 p-1 m-1 text-white rounded-lg text-xs">
+                    1st overall points
+                  </span>
+                )}
+                {player.position === 1 && (
+                  <span className="bg-gray-500 p-1 m-1 text-white rounded-lg text-xs">
+                    2nd overall points
+                  </span>
+                )}
+                {player.position === 2 && (
+                  <span className="bg-yellow-600 p-1 m-1 text-white rounded-lg text-xs">
+                    3rd overall points
+                  </span>
+                )}
+              </>
+            ),
+            "Years Played": player.yearsPlayed,
+            "Total Lifetime Points":
+              player.totalPoints > 0 ? player.totalPoints : "(not recorded)",
             "Total Lifetime Chips":
               player.totalChips > 0 ? player.totalChips : "(not recorded)",
           }))}

@@ -8,16 +8,17 @@ module.exports = {
     container: {
       center: true,
     },
-    // colors: {
-    //   transparent: 'transparent',
-    //   current: 'currentColor',
-    //   black: colors.black,
-    //   white: colors.white,
-    //   gray: colors.trueGray,
-    //   indigo: colors.indigo,
-    //   red: colors.rose,
-    //   yellow: colors.amber,
-    // }
+    colors: {
+      transparent: "transparent",
+      current: "currentColor",
+      black: colors.black,
+      white: colors.white,
+      gray: colors.trueGray,
+      indigo: colors.indigo,
+      red: colors.rose,
+      yellow: colors.yellow,
+      amber: colors.amber,
+    },
   },
   variants: {
     extend: {},
