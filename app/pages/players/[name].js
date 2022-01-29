@@ -39,10 +39,6 @@ export default function Name(props) {
       </Head>
 
       <main className="main mb-10 container mx-auto flex-auto p-8">
-        <div className="hero py-20 text-center">
-          <h1 className="text-5xl font-bold font-sans pb-5">{title}</h1>
-        </div>
-
         <Breadcrumbs parent="Players" parentLink="/players" current={title} />
       </main>
 

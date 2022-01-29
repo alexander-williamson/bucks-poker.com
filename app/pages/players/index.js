@@ -111,9 +111,6 @@ export default function People(props) {
       </Head>
 
       <main className="main mb-10 container mx-auto flex-auto p-8">
-        <div className="hero py-20 text-center">
-          <h1 className="text-5xl font-bold font-sans pb-5">Players</h1>
-        </div>
         <Breadcrumbs current="Players" />
 
         <h2 className="text-3xl font-bold font-sans pb-5">Active Players</h2>
