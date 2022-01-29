@@ -8,6 +8,8 @@ import {
   GetYearFiguresDataAsync,
 } from "../../services/data";
 
+import { Colors, MonthNames } from "../../services/helpers";
+
 const getTableData = async (year) => {
   const yearData = await GetYearFiguresDataAsync();
   const data = yearData
@@ -68,54 +70,22 @@ const getLatestDate = async (year) => {
   return result;
 };
 
-const colors = [
-  "#f55142",
-  "#f58442",
-  "#f5b342",
-  "#f5ec42",
-  "#c8f542",
-  "#87f542",
-  "#4bf542",
-  "#42f590",
-  "#42f5b6",
-  "#42f5f2",
-  "#00bfff",
-  "#0077ff",
-  "#0022ff",
-  "#9500ff",
-  "#e100ff",
-];
-
 const getChartData = async (year) => {
   const monthlyPositions = await GetMonthlyPositionsDataAsync();
   const thisYearsData = monthlyPositions.filter(
     (x) => parseInt(x.Year) === year
   );
   const people = thisYearsData.map((x) => x.Person);
-  const months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
 
   const data = people.map((name, i) => ({
     name: name,
-    data: months.map((month, index) => ({
+    data: MonthNames.map((month, index) => ({
       category: month.substr(0, 3),
       value: parseInt(
         thisYearsData.find((x) => x.Person === name)[`${index + 1}`]
       ),
     })),
-    stroke: colors[i],
+    stroke: Colors[i],
   }));
 
   return data;
@@ -171,7 +141,6 @@ export default function Year(props) {
           parentLink="/tournaments"
           current={title}
         />
-
         {/* <ResponsiveContainer width="95%" height={400}>
           <LineChart className="pt-1 pb-6 px-0" reverseStackOrder>
             <CartesianGrid strokeDasharray="3 3" />
@@ -192,11 +161,9 @@ export default function Year(props) {
             ))}
           </LineChart>
         </ResponsiveContainer> */}
-
         <ResultsTable data={props.tableData} />
-
         <p className="pt-1 pb-6 px-1">
-          The data on this page includes data from months{" "}
+          Showing data from{" "}
           {moment(props.earliestDate.substr(0, 10)).format("MMMM YYYY")} &rarr;{" "}
           {moment(props.latestDate.substr(0, 10)).format("MMMM YYYY")}{" "}
           inclusive.
