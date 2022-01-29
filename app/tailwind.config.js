@@ -2,8 +2,10 @@ const colors = require("tailwindcss/colors");
 
 // tailwind.config.js
 module.exports = {
-  purge: ["./pages/**/*.{js,ts,jsx,tsx}", "./components/**/*.{js,ts,jsx,tsx}"], // remove unused styles in production
-  darkMode: false, // or 'media' or 'class'
+  content: [
+    "./pages/**/*.{js,ts,jsx,tsx}",
+    "./components/**/*.{js,ts,jsx,tsx}",
+  ],
   theme: {
     container: {
       center: true,
@@ -13,15 +15,14 @@ module.exports = {
       current: "currentColor",
       black: colors.black,
       white: colors.white,
-      gray: colors.trueGray,
+      gray: colors.neutral,
       indigo: colors.indigo,
       red: colors.rose,
       yellow: colors.yellow,
       amber: colors.amber,
     },
+    fontFamily: {
+      sans: ["Libre Franklin", "sans-serif"],
+    },
   },
-  variants: {
-    extend: {},
-  },
-  plugins: [],
 };
