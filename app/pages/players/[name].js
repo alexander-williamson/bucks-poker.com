@@ -25,8 +25,7 @@ export async function getStaticProps({ params }) {
     .filter((x) => x.Person === params.name)
     .map((x) => ({ year: x.Yr, position: x.SRank }));
 
-  console.debug(years);
-  const tournamentWinCount = years.filter((x) => x.SRank === "1").length;
+  const tournamentWinCount = years.filter((x) => x.position === "1").length;
   return {
     props: {
       name: params.name,
@@ -64,6 +63,8 @@ export default function Name(props) {
             scales: {
               yAxis: {
                 reverse: true,
+                suggestedMax: 11,
+                suggestedMin: 1,
               },
             },
           }}
@@ -83,13 +84,12 @@ export default function Name(props) {
           }}
         />
         <p className="pt-3">
-          They have won {props.tournamentWinCount}{" "}
-          {props.tournamentWinCount === 1 ? "tournament" : "tournaments"} in{" "}
-          {props.years.length} {props.years.length === 1 ? "year" : "years"} of
-          playing.
+          They have played {props.years.length}{" "}
+          {props.years.length === 1 ? "tournament" : "tournaments"} and won{" "}
+          {props.tournamentWinCount}.
         </p>
         <p className="pt-3">
-          Their best ever tournament result was{" "}
+          Their best ever tournament position was{" "}
           {OrderSuffix(Math.min(...props.years.map((x) => x.position)))}.
         </p>
       </main>

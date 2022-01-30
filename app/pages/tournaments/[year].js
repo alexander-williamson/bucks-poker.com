@@ -141,26 +141,7 @@ export default function Year(props) {
           parentLink="/tournaments"
           current={title}
         />
-        {/* <ResponsiveContainer width="95%" height={400}>
-          <LineChart className="pt-1 pb-6 px-0" reverseStackOrder>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="category" type="category" allowDuplicatedCategory={false} padding={{ left: 20, right: 20 }} />
-            <YAxis dataKey="value" reversed tick={true} />
-            <Tooltip />
-            <Legend />
-            {props.chartData.map((s) => (
-              <Line
-                connectNulls={true}
-                dataKey="value"
-                data={s.data}
-                name={s.name}
-                stroke={s.stroke}
-                strokeWidth={1}
-                points={true}
-                type="monotone" />
-            ))}
-          </LineChart>
-        </ResponsiveContainer> */}
+
         <ResultsTable data={props.tableData} />
         <p className="pt-1 pb-6 px-1">
           Showing data from{" "}

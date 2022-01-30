@@ -32,7 +32,6 @@ async function EnsureFilePath(path) {
   if (!(await fs.pathExists(path))) {
     throw new Error(`Could not find file ${path}`);
   }
-  console.debug(path);
   return path;
 }
 

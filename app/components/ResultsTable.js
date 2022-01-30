@@ -15,7 +15,9 @@ export default function ResultsTable(props) {
             <tbody className="bg-white">
               {props.data.map((row) => (
                 <tr className="text-gray-700" key={row.Person}>
-                  <td className="px-4 py-3 border">{row.Person}</td>
+                  <td className="px-4 py-3 border">
+                    <a href={"/players/" + row.Person}>{row.Person}</a>
+                  </td>
                   <td className="px-4 py-3 font-semibold border">
                     {row.SRank}
                   </td>
