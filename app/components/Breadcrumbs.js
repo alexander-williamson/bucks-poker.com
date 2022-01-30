@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function Breadcrumbs(props) {
   return (
     <nav
-      className="p-3 rounded font-sans w-full my-4 bg-blue-50 rounded-lg
+      className="pr-3 rounded font-sans w-full mr-4 mt-4 mb-4 bg-blue-50 rounded-lg
 "
     >
       <ol className="list-reset flex text-grey-dark">
