@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export default function Breadcrumbs(props) {
+export default function Breadcrumbs({ parentLink, parent, children }) {
   return (
     <nav
       className="pr-3 rounded font-sans w-full mr-4 mt-4 mb-4 bg-blue-50 rounded-lg
@@ -12,14 +12,14 @@ export default function Breadcrumbs(props) {
             <a className="text-blue font-bold ">Home</a>
           </Link>
         </li>
-        {props.parentLink && (
+        {parentLink && (
           <>
             <li>
               <span className="mx-2">/</span>
             </li>
             <li>
-              <Link href={props.parentLink}>
-                <a className="text-blue font-bold">{props.parent}</a>
+              <Link href={parentLink}>
+                <a className="text-blue font-bold">{parent}</a>
               </Link>
             </li>
           </>
@@ -27,7 +27,7 @@ export default function Breadcrumbs(props) {
         <li>
           <span className="mx-2">/</span>
         </li>
-        <li>{props.current}</li>
+        <li>{children}</li>
       </ol>
     </nav>
   );

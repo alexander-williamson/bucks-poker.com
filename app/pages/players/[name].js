@@ -93,7 +93,9 @@ export default function Name(props) {
       </Head>
 
       <main className="main mb-10 container mx-auto flex-auto p-8">
-        <Breadcrumbs parent="Players" parentLink="/players" current={title} />
+        <Breadcrumbs parent="Players" parentLink="/players">
+          {title}
+        </Breadcrumbs>
         <Chart
           className="max-h-40 w-full"
           type="line"

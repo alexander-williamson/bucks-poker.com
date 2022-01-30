@@ -3,6 +3,7 @@ import Footer from "../../components/Footer";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import Link from "next/link";
 import { GetYearFiguresDataAsync } from "../../services/data";
+import { Badge } from "../../components/Badges";
 
 async function getYears() {
   const stats = await GetYearFiguresDataAsync();
@@ -30,7 +31,7 @@ export default function Tournaments(props) {
       </Head>
 
       <main className="main mb-10 container mx-auto flex-auto p-8">
-        <Breadcrumbs current="Tournaments" />
+        <Breadcrumbs>Tournaments</Breadcrumbs>
 
         <ul>
           {props.years.map((year) => {
@@ -38,7 +39,14 @@ export default function Tournaments(props) {
               <li key={year}>
                 <Link href={`/tournaments/${encodeURIComponent(year)}`}>
                   <a className="block p-3 hover:bg-gray-100 rounded-lg">
-                    {year} Tournament {year === currentYear ? "(Current)" : ""}
+                    {year} Tournament{" "}
+                    {year === `${currentYear}` ? (
+                      <Badge className="bg-indigo-500 text-white">
+                        Current
+                      </Badge>
+                    ) : (
+                      ""
+                    )}
                   </a>
                 </Link>
               </li>

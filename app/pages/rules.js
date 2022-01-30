@@ -17,7 +17,7 @@ export default function Rules() {
           <h1 className="text-5xl font-bold font-sans pb-5">Rules</h1>
         </div>
 
-        <Breadcrumbs current="Rules" />
+        <Breadcrumbs>Rules</Breadcrumbs>
 
         <div className="rules py-10">
           <h2 className="text-4xl mb-10">The House Rules v3</h2>

@@ -7,7 +7,7 @@ import {
   GetMonthlyPositionsDataAsync,
   GetYearFiguresDataAsync,
 } from "../../services/data";
-
+import { Badge } from "../../components/Badges";
 import { Colors, MonthNames } from "../../services/helpers";
 
 const getTableData = async (year) => {
@@ -120,14 +120,11 @@ export async function getStaticProps({ params }) {
 
 export default function Year(props) {
   const currentYear = new Date().getFullYear();
-  const title = `${props.year} Tournament ${
-    props.year === currentYear ? "(Current)" : ""
-  }`;
   return (
     <div className="flex flex-col min-h-screen">
       <Head>
         <html lang="en-gb" />
-        <title>{title}</title>
+        <title>${props.year} Tournament</title>
         <meta
           name="description"
           content={`Bucks Poker Tournament results for ${props.year}`}
@@ -136,11 +133,12 @@ export default function Year(props) {
       </Head>
 
       <main className="main mb-10 container mx-auto flex-auto p-8">
-        <Breadcrumbs
-          parent="Tournaments"
-          parentLink="/tournaments"
-          current={title}
-        />
+        <Breadcrumbs parent="Tournaments" parentLink="/tournaments">
+          {props.year} Tournament
+          {props.year === `${currentYear}` && (
+            <Badge className="bg-indigo-500 text-white">Current</Badge>
+          )}
+        </Breadcrumbs>
 
         <TournamentResultsTable data={props.tableData} />
         <p className="pt-1 pb-6 px-1">
