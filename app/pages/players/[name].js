@@ -1,7 +1,10 @@
+import "chart.js/auto";
+import { Chart } from "react-chartjs-2";
 import Head from "next/head";
 import Footer from "../../components/Footer";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import { GetYearFiguresDataAsync } from "../../services/data";
+import { OrderSuffix } from "../../services/helpers";
 
 export async function getStaticPaths() {
   const yearData = await GetYearFiguresDataAsync();
@@ -17,9 +20,18 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
+  const yearData = await GetYearFiguresDataAsync();
+  const years = yearData
+    .filter((x) => x.Person === params.name)
+    .map((x) => ({ year: x.Yr, position: x.SRank }));
+
+  console.debug(years);
+  const tournamentWinCount = years.filter((x) => x.SRank === "1").length;
   return {
     props: {
       name: params.name,
+      tournamentWinCount: tournamentWinCount,
+      years: years,
     },
   };
 }
@@ -40,6 +52,46 @@ export default function Name(props) {
 
       <main className="main mb-10 container mx-auto flex-auto p-8">
         <Breadcrumbs parent="Players" parentLink="/players" current={title} />
+        <Chart
+          type="line"
+          datasetIdKey="label"
+          options={{
+            plugins: {
+              legend: {
+                display: false,
+              },
+            },
+            scales: {
+              yAxis: {
+                reverse: true,
+              },
+            },
+          }}
+          data={{
+            labels: props.years.map((x) => x.year),
+            datasets: [
+              {
+                label: props.name,
+                data: props.years.map((x) => x.position),
+                yAxisID: "yAxis",
+                tension: 0.3,
+                backgroundColor: "black",
+                borderColor: "silver",
+                pointRadius: 6,
+              },
+            ],
+          }}
+        />
+        <p className="pt-3">
+          They have won {props.tournamentWinCount}{" "}
+          {props.tournamentWinCount === 1 ? "tournament" : "tournaments"} in{" "}
+          {props.years.length} {props.years.length === 1 ? "year" : "years"} of
+          playing.
+        </p>
+        <p className="pt-3">
+          Their best ever tournament result was{" "}
+          {OrderSuffix(Math.min(...props.years.map((x) => x.position)))}.
+        </p>
       </main>
 
       <div className="justify-self-end">
