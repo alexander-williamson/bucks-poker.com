@@ -5,6 +5,7 @@ import Footer from "../../components/Footer";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import { GetYearFiguresDataAsync } from "../../services/data";
 import { OrderSuffix } from "../../services/helpers";
+import { StatsCard, StatsRow } from "../../components/StatsCards";
 
 export async function getStaticPaths() {
   const yearData = await GetYearFiguresDataAsync();
@@ -21,16 +22,60 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   const yearData = await GetYearFiguresDataAsync();
-  const years = yearData
+  const arrYearPosition = yearData
     .filter((x) => x.Person === params.name)
-    .map((x) => ({ year: x.Yr, position: x.SRank }));
+    .map((x) => ({ year: parseInt(x.Yr), position: parseInt(x.SRank) }));
 
-  const tournamentWinCount = years.filter((x) => x.position === "1").length;
+  const tournamentWinCount = arrYearPosition.filter(
+    (x) => x.position === 1
+  ).length;
+
+  const pieChartData = arrYearPosition
+    .map((x) => x.position)
+    .reduce(function (res, n) {
+      if (!res[n]) res[n] = 0;
+      res[n] = res[n] + 1;
+      return res;
+    }, {});
+
+  const winningStreakData = arrYearPosition
+    .map((x) => (x.position === 1 ? 1 : 0))
+    .reduce(
+      function (res, n) {
+        if (n) res[res.length - 1]++;
+        else res.push(0);
+        return res;
+      },
+      [0]
+    );
+  const winningStreak = Math.max(...winningStreakData);
+
+  const firstYear = Math.min(...arrYearPosition.map((x) => x.year));
+  const lastYear = Math.max(...arrYearPosition.map((x) => x.year));
+  const yearsPossible = lastYear - firstYear;
+  const mapped = [...Array(yearsPossible)].map((_, i) => i + firstYear);
+
+  const yearsPlayedData = mapped
+    .map((x) => arrYearPosition.find((y) => y.year === x))
+    .reduce(
+      function (res, n) {
+        if (n) res[res.length - 1]++;
+        else res.push(0);
+        return res;
+      },
+      [0]
+    );
+  const yearsPlayedStreak = Math.max(...yearsPlayedData);
+
+  console.debug({ mapped, yearsPlayedData });
+
   return {
     props: {
       name: params.name,
-      tournamentWinCount: tournamentWinCount,
-      years: years,
+      tournamentWinCount,
+      years: arrYearPosition,
+      winningStreak,
+      yearsPlayedStreak,
     },
   };
 }
@@ -86,15 +131,31 @@ export default function Name(props) {
             ],
           }}
         />
-        <p className="pt-3">
-          They have played {props.years.length}{" "}
-          {props.years.length === 1 ? "tournament" : "tournaments"} and won{" "}
-          {props.tournamentWinCount}.
-        </p>
-        <p className="pt-3">
-          Their best ever tournament position was{" "}
-          {OrderSuffix(Math.min(...props.years.map((x) => x.position)))}.
-        </p>
+        <div className="flex flex-row flex-wrap w-full items-center content-center">
+          <StatsCard
+            title={
+              props.years.length === 1
+                ? "tournament entered"
+                : "tournaments entered"
+            }
+            value={props.years.length}
+          />
+          <StatsCard
+            title={
+              props.years.length === 1 ? "tournament won" : "tournaments won"
+            }
+            value={props.tournamentWinCount}
+          />
+          <StatsCard
+            title="best tournament result"
+            value={OrderSuffix(Math.min(...props.years.map((x) => x.position)))}
+          />
+          <StatsCard title="best winning streak" value={props.winningStreak} />
+          <StatsCard
+            title="years played streak"
+            value={props.yearsPlayedStreak}
+          />
+        </div>
       </main>
 
       <div className="justify-self-end">
