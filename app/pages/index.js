@@ -1,8 +1,19 @@
 import Head from "next/head";
 import Link from "next/link";
 import Footer from "../components/Footer";
+import { GetYearFiguresDataAsync } from "../services/data";
 
-export default function Home() {
+export async function getStaticProps() {
+  const yearFiguresData = await GetYearFiguresDataAsync();
+  const latestYear = Math.max(...yearFiguresData.map((x) => parseInt(x.Yr)));
+  return {
+    props: {
+      latestYear,
+    },
+  };
+}
+
+export default function Home({ latestYear }) {
   return (
     <div className="flex flex-col min-h-screen">
       <Head>
@@ -25,7 +36,7 @@ export default function Home() {
 
         <div className="grid grid-cols-2 gap-6 mx-3">
           <div className="rounded-lg border p-8">
-            <Link href="/tournaments/2021">
+            <Link href={`/tournaments/${latestYear}`}>
               <a className="card ">
                 <h2 className="pb-5 font-bold text-lg">
                   The latest Tournament &rarr;

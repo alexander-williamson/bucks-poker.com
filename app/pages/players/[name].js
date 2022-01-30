@@ -5,7 +5,7 @@ import Footer from "../../components/Footer";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import { GetYearFiguresDataAsync } from "../../services/data";
 import { OrderSuffix } from "../../services/helpers";
-import { StatsCard, StatsRow } from "../../components/StatsCards";
+import { StatsCard } from "../../components/StatsCards";
 
 export async function getStaticPaths() {
   const yearData = await GetYearFiguresDataAsync();
@@ -66,8 +66,6 @@ export async function getStaticProps({ params }) {
       [0]
     );
   const yearsPlayedStreak = Math.max(...yearsPlayedData);
-
-  console.debug({ mapped, yearsPlayedData });
 
   return {
     props: {
