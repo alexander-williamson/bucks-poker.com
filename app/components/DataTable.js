@@ -1,6 +1,6 @@
 import joi from "joi";
 
-export default function ResultsTable(props) {
+export default function DataTable(props) {
   const { value, error } = joi
     .object({
       headers: joi.array().items(joi.string().required()).min(1).required(),

@@ -1,7 +1,13 @@
-import { GoldBadge, SilverBadge, BronzeBadge } from "./Badges";
+import { GoldBadge, SilverBadge, BronzeBadge, Badge } from "./Badges";
 import { OrderSuffix } from "../services/helpers";
+import joi from "joi";
 
-export default function ResultsTable(props) {
+export default function TournamentResultsTable(props) {
+  const { error } = joi.object().required().validate(props);
+  if (error) {
+    throw error;
+  }
+
   return (
     <section className="container overflow-x-auto rounded-lg mb-5">
       <table className="table-auto w-full">
@@ -31,7 +37,16 @@ export default function ResultsTable(props) {
                   <BronzeBadge title="2nd Overall Points">3rd</BronzeBadge>
                 )}{" "}
               </td>
-              <td className="border-0 px-4 py-3 border">{row.Points}</td>
+              <td className="border-0 px-4 py-3 border">
+                {row.Points}
+                {row.Bonus !== "0" && (
+                  <>
+                    <Badge className="bg-red-400 text-white px-2">
+                      + {row.Bonus}
+                    </Badge>
+                  </>
+                )}
+              </td>
               <td className="border-0 px-4 py-3 text-sm border">{row.Chips}</td>
             </tr>
           ))}

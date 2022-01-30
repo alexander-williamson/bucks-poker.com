@@ -2,7 +2,7 @@ export function Badge({ title, className, children }) {
   return (
     <span
       title={title}
-      className={[className, "p-1 m-1 text-white rounded-lg text-xs"].join(" ")}
+      className={[className, "p-1 m-1 rounded-lg text-xs"].join(" ")}
     >
       {children}
     </span>

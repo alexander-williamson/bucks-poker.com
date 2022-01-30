@@ -1,7 +1,7 @@
 import Head from "next/head";
 import Footer from "../../components/Footer";
 import Breadcrumbs from "../../components/Breadcrumbs";
-import ResultsTable from "../../components/ResultsTable";
+import TournamentResultsTable from "../../components/TournamentResultsTable";
 import moment from "moment";
 import {
   GetMonthlyPositionsDataAsync,
@@ -142,7 +142,7 @@ export default function Year(props) {
           current={title}
         />
 
-        <ResultsTable data={props.tableData} />
+        <TournamentResultsTable data={props.tableData} />
         <p className="pt-1 pb-6 px-1">
           Showing data from{" "}
           {moment(props.earliestDate.substr(0, 10)).format("MMMM YYYY")} &rarr;{" "}
