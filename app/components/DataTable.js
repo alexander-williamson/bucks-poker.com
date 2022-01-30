@@ -10,33 +10,29 @@ export default function ResultsTable(props) {
   if (error) throw error;
 
   return (
-    <section className="container mx-auto">
-      <div className="w-full mb-8 overflow-hidden rounded-lg shadow-lg">
-        <div className="w-full overflow-x-scroll">
-          <table className="table-auto w-full">
-            <thead>
-              <tr className="text-md font-semibold tracking-wide text-left text-blue-900 bg-gray-100 uppercase border-b border-gray-600">
-                {value.headers.map((header, index) => (
-                  <th className="px-4 py-3" key={`th-${index}`}>
-                    {header}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody className="bg-white">
-              {value.rows.map((row, index) => (
-                <tr className="text-gray-700" key={`tr-${index}`}>
-                  {Object.keys(row).map((key) => (
-                    <td className="px-4 py-3 border" key={`td-${index}`}>
-                      {row[key]}
-                    </td>
-                  ))}
-                </tr>
+    <section className="container overflow-x-auto rounded-lg mb-5">
+      <table className="table-auto w-full">
+        <thead>
+          <tr className="text-md font-semibold tracking-wide text-left bg-zinc-50 text-zinc-500 uppercase">
+            {value.headers.map((header, index) => (
+              <th className="border-0 px-4 py-3" key={`th-${index}`}>
+                {header}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody className="bg-white">
+          {value.rows.map((row, index) => (
+            <tr className="text-gray-700 hover:bg-zinc-100" key={row.Person}>
+              {Object.keys(row).map((key) => (
+                <td className="border-0 px-4 py-3 border" key={`td-${index}`}>
+                  {row[key]}
+                </td>
               ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </section>
   );
 }
