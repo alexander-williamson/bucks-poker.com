@@ -124,7 +124,7 @@ export default function Year(props) {
     <div className="flex flex-col min-h-screen">
       <Head>
         <html lang="en-gb" />
-        <title>${props.year} Tournament</title>
+        <title>{props.year} Tournament</title>
         <meta
           name="description"
           content={`Bucks Poker Tournament results for ${props.year}`}
@@ -135,7 +135,7 @@ export default function Year(props) {
       <main className="main mb-10 container mx-auto flex-auto p-8">
         <Breadcrumbs parent="Tournaments" parentLink="/tournaments">
           {props.year} Tournament
-          {props.year === `${currentYear}` && (
+          {`${props.year}` === `${currentYear}` && (
             <Badge className="bg-indigo-500 text-white">Current</Badge>
           )}
         </Breadcrumbs>
