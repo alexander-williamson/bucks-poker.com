@@ -116,7 +116,7 @@ export default function People(props) {
 
         <h2 className="text-3xl font-bold font-sans pb-5">Active Players</h2>
         <p className="pb-5">
-          Players that sat for at least one Game the Current Tournament.
+          Players that sat for at least one Game in the Current Tournament.
         </p>
         <DataTable
           headers={[
