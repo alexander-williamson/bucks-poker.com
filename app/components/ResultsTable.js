@@ -1,3 +1,6 @@
+import { GoldBadge, SilverBadge, BronzeBadge } from "./Badges";
+import { OrderSuffix } from "../services/helpers";
+
 export default function ResultsTable(props) {
   return (
     <section className="container overflow-x-auto rounded-lg mb-5">
@@ -17,7 +20,16 @@ export default function ResultsTable(props) {
                 <a href={"/players/" + row.Person}>{row.Person}</a>
               </td>
               <td className="border-0 px-4 py-3 font-semibold border">
-                {row.SRank}
+                {parseInt(row.SRank) > 3 && OrderSuffix(row.SRank)}
+                {row.SRank === "1" && (
+                  <GoldBadge title="1st Overall Points">1st</GoldBadge>
+                )}
+                {row.SRank === "2" && (
+                  <SilverBadge title="2nd Overall Points">2nd</SilverBadge>
+                )}
+                {row.SRank === "3" && (
+                  <BronzeBadge title="2nd Overall Points">3rd</BronzeBadge>
+                )}{" "}
               </td>
               <td className="border-0 px-4 py-3 border">{row.Points}</td>
               <td className="border-0 px-4 py-3 text-sm border">{row.Chips}</td>
