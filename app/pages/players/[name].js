@@ -65,7 +65,7 @@ export async function getStaticProps({ params }) {
       },
       [0]
     );
-  const yearsPlayedStreak = Math.max(...yearsPlayedData);
+  const yearsPlayedStreak = Math.max(...yearsPlayedData) + 1;
 
   return {
     props: {
