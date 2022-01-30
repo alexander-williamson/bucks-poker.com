@@ -12,7 +12,7 @@ export default function ResultsTable(props) {
   return (
     <section className="container mx-auto">
       <div className="w-full mb-8 overflow-hidden rounded-lg shadow-lg">
-        <div className="w-full ">
+        <div className="w-full overflow-x-scroll">
           <table className="table-auto w-full">
             <thead>
               <tr className="text-md font-semibold tracking-wide text-left text-blue-900 bg-gray-100 uppercase border-b border-gray-600">

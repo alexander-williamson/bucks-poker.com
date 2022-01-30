@@ -52,6 +52,7 @@ export default function Name(props) {
       <main className="main mb-10 container mx-auto flex-auto p-8">
         <Breadcrumbs parent="Players" parentLink="/players" current={title} />
         <Chart
+          className="max-h-40 w-full"
           type="line"
           datasetIdKey="label"
           options={{
@@ -65,6 +66,8 @@ export default function Name(props) {
                 reverse: true,
                 suggestedMax: 11,
                 suggestedMin: 1,
+                axis: "y",
+                bounds: "data",
               },
             },
           }}
