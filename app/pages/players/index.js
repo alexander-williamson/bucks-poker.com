@@ -3,6 +3,7 @@ import Footer from "../../components/Footer";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import DataTable from "../../components/DataTable";
 import { GetYearFiguresDataAsync } from "../../services/data";
+import { BronzeBadge, GoldBadge, SilverBadge } from "../../components/Badges";
 
 async function getData() {
   const yearFiguresData = await GetYearFiguresDataAsync();
@@ -134,21 +135,6 @@ export default function People(props) {
           }))}
         />
 
-        {/* <h2 className="text-3xl font-bold font-sans pb-5">Previous Players</h2>
-        <p className="pb-5">
-          Players that have not played in the Current Tournament.
-        </p>
-        <DataTable
-          headers={["Player Name", "Years Played", "Total Lifetime Points", "Total Lifetime Chips",]}
-          rows={props.otherPlayers.map((player) => ({
-            "Player Name": <a href={player.name}>{player.name}</a>,
-            "Years Played": player.yearsPlayed,
-            "Total Lifetime Points": player.totalPoints > 0 ? player.totalPoints : "(not recorded)",
-            "Total Lifetime Chips":
-              player.totalChips > 0 ? player.totalChips : "(not recorded)",
-          }))}
-        /> */}
-
         <h2 className="text-3xl font-bold font-sans pb-5">Overall Ranking</h2>
         <p className="pb-5">
           The best of the best. Calculated using most points from all
@@ -162,31 +148,24 @@ export default function People(props) {
             "Total Lifetime Chips",
           ]}
           rows={props.overallRanking.map((player) => ({
-            "Player Name": (
-              <>
-                <a href={player.name}>{player.name}</a>
-                {player.position === 0 && (
-                  <span className="bg-amber-500 p-1 m-1 text-white rounded-lg text-xs">
-                    1st overall points
-                  </span>
-                )}
-                {player.position === 1 && (
-                  <span className="bg-gray-500 p-1 m-1 text-white rounded-lg text-xs">
-                    2nd overall points
-                  </span>
-                )}
-                {player.position === 2 && (
-                  <span className="bg-yellow-600 p-1 m-1 text-white rounded-lg text-xs">
-                    3rd overall points
-                  </span>
-                )}
-              </>
-            ),
+            "Player Name": <a href={player.name}>{player.name}</a>,
             "Years Played": player.yearsPlayed,
             "Total Lifetime Points":
               player.totalPoints > 0 ? player.totalPoints : "(not recorded)",
-            "Total Lifetime Chips":
-              player.totalChips > 0 ? player.totalChips : "(not recorded)",
+            "Total Lifetime Chips": (
+              <>
+                {player.totalChips > 0 ? player.totalChips : "(not recorded)"}
+                {player.position === 0 && (
+                  <GoldBadge title="1st Overall Points">1st</GoldBadge>
+                )}
+                {player.position === 1 && (
+                  <SilverBadge title="2nd Overall Points">2nd</SilverBadge>
+                )}
+                {player.position === 2 && (
+                  <BronzeBadge title="2nd Overall Points">3rd</BronzeBadge>
+                )}
+              </>
+            ),
           }))}
         />
       </main>
