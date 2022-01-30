@@ -20,6 +20,8 @@ module.exports = {
       red: colors.rose,
       yellow: colors.yellow,
       amber: colors.amber,
+      slate: colors.slate,
+      zinc: colors.zinc,
     },
     fontFamily: {
       sans: ["Libre Franklin", "sans-serif"],
