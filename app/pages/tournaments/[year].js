@@ -1,3 +1,6 @@
+import "chart.js/auto";
+import { Chart } from "react-chartjs-2";
+
 import Head from "next/head";
 import Footer from "../../components/Footer";
 import Breadcrumbs from "../../components/Breadcrumbs";
@@ -70,25 +73,52 @@ const getLatestDate = async (year) => {
   return result;
 };
 
+const pad = (n, width, z) => {
+  z = z || "0";
+  n = n + "";
+  return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
+};
+
+const months = [...Array(12)].map((_, i) => ({
+  id: parseInt(i),
+  name: MonthNames[i],
+}));
+
+const parseOrNull = (original) => (original === "" ? null : parseInt(original));
+
 const getChartData = async (year) => {
-  const monthlyPositions = await GetMonthlyPositionsDataAsync();
-  const thisYearsData = monthlyPositions.filter(
-    (x) => parseInt(x.Year) === year
-  );
-  const people = thisYearsData.map((x) => x.Person);
+  const rows = await GetMonthlyPositionsDataAsync();
+  const monthRows = rows.filter((x) => parseInt(x.Year) === year);
+  const names = monthRows.map((row) => row.Person);
+  const data = names.map((name) => {
+    const row = monthRows.find((x) => x.Person === name);
+    return {
+      name,
+      data: months.map((m) => {
+        const monthPositions = monthRows
+          .map((x) => ({
+            name: x.Person,
+            chips: parseOrNull(x[`${pad(m.id + 1, 2)}C`]),
+            points: parseOrNull(x[`${pad(m.id + 1, 2)}P`]),
+          }))
+          .sort((a, b) => (a.chips > b.chips ? -1 : 1))
+          .sort((a, b) => (a.points > b.points ? -1 : 1));
+        return {
+          ...m,
+          chips: parseOrNull(row[`${pad(m.id + 1, 2)}P`]),
+          chipsCumulative: parseOrNull(row[`${pad(m.id + 1, 2)}CC`]),
+          points: parseOrNull(row[`${pad(m.id + 1, 2)}P`]),
+          pointsCumulative: parseOrNull(row[`${pad(m.id + 1, 2)}PC`]),
+          monthPositions,
+          position: monthPositions.indexOf(
+            monthPositions.find((x) => x.name === name)
+          ),
+        };
+      }),
+    };
+  });
 
-  const data = people.map((name, i) => ({
-    name: name,
-    data: MonthNames.map((month, index) => ({
-      category: month.substr(0, 3),
-      value: parseInt(
-        thisYearsData.find((x) => x.Person === name)[`${index + 1}`]
-      ),
-    })),
-    stroke: Colors[i],
-  }));
-
-  return data;
+  return { data };
 };
 
 export async function getStaticPaths() {
@@ -106,7 +136,7 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   const intYear = parseInt(params.year);
-  return {
+  const result = {
     props: {
       year: intYear,
       tableData: await getTableData(intYear),
@@ -116,6 +146,7 @@ export async function getStaticProps({ params }) {
       buildTimeDate: process.env.BUILD_TIME || new Date(),
     },
   };
+  return result;
 }
 
 export default function Year(props) {
@@ -139,6 +170,39 @@ export default function Year(props) {
             <Badge className="bg-indigo-500 text-white">Current</Badge>
           )}
         </Breadcrumbs>
+
+        <pre>{JSON.stringify(props.chartData, null, 2)}</pre>
+
+        <Chart
+          className="max-h-100 w-full pb-8"
+          type="line"
+          datasetIdKey="label"
+          options={{
+            plugins: {
+              legend: {
+                display: false,
+              },
+            },
+            scales: {
+              yAxis: {
+                axis: "y",
+                bounds: "data",
+              },
+            },
+          }}
+          data={{
+            labels: props.chartData.data[0].data.map((x) => x.name),
+            datasets: props.chartData.data.map((x, i) => ({
+              label: x.name,
+              data: x.data.map((x) => x.pointsCumulative).filter((x) => x > 0),
+              yAxisID: "yAxis",
+              tension: 0.3,
+              backgroundColor: Colors[i],
+              borderColor: Colors[i],
+              pointRadius: 6,
+            })),
+          }}
+        />
 
         <TournamentResultsTable data={props.tableData} />
         <p className="pt-1 pb-6 px-1">
