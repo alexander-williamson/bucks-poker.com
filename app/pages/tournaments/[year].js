@@ -194,7 +194,7 @@ export default function Year(props) {
           )}
         </Breadcrumbs>
 
-        <pre>{JSON.stringify(props.chartData, null, 2)}</pre>
+        {/* <pre>{JSON.stringify(props.chartData, null, 2)}</pre> */}
 
         <Chart
           className="max-h-80 w-full pb-8"
