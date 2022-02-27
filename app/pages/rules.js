@@ -68,24 +68,23 @@ export default function Rules() {
                       <li>7 or fewer = 3 Players remain</li>
                     </ol>
                   </li>
+                  <li>To be able to play the player must pay £10</li>
                   <li>
-                    To be able to play the player must pay £10
+                    Food is either paying separately in the example of kebab, or
+                    divided (e.g. Fish and Chips)
                     <ol>
                       <li>
-                        Food is also paid for – either paying separately in the
-                        example of Fish and Chips, or divided in the example of
-                        Pizza
-                        <ol>
-                          <li>
-                            If using the divided amount, everyone pays in to the
-                            nearest pound and any change is put to one side
-                            until the 12th game of the year (see point 5.2)
-                          </li>
-                        </ol>
+                        If using the divided amount, everyone pays to the
+                        nearest pound and any change is put to one side until
+                        the 12 th game of the year (see point 5.2)
                       </li>
                       <li>
                         Two pound is also paid to Jon when dessert has been
                         brought to the session
+                      </li>
+                      <li>
+                        Dinner is eaten before Poker starts, Dessert is between
+                        round 3 and 4 (roughly 10pm)
                       </li>
                     </ol>
                   </li>
@@ -106,7 +105,7 @@ export default function Rules() {
                     Seats are randomly assigned to players every round
                     <ol>
                       <li>
-                        Maybe worked out before using any method (e.g. dice,
+                        May be worked out before using any method (e.g. dice,
                         phone app)
                       </li>
                       <li>Seat One is up to the Host.</li>
@@ -156,46 +155,57 @@ export default function Rules() {
                     </ol>
                   </li>
                   <li>
-                    In order for the round to qualify for the blinds currently
-                    displayed, both the small blind and the big blind must be on
-                    the table before the clock reaches 0, else the new blinds
-                    are used.
+                    For the round to qualify, both the small blind and the big
+                    blind must be on the table before the clock reaches 0, else
+                    the new blinds are used.
                   </li>
                   <li>
-                    Players can only play in the round where they can afford the
-                    initial big blind. If they are unable to afford the first
-                    round of bets in the next game (either through blinds going
-                    up or miscalculation of their own chips) their chips are
-                    considered Dead and they are considered Out (see point 1.5)
+                    Players can only play if they can afford the initial big
+                    blind. If unable to afford the initial big blind (either
+                    through blinds going up or miscalculation of their own
+                    chips) their chips are considered Dead and they are
+                    considered Out (see point 1.5)
                   </li>
                   <li>
                     The following betting follows the following ‘house rule’ on
                     the <span className="italic">Half-Bet</span> rule
                     <ol>
-                      <li>Players can fold, call or raise</li>
                       <li>
-                        When raising users must initially go in with at least
-                        the big blind
+                        Players can check, call, raise or fold
                         <ol>
                           <li>
-                            If the user goes All In and the bet is less than the
-                            big blind then the following person can either fold,
-                            call or raise
+                            Checking = No bet is placed (can only be done if no
+                            bet is currently on the table)
+                          </li>
+                          <li>Calling = Player matching the current bet</li>
+                          <li>
+                            Rasing = The player must at least match the big
+                            blind
+                          </li>
+                          <li>
+                            Fold = They put their hand in towards the middle of
+                            the table and away from their play area
+                          </li>
+                          <li>
+                            If the player goes All In and the bet is less than
+                            the big blind then the following person can either
+                            Call, Raise or Fold with the following the rules
+                            below
                             <ol>
                               <li>
-                                Fold = They put their hand in towards the middle
-                                of the table and away from their play area, the
-                                following player then takes up the choice
-                              </li>
-                              <li>
-                                Call = The player matches the bet – even if they
-                                could match the big blind
+                                Call = The player matches the All In bet – even
+                                if they could afford the big blind
                               </li>
                               <li>
                                 Raise = The player must raise at least to the
-                                big blind. The player who went all in is
-                                considered to have Called in all further rounds
-                                of betting even though they bet £0
+                                big blind. Unless they themselves are going All
+                                In.
+                              </li>
+                              <li>
+                                Player who went All In are considered to have
+                                Called in all further rounds of betting even
+                                though they bet £0, side pots are used to hold
+                                chips in theory they&#39;re playing for.
                               </li>
                             </ol>
                           </li>
@@ -220,9 +230,7 @@ export default function Rules() {
                       <li>
                         4th Place (for 8 players or more) = 0 points
                         <ol>
-                          <li>
-                            Chip values are recorded for end of night ties
-                          </li>
+                          <li>Chip values are recorded to resolve ties</li>
                         </ol>
                       </li>
                     </ol>
@@ -261,6 +269,10 @@ export default function Rules() {
                   <li>
                     If this is the last game of the year, then the Year winner
                     takes home the change from the food money (see 1.6.1.1)
+                  </li>
+                  <li>
+                    It is the winner&#39;s responsibility to organise the trophy
+                    for the next year
                   </li>
                 </ol>
               </li>
