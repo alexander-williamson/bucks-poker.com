@@ -90,33 +90,56 @@ const getChartData = async (year) => {
   const rows = await GetMonthlyPositionsDataAsync();
   const monthRows = rows.filter((x) => parseInt(x.Year) === year);
   const names = monthRows.map((row) => row.Person);
-  const data = names.map((name) => {
-    const row = monthRows.find((x) => x.Person === name);
-    return {
-      name,
-      data: months.map((m) => {
-        const monthPositions = monthRows
+  const data = names
+    .filter((_, i) => _ === _)
+    .map((name) => {
+      const row = monthRows.find((x) => x.Person === name);
+      const data = months.map((month) => {
+        const allPositionsForThisMonth = monthRows
           .map((x) => ({
             name: x.Person,
-            chips: parseOrNull(x[`${pad(m.id + 1, 2)}C`]),
-            points: parseOrNull(x[`${pad(m.id + 1, 2)}P`]),
+            chipsCumulative: parseOrNull(x[`${pad(month.id + 1, 2)}CC`]),
+            pointsCumulative: parseOrNull(x[`${pad(month.id + 1, 2)}PC`]),
           }))
-          .sort((a, b) => (a.chips > b.chips ? -1 : 1))
-          .sort((a, b) => (a.points > b.points ? -1 : 1));
-        return {
-          ...m,
-          chips: parseOrNull(row[`${pad(m.id + 1, 2)}P`]),
-          chipsCumulative: parseOrNull(row[`${pad(m.id + 1, 2)}CC`]),
-          points: parseOrNull(row[`${pad(m.id + 1, 2)}P`]),
-          pointsCumulative: parseOrNull(row[`${pad(m.id + 1, 2)}PC`]),
-          monthPositions,
-          position: monthPositions.indexOf(
-            monthPositions.find((x) => x.name === name)
-          ),
+          .filter((x) => x.chipsCumulative > 0 || x.pointsCumulative > 0)
+          .sort((a, b) => (a.chipsCumulative > b.chipsCumulative ? -1 : 1))
+          .sort((a, b) => (a.pointsCumulative > b.pointsCumulative ? -1 : 1));
+
+        const position = allPositionsForThisMonth.indexOf(
+          allPositionsForThisMonth.find((x) => x.name === name)
+        );
+
+        const results = {
+          id: month.id,
+          name: month.name,
+          chips: parseOrNull(row[`${pad(month.id + 1, 2)}P`]),
+          chipsCumulative: parseOrNull(row[`${pad(month.id + 1, 2)}CC`]),
+          points: parseOrNull(row[`${pad(month.id + 1, 2)}P`]),
+          pointsCumulative: parseOrNull(row[`${pad(month.id + 1, 2)}PC`]),
+          monthPositions: allPositionsForThisMonth,
+          position: position > -1 ? position + 1 : null,
         };
-      }),
-    };
-  });
+
+        console.debug(results);
+        return results;
+      });
+
+      const latestResult = {
+        id: 13,
+        name: "latest",
+        chips: Math.max(...data.map((x) => x.chips)),
+        chipsCumulative: Math.max(...data.map((x) => x.chipsCumulative)),
+        points: Math.max(...data.map((x) => x.points)),
+        pointsCumulative: Math.max(...data.map((x) => x.pointsCumulative)),
+        monthPositions: Math.max(...data.map((x) => x.monthPositions)),
+        monthPositions: Math.max(...data.map((x) => x.monthPositions)),
+      };
+
+      return {
+        name,
+        data,
+      };
+    });
 
   return { data };
 };
@@ -174,10 +197,11 @@ export default function Year(props) {
         <pre>{JSON.stringify(props.chartData, null, 2)}</pre>
 
         <Chart
-          className="max-h-100 w-full pb-8"
+          className="max-h-80 w-full pb-8"
           type="line"
           datasetIdKey="label"
           options={{
+            spanGaps: true,
             plugins: {
               legend: {
                 display: false,
@@ -187,18 +211,19 @@ export default function Year(props) {
               yAxis: {
                 axis: "y",
                 bounds: "data",
+                reverse: true,
               },
             },
           }}
           data={{
             labels: props.chartData.data[0].data.map((x) => x.name),
-            datasets: props.chartData.data.map((x, i) => ({
-              label: x.name,
-              data: x.data.map((x) => x.pointsCumulative).filter((x) => x > 0),
+            datasets: props.chartData.data.map((item, index) => ({
+              label: item.name,
+              data: item.data.map((x) => x.position),
               yAxisID: "yAxis",
               tension: 0.3,
-              backgroundColor: Colors[i],
-              borderColor: Colors[i],
+              backgroundColor: Colors[index],
+              borderColor: Colors[index],
               pointRadius: 6,
             })),
           }}
