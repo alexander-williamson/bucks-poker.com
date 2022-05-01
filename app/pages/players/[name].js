@@ -6,6 +6,7 @@ import Breadcrumbs from "../../components/Breadcrumbs";
 import { GetYearFiguresDataAsync } from "../../services/data";
 import { OrderSuffix } from "../../services/helpers";
 import { StatsCard } from "../../components/StatsCards";
+import { getColour } from "../../services/colours";
 
 export async function getStaticPaths() {
   const yearData = await GetYearFiguresDataAsync();
@@ -29,14 +30,6 @@ export async function getStaticProps({ params }) {
   const tournamentWinCount = arrYearPosition.filter(
     (x) => x.position === 1
   ).length;
-
-  const pieChartData = arrYearPosition
-    .map((x) => x.position)
-    .reduce(function (res, n) {
-      if (!res[n]) res[n] = 0;
-      res[n] = res[n] + 1;
-      return res;
-    }, {});
 
   const winningStreakData = arrYearPosition
     .map((x) => (x.position === 1 ? 1 : 0))
@@ -124,8 +117,8 @@ export default function Name(props) {
                 data: props.years.map((x) => x.position),
                 yAxisID: "yAxis",
                 tension: 0.3,
-                backgroundColor: "black",
-                borderColor: "silver",
+                backgroundColor: getColour(props.name),
+                borderColor: getColour(props.name),
                 pointRadius: 6,
               },
             ],

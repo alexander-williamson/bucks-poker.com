@@ -11,7 +11,8 @@ import {
   GetYearFiguresDataAsync,
 } from "../../services/data";
 import { Badge } from "../../components/Badges";
-import { Colors, MonthNames } from "../../services/helpers";
+import { MonthNames } from "../../services/helpers";
+import { getColour } from "../../services/colours"
 
 const getTableData = async (year) => {
   const yearData = await GetYearFiguresDataAsync();
@@ -69,7 +70,7 @@ const getLatestDate = async (year) => {
   const highestNumber = monthsForYear.reverse()[0];
   const result = new Date(Date.UTC(year, highestNumber - 1, 1))
     .toISOString()
-    .substr(0, 10);
+    .substring(0, 10);
   return result;
 };
 
@@ -109,7 +110,7 @@ const getChartData = async (year) => {
           allPositionsForThisMonth.find((x) => x.name === name)
         );
 
-        const results = {
+        const result = {
           id: month.id,
           name: month.name,
           chips: parseOrNull(row[`${pad(month.id + 1, 2)}P`]),
@@ -120,20 +121,9 @@ const getChartData = async (year) => {
           position: position > -1 ? position + 1 : null,
         };
 
-        console.debug(results);
-        return results;
+        console.debug(result);
+        return result;
       });
-
-      const latestResult = {
-        id: 13,
-        name: "latest",
-        chips: Math.max(...data.map((x) => x.chips)),
-        chipsCumulative: Math.max(...data.map((x) => x.chipsCumulative)),
-        points: Math.max(...data.map((x) => x.points)),
-        pointsCumulative: Math.max(...data.map((x) => x.pointsCumulative)),
-        monthPositions: Math.max(...data.map((x) => x.monthPositions)),
-        monthPositions: Math.max(...data.map((x) => x.monthPositions)),
-      };
 
       return {
         name,
@@ -222,8 +212,8 @@ export default function Year(props) {
               data: item.data.map((x) => x.position),
               yAxisID: "yAxis",
               tension: 0.3,
-              backgroundColor: Colors[index],
-              borderColor: Colors[index],
+              backgroundColor: getColour(item.name),
+              borderColor: getColour(item.name),
               pointRadius: 6,
             })),
           }}
