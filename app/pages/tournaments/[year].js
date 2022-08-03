@@ -148,15 +148,18 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const intYear = parseInt(params.year);
+  const year = parseInt(params.year);
+  const tableData = await getTableData(year);
+  const names = tableData.map(x => x.Person);
   const result = {
     props: {
-      year: intYear,
-      tableData: await getTableData(intYear),
-      chartData: await getChartData(intYear),
-      earliestDate: await getEarliestDate(intYear),
-      latestDate: await getLatestDate(intYear),
       buildTimeDate: process.env.BUILD_TIME || new Date(),
+      chartData: await getChartData(year),
+      earliestDate: await getEarliestDate(year),
+      latestDate: await getLatestDate(year),
+      names,
+      tableData,
+      year,
     },
   };
   return result;
@@ -207,13 +210,13 @@ export default function Year(props) {
           }}
           data={{
             labels: props.chartData.data[0].data.map((x) => x.name),
-            datasets: props.chartData.data.map((item, index) => ({
+            datasets: props.chartData.data.map((item) => ({
               label: item.name,
               data: item.data.map((x) => x.position),
               yAxisID: "yAxis",
               tension: 0.3,
-              backgroundColor: getColour(item.name),
-              borderColor: getColour(item.name),
+              backgroundColor: getColour(item.name, props.names),
+              borderColor: getColour(item.name, props.names),
               pointRadius: 6,
             })),
           }}

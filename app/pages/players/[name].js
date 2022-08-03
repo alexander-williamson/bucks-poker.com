@@ -15,6 +15,7 @@ export async function getStaticPaths() {
     paths: names.map((name) => ({
       params: {
         name: `${name}`,
+        names: names
       },
     })),
     fallback: false,
@@ -117,8 +118,8 @@ export default function Name(props) {
                 data: props.years.map((x) => x.position),
                 yAxisID: "yAxis",
                 tension: 0.3,
-                backgroundColor: getColour(props.name),
-                borderColor: getColour(props.name),
+                backgroundColor: getColour(props.name, props.names),
+                borderColor: getColour(props.name, props.names),
                 pointRadius: 6,
               },
             ],
