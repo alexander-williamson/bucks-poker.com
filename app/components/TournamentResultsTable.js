@@ -46,11 +46,11 @@ export default function TournamentResultsTable(props) {
                 )}{" "}
               </td>
               <td className="border-0 px-4 py-3">
-                {row.Points}
+                {Number(row.Points) + Number(row.Bonus)}
                 {row.Bonus !== "0" && (
                   <>
-                    <Badge className="bg-red-400 text-white px-2">
-                      + {row.Bonus}
+                    <Badge className="bg-gray-400 text-white px-2">
+                      {row.Bonus}
                     </Badge>
                   </>
                 )}
