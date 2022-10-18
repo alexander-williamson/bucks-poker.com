@@ -21,8 +21,8 @@
   },
   "homepage": "https://bitbucket.org/3686/bucks-poker.com#readme",
   "devDependencies": {
-    "fs-extra": "^10.0.0",
-    "glob-promise": "^4.2.2",
-    "xlsx": "^0.17.4"
+    "fs-extra": "^10.1.0",
+    "glob-promise": "^5.0.0",
+    "xlsx": "^0.18.5"
   }
 }
