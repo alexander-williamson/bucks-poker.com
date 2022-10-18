@@ -76,10 +76,10 @@ export default function Home({ latestYear }) {
           </div>
 
           <div className="rounded-lg border p-8">
-            <Link href="/resources">
+            <Link href="/hands">
               <a className="card">
-                <h2 className="pb-5 font-bold text-lg">Resources &rarr;</h2>
-                <p>Documents like Texas Holdem Hands and other links</p>
+                <h2 className="pb-5 font-bold text-lg">Texas Holdem Hands &rarr;</h2>
+                <p>The order of winning hands</p>
               </a>
             </Link>
           </div>
