@@ -13,15 +13,16 @@ module.exports = {
     colors: {
       transparent: "transparent",
       current: "currentColor",
+      amber: colors.amber,
       black: colors.black,
-      white: colors.white,
       gray: colors.neutral,
+      green: colors.green,
       indigo: colors.indigo,
       red: colors.rose,
-      yellow: colors.yellow,
-      amber: colors.amber,
       slate: colors.slate,
-      zinc: colors.zinc,
+      white: colors.white,
+      yellow: colors.yellow,
+      zinc: colors.zinc
     },
     fontFamily: {
       sans: ["Libre Franklin", "sans-serif"],

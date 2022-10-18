@@ -55,15 +55,15 @@ const hands = [
 ]
 
 export default function Hands() {
-  return <div class="hands">
+  return <div className="hands">
     <h2 className="text-4xl mb-10">Texas Holdem Hands</h2>
-    <div class="grid grid-cols-1 gap-6 md:grid-cols-2 ">
+    <div className="grid grid-cols-1 gap-6 md:grid-cols-2 ">
       {
-        hands.map(hand => <>
-          <div className="block mb-6 p-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
-            <h3 className="text-2xl mb-4">{hand.id} {hand.name}</h3>
+        hands.map((hand) => <>
+          <div key={"hand" + hand.id} className="block mb-6 p-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+            <h3 className="text-2xl mb-4"><span className="opacity-50">{hand.id}</span> {hand.name}</h3>
             <div className="columns-5">
-              {hand.cards.map(card => <PlayingCard card={card} />)}
+              {hand.cards.map((card, index) => <PlayingCard key={index} card={card} />)}
             </div>
           </div>
         </>)
@@ -76,10 +76,15 @@ export default function Hands() {
 const getCardSuit = (original) => original[0];
 const getCardDigits = (original) => `${original}`.substring(1)
 const getColorStyleForSuit = (original) => {
-  const black = original.match(/♠/) || original.match(/♣/)
-  console.debug(`suit: ${original} ${black}`)
-  if (black) {
+  console.debug({ original, match: original.match(/♣/) })
+  if (original.match(/♠/g)) {
     return "text-black-500";
+  }
+  if (original.match(/♣/g)) {
+    return "text-green-600"
+  }
+  if (original.match(/♦/)) {
+    return "text-indigo-600"
   }
   return "text-red-500";
 }
@@ -93,10 +98,10 @@ export function PlayingCard(data) {
     throw error;
   }
   return (
-    <div class="relative z-0 h-20 p-0 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
-      <p className={"text-4xl ml-1 opacity-40 text-left " + getColorStyleForSuit(getCardSuit(value.card))}>{getCardSuit(value.card)}</p>
-      <div class="max-w-sm absolute inset-0 flex justify-center items-center z-10">
-        <span className={"text-3xl font-bold " + getColorStyleForSuit(getCardSuit(value.card))}>{getCardDigits(value.card)}</span>
+    <div className="relative z-0 h-20 p-0 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
+      <p className={"text-2xl ml-1 mt-0 opacity-60 text-left " + getColorStyleForSuit(getCardSuit(value.card))}>{getCardSuit(value.card)}</p>
+      <div className="max-w-sm mt-4 absolute inset-0 flex justify-center items-center z-10">
+        <span className={"text-4xl font-bold " + getColorStyleForSuit(getCardSuit(value.card))}>{getCardDigits(value.card)}</span>
       </div>
     </div>
   );
