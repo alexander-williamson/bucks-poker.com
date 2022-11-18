@@ -19,7 +19,7 @@ const hands = [
   },
   {
     id: 4,
-    name: "Four Of a Kind",
+    name: "Full House",
     cards: ["♥️A", "♣️A", "♦️A", "♠️K", "♥️K"]
   },
   {
@@ -57,46 +57,49 @@ const hands = [
 export default function Hands() {
   return <div className="hands">
     <h2 className="text-4xl mb-10">Texas Holdem Hands</h2>
-    <div className="grid grid-cols-1 gap-6 md:grid-cols-2 ">
-      {
-        hands.map((hand) => <>
-          <div key={"hand" + hand.id} className="block mb-6 p-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
-            <h3 className="text-2xl mb-4"><span className="opacity-50">{hand.id}</span> {hand.name}</h3>
-            <div className="columns-5">
-              {hand.cards.map((card, index) => <PlayingCard key={index} card={card} />)}
-            </div>
+    <div className="grid grid-rows-5 grid-flow-col">{
+      hands.map((hand) => <>
+        <div key={"hand" + hand.id} className="block mb-6 p-6 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+          <h3 className="text-2xl mb-4"><span className="opacity-50">{hand.id}</span> {hand.name}</h3>
+          <div className="columns-5">
+            {hand.cards.map((card, index) => <PlayingCard key={index} card={card} />)}
           </div>
-        </>)
-      }
+        </div>
+      </>)
+    }
     </div>
   </div>
 }
 
 
-const getCardSuit = (original) => original[0];
-const getCardDigits = (original) => `${original}`.substring(1)
-const getColorStyleForSuit = (original) => {
-  console.debug({ original, match: original.match(/♣/) })
-  if (original.match(/♠/g)) {
-    return "text-black-500";
-  }
-  if (original.match(/♣/g)) {
-    return "text-green-600"
-  }
-  if (original.match(/♦/)) {
-    return "text-indigo-600"
-  }
-  return "text-red-500";
-}
+
 
 export function PlayingCard(data) {
+  const getCardSuit = (original) => original[0];
+  const getCardDigits = (original) => `${original}`.substring(1)
+  const getColorStyleForSuit = (original) => {
+    console.debug({ original, match: original.match(/♣/) })
+    if (original.match(/♠/g)) {
+      return "text-black-500";
+    }
+    if (original.match(/♣/g)) {
+      return "text-green-600"
+    }
+    if (original.match(/♦/)) {
+      return "text-indigo-600"
+    }
+    return "text-red-500";
+  }
+
   const { value, error } = joi.object({
     card: joi.string().regex(CARD_SUIT_DIGITS_REGEX).required()
   }).unknown().validate(data, { abortEarly: false })
+
   if (error) {
     console.error(JSON.stringify(error));
     throw error;
   }
+
   return (
     <div className="relative z-0 h-20 p-0 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700">
       <p className={"text-2xl ml-1 mt-0 opacity-60 text-left " + getColorStyleForSuit(getCardSuit(value.card))}>{getCardSuit(value.card)}</p>
