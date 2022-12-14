@@ -8,8 +8,8 @@ export default function Breadcrumbs({ parentLink, parent, children }) {
     >
       <ol className="list-reset flex text-grey-dark">
         <li>
-          <Link href="/">
-            <a className="text-blue font-bold ">Home</a>
+          <Link href="/" className="text-blue font-bold ">
+            Home
           </Link>
         </li>
         {parentLink && (
@@ -18,8 +18,8 @@ export default function Breadcrumbs({ parentLink, parent, children }) {
               <span className="mx-2">/</span>
             </li>
             <li>
-              <Link href={parentLink}>
-                <a className="text-blue font-bold">{parent}</a>
+              <Link href={parentLink} className="text-blue font-bold">
+                {parent}
               </Link>
             </li>
           </>

@@ -8,7 +8,9 @@
     "start": "next start",
     "lint": "next lint",
     "preexport": "next build",
-    "export": "next export"
+    "export": "next export",
+    "push": "aws s3 sync ./out s3://www.bucks-poker.com --acl public-read --delete",
+    "deploy": "npm run export && npm run push"
   },
   "dependencies": {
     "chart.js": "^4.0.1",

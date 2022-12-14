@@ -1,15 +1,12 @@
-import Head from "next/head";
+import Head from 'next/head'
 import Footer from "../components/Footer";
 import Breadcrumbs from "../components/Breadcrumbs";
 import Hands from "../components/Hands";
-
-
 
 export default function Rules() {
     return (
         <div className="flex flex-col min-h-screen">
             <Head>
-                <html lang="en-gb" />
                 <title>Resources</title>
                 <meta name="description" content="Bucks Poker Resources" />
                 <link rel="icon" href="/favicon.ico" />

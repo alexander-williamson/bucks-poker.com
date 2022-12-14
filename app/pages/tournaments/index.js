@@ -1,4 +1,4 @@
-import Head from "next/head";
+import Head from 'next/head'
 import Footer from "../../components/Footer";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import Link from "next/link";
@@ -24,30 +24,30 @@ export default function Tournaments(props) {
   return (
     <div className="flex flex-col min-h-screen">
       <Head>
-        <html lang="en-gb" />
-        <title>{props.years} Tournament Results</title>
+        <title>{`${props.years} Tournament Results`}</title>
         <meta name="description" content="The Bucks Poker Tournament Results" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main className="main mb-10 container mx-auto flex-auto p-8">
         <Breadcrumbs>Tournaments</Breadcrumbs>
-
         <ul>
           {props.years.map((year) => {
             return (
               <li key={year}>
-                <Link href={`/tournaments/${encodeURIComponent(year)}`}>
-                  <a className="block p-3 hover:bg-gray-100 rounded-lg">
-                    {year} Tournament{" "}
-                    {year === `${currentYear}` ? (
-                      <Badge className="bg-indigo-500 text-white">
-                        Current
-                      </Badge>
-                    ) : (
-                      ""
-                    )}
-                  </a>
+                <Link
+                  href={`/tournaments/${encodeURIComponent(year)}`}
+                  className="block p-3 hover:bg-gray-100 rounded-lg">
+
+                  {year}Tournament{" "}
+                  {year === `${currentYear}` ? (
+                    <Badge className="bg-indigo-500 text-white">
+                      Current
+                    </Badge>
+                  ) : (
+                    ""
+                  )}
+
                 </Link>
               </li>
             );
@@ -58,6 +58,6 @@ export default function Tournaments(props) {
       <div className="justify-self-end">
         <Footer />
       </div>
-    </div>
+    </div >
   );
 }

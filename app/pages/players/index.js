@@ -1,4 +1,4 @@
-import Head from "next/head";
+import Head from 'next/head'
 import Footer from "../../components/Footer";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import DataTable from "../../components/DataTable";
@@ -105,7 +105,6 @@ export default function People(props) {
   return (
     <div className="flex flex-col min-h-screen">
       <Head>
-        <html lang="en-gb" />
         <title>Players</title>
         <meta name="description" content="The Bucks Poker Tournament Results" />
         <link rel="icon" href="/favicon.ico" />

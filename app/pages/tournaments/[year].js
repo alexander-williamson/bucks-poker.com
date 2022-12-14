@@ -1,7 +1,7 @@
 import "chart.js/auto";
 import { Chart } from "react-chartjs-2";
 
-import Head from "next/head";
+import Head from 'next/head'
 import Footer from "../../components/Footer";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import TournamentResultsTable from "../../components/TournamentResultsTable";
@@ -170,7 +170,6 @@ export default function Year(props) {
   return (
     <div className="flex flex-col min-h-screen">
       <Head>
-        <html lang="en-gb" />
         <title>{props.year} Tournament</title>
         <meta
           name="description"

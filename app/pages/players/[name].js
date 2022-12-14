@@ -1,6 +1,6 @@
 import "chart.js/auto";
 import { Chart } from "react-chartjs-2";
-import Head from "next/head";
+import Head from 'next/head'
 import Footer from "../../components/Footer";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import { GetYearFiguresDataAsync } from "../../services/data";
@@ -76,7 +76,6 @@ export default function Name(props) {
   return (
     <div className="flex flex-col min-h-screen">
       <Head>
-        <html lang="en-gb" />
         <title>{title}</title>
         <meta
           name="description"

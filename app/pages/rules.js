@@ -1,16 +1,15 @@
-import Head from "next/head";
+import Head from "next/head"
 import Footer from "../components/Footer";
 import Breadcrumbs from "../components/Breadcrumbs";
 
 export default function Rules() {
   return (
     <div className="flex flex-col min-h-screen">
-      <Head>
-        <html lang="en-gb" />
+      {<Head>
         <title>Rules</title>
         <meta name="description" content="Bucks Poker Rules" />
         <link rel="icon" href="/favicon.ico" />
-      </Head>
+      </Head>}
 
       <main className="main mb-10 container mx-auto flex-auto p-8">
         <div className="hero py-20 text-center">
