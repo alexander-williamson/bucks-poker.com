@@ -38,8 +38,7 @@ export default function Tournaments(props) {
                 <Link
                   href={`/tournaments/${encodeURIComponent(year)}`}
                   className="block p-3 hover:bg-gray-100 rounded-lg">
-
-                  {year}Tournament{" "}
+                  {year}{" "}Tournament{" "}
                   {year === `${currentYear}` ? (
                     <Badge className="bg-indigo-500 text-white">
                       Current

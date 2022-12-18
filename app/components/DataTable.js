@@ -4,7 +4,9 @@ export default function DataTable(props) {
   const { value, error } = joi
     .object({
       headers: joi.array().items(joi.string().required()).min(1).required(),
-      rows: joi.array().items(joi.object().unknown().required()).required(),
+      rows: joi.array().items(joi.object({
+        id: joi.string().required()
+      }).unknown().required()).required(),
     })
     .validate(props);
   if (error) throw error;
@@ -23,8 +25,8 @@ export default function DataTable(props) {
         </thead>
         <tbody className="bg-white">
           {value.rows.map((row, index) => (
-            <tr className="text-gray-700 hover:bg-zinc-100" key={row.Person}>
-              {Object.keys(row).map((key) => (
+            <tr className="text-gray-700 hover:bg-zinc-100" key={row.id}>
+              {Object.keys(row).filter(key => key !== "id").map((key) => (
                 <td className="border-0 px-4 py-3 border" key={`td-${index}`}>
                   {row[key]}
                 </td>

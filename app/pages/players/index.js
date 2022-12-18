@@ -125,6 +125,7 @@ export default function People(props) {
             "Total Lifetime Chips",
           ]}
           rows={props.activePlayers.map((player) => ({
+            id: player.name,
             "Player Name": <a href={player.name}>{player.name}</a>,
             "Years Played": player.yearsPlayed,
             "Total Lifetime Points":
@@ -147,6 +148,7 @@ export default function People(props) {
             "Total Lifetime Chips",
           ]}
           rows={props.overallRanking.map((player) => ({
+            id: player.name,
             "Player Name": <a href={player.name}>{player.name}</a>,
             "Years Played": player.yearsPlayed,
             "Total Lifetime Points":
