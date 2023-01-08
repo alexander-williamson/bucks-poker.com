@@ -24,7 +24,7 @@ export default function Tournaments(props) {
   return (
     <div className="flex flex-col min-h-screen">
       <Head>
-        <title>{`${props.years} Tournament Results`}</title>
+        <title>Tournaments</title>
         <meta name="description" content="The Bucks Poker Tournament Results" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
