@@ -2,6 +2,6 @@ module.exports = {
   reactStrictMode: true,
   trailingSlash: true,
   env: {
-    BUILD_TIME: new Date(),
+    BUILD_TIME: new Date().toISOString(),
   },
 };

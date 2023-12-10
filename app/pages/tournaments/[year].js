@@ -153,7 +153,7 @@ export async function getStaticProps({ params }) {
   const names = tableData.map(x => x.Person);
   const result = {
     props: {
-      buildTimeDate: process.env.BUILD_TIME || new Date(),
+      buildTimeDate: process.env.BUILD_TIME || new Date().toISOString(),
       chartData: await getChartData(year),
       earliestDate: await getEarliestDate(year),
       latestDate: await getLatestDate(year),
