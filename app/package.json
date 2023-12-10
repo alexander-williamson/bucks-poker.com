@@ -13,24 +13,24 @@
     "deploy": "npm run export && npm run push"
   },
   "dependencies": {
-    "chart.js": "^4.0.1",
+    "chart.js": "^4.4.0",
     "chroma-js": "^2.4.2",
     "csvtojson": "^2.0.10",
-    "fs-extra": "^11.1.0",
-    "joi": "^17.7.0",
+    "fs-extra": "^11.1.1",
+    "joi": "^17.11.0",
     "moment": "^2.29.4",
-    "next": "^13.0.6",
+    "next": "^13.5.4",
     "react": "18.2.0",
-    "react-chartjs-2": "^5.0.1",
+    "react-chartjs-2": "^5.2.0",
     "react-dom": "18.2.0",
     "xlsx": "^0.18.5"
   },
   "devDependencies": {
-    "autoprefixer": "^10.4.13",
-    "eslint": "^8.29.0",
-    "eslint-config-next": "^13.0.6",
-    "npm-check-updates": "^16.6.0",
-    "postcss": "^8.4.20",
-    "tailwindcss": "^3.2.4"
+    "autoprefixer": "^10.4.16",
+    "eslint": "^8.50.0",
+    "eslint-config-next": "^13.5.4",
+    "npm-check-updates": "^16.14.4",
+    "postcss": "^8.4.31",
+    "tailwindcss": "^3.3.3"
   }
 }
