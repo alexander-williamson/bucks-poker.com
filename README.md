@@ -1,3 +1,9 @@
+# Bucks Poker Website
+
+This is the source code for the https://bucks-poker.com website.
+
+It is a Next.js static site. There are three data files in `/data` (Excel .xlsx format) which are parsed as the project is built. Matt (bultark) has the source data files which are exported from his stats package.
+
 # Build and deploy
 
 ```
