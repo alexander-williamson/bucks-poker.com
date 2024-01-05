@@ -10,15 +10,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@bitbucket.org/alexanderwilliamson/bucks-poker.com.git"
+    "url": "git+ssh://git@bitbucket.org/alexander-williamson/bucks-poker.com.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://bitbucket.org/alexanderwilliamson/bucks-poker.com/issues"
+    "url": "https://bitbucket.org/alexander-williamson/bucks-poker.com/issues"
   },
-  "homepage": "https://bitbucket.org/alexanderwilliamson/bucks-poker.com#readme",
+  "homepage": "https://bitbucket.org/alexander-williamson/bucks-poker.com#readme",
   "devDependencies": {
     "fs-extra": "^10.1.0",
     "glob-promise": "^5.0.0",
