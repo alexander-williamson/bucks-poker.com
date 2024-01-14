@@ -5,7 +5,7 @@
   "scripts": {
     "preinstall": "cd app && npm install",
     "deploy:export": "cd app && npm run export",
-    "deploy:sync": "aws s3 sync .\\app\\out\\ s3://www.bucks-poker.com --delete --acl public-read",
+    "deploy:sync": "aws s3 sync ./app/out/ s3://www.bucks-poker.com --delete --acl public-read",
     "deploy": "npm run deploy:export && npm run deploy:sync",
     "dev": "cd app && npm run dev"
   },
