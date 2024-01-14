@@ -2,7 +2,7 @@ name: learn-github-actions
 run-name: ${{ github.actor }} is learning GitHub Actions
 on: [push]
 jobs:
-  check-bats-version:
+  production-deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Configure AWS Credentials
