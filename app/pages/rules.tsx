@@ -93,7 +93,7 @@ export default function Rules() {
                 <ol>
                   <li>
                     Players are given $ 2,500
-                    <table class="table-auto">
+                    <table className="table-auto">
                       <thead>
                         <tr>
                           <th>Qty </th>
@@ -158,7 +158,7 @@ export default function Rules() {
                       <li>
                         <p>Blinds go up in the following scale (Small Blind / Big Blind)</p>
 
-                        <table class="table-auto">
+                        <table className="table-auto">
                           <thead>
                             <tr>
                               <th>Rd No. </th>
@@ -216,7 +216,7 @@ export default function Rules() {
                   </li>
                   <li>
                     The following betting follows the following &qout;house
-                    rule&qout; on the <span classname="italic">Half-Bet</span>
+                    rule&qout; on the <span className="italic">Half-Bet</span>
                     rule
                     <ol>
                       <li>
@@ -298,7 +298,7 @@ export default function Rules() {
 
                     Example
 
-                    <table width="200" cellspacing="1" cellpadding="1" border="0" height="70">
+                    <table width="200" cellSpacing="1" cellPadding="1" border={0}>
                       <thead>
                         <tr>
                           <th>Player </th>
@@ -349,7 +349,7 @@ export default function Rules() {
                             The Exception where multiple people tie for
                             points and chips then money is split accordingly.
                             Example (assuming the winning pot is £90)
-                            <table class="table-auto">
+                            <table className="table-auto">
                               <thead>
                                 <tr>
                                   <th>Player </th>
