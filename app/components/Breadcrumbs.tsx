@@ -1,6 +1,10 @@
 import Link from "next/link";
 
-export default function Breadcrumbs({ parentLink, parent, children }) {
+type Options = {
+  parentLink?: string, parent?: string, children: any 
+}
+
+export default function Breadcrumbs({ parentLink, parent, children}: Options) {
   return (
     <nav
       className="pr-3 rounded font-sans w-full mr-4 mt-4 mb-4 bg-blue-50 rounded-lg
