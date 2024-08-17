@@ -6,9 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "push": "aws s3 sync ./out s3://www.bucks-poker.com --acl public-read --delete",
-    "deploy": "npm run build && npm run push"
+    "lint": "next lint"
   },
   "dependencies": {
     "@types/react": "^18.3.3",
@@ -25,6 +23,7 @@
     "xlsx": "^0.18.5"
   },
   "devDependencies": {
+    "@cloudflare/next-on-pages": "^1.13.2",
     "autoprefixer": "^10.4.16",
     "eslint": "^8.50.0",
     "eslint-config-next": "^13.5.4",
