@@ -32,3 +32,21 @@ export function BronzeBadge({ title, children }) {
     </Badge>
   );
 }
+
+export function ColourBadge(props: {
+  hex: string;
+  title: string;
+  isChecked: boolean;
+  onClick: () => void;
+}) {
+  return (
+    <Badge className="text-black" title={props.title}>
+      <input
+        type="checkbox"
+        onChange={props.onClick}
+        checked={props.isChecked}
+        style={{ accentColor: props.hex }}
+      />
+    </Badge>
+  );
+}

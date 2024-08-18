@@ -1,12 +1,12 @@
 import "chart.js/auto";
+import Head from "next/head";
 import { Chart } from "react-chartjs-2";
-import Head from 'next/head'
-import Footer from "../../components/Footer";
 import Breadcrumbs from "../../components/Breadcrumbs";
-import { GetYearFiguresDataAsync } from "../../services/data";
-import { OrderSuffix } from "../../services/helpers";
+import Footer from "../../components/Footer";
 import { StatsCard } from "../../components/StatsCards";
-import { getColour } from "../../services/colours";
+import { GetYearFiguresDataAsync } from "../../repositories/FileRepository";
+import { GetColourForName } from "../../services/ColourHelpers";
+import { OrderSuffix } from "../../services/DateHelpers";
 
 export async function getStaticPaths() {
   const yearData = await GetYearFiguresDataAsync();
@@ -116,8 +116,8 @@ export default function Name(props) {
                 data: props.years.map((x) => x.position),
                 yAxisID: "yAxis",
                 tension: 0.3,
-                backgroundColor: getColour(props.name, [props.name]),
-                borderColor: getColour(props.name, [props.name]),
+                backgroundColor: GetColourForName(props.name, [props.name]),
+                borderColor: GetColourForName(props.name, [props.name]),
                 pointRadius: 6,
               },
             ],
@@ -131,21 +131,29 @@ export default function Name(props) {
                 : "tournaments entered"
             }
             value={props.years.length}
+            className={undefined}
           />
           <StatsCard
             title={
               props.years.length === 1 ? "tournament won" : "tournaments won"
             }
             value={props.tournamentWinCount}
+            className={undefined}
           />
           <StatsCard
             title="best tournament result"
             value={OrderSuffix(Math.min(...props.years.map((x) => x.position)))}
+            className={undefined}
           />
-          <StatsCard title="best winning streak" value={props.winningStreak} />
+          <StatsCard
+            title="best winning streak"
+            value={props.winningStreak}
+            className={undefined}
+          />
           <StatsCard
             title="years played streak"
             value={props.yearsPlayedStreak}
+            className={undefined}
           />
         </div>
       </main>

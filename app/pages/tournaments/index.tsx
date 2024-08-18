@@ -1,22 +1,20 @@
-import Head from 'next/head'
+import Head from "next/head";
 import Footer from "../../components/Footer";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import Link from "next/link";
-import { GetYearFiguresDataAsync } from "../../services/data";
+import { GetYearFiguresDataAsync } from "../../repositories/FileRepository";
 import { Badge } from "../../components/Badges";
 
-async function getYears() {
+async function getYears(): Promise<string[]> {
   const stats = await GetYearFiguresDataAsync();
   const years = [...new Set(stats.map((x) => x.Yr))];
   return years.reverse();
 }
 
-export async function getStaticProps({ params }) {
-  return {
-    props: {
-      years: await getYears(),
-    },
-  };
+type GetStaticProps = { props: { years: string[] } };
+export async function getStaticProps(): Promise<GetStaticProps> {
+  const years = await getYears();
+  return { props: { years } };
 }
 
 export default function Tournaments(props) {
@@ -37,16 +35,14 @@ export default function Tournaments(props) {
               <li key={year}>
                 <Link
                   href={`/tournaments/${encodeURIComponent(year)}`}
-                  className="block p-3 hover:bg-gray-100 rounded-lg">
-                  {year}{" "}Tournament{" "}
+                  className="block p-3 hover:bg-gray-100 rounded-lg"
+                >
+                  {year} Tournament{" "}
                   {year === `${currentYear}` ? (
-                    <Badge className="bg-indigo-500 text-white">
-                      Current
-                    </Badge>
+                    <Badge className="bg-indigo-500 text-white">Current</Badge>
                   ) : (
                     ""
                   )}
-
                 </Link>
               </li>
             );
@@ -57,6 +53,6 @@ export default function Tournaments(props) {
       <div className="justify-self-end">
         <Footer />
       </div>
-    </div >
+    </div>
   );
 }

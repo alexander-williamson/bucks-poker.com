@@ -1,20 +1,22 @@
 import "chart.js/auto";
-import { Chart } from "react-chartjs-2";
-
-import Head from 'next/head'
-import Footer from "../../components/Footer";
-import Breadcrumbs from "../../components/Breadcrumbs";
-import TournamentResultsTable from "../../components/TournamentResultsTable";
 import moment from "moment";
+import Head from "next/head";
+import { ReactElement, useState } from "react";
+import { Chart } from "react-chartjs-2";
+import { Badge } from "../../components/Badges";
+import Breadcrumbs from "../../components/Breadcrumbs";
+import Footer from "../../components/Footer";
+import TournamentResultsTable from "../../components/TournamentResultsTable";
+import { Month } from "../../models/Month";
+import { Year as YearModel } from "../../models/Year";
 import {
   GetMonthlyPositionsDataAsync,
   GetYearFiguresDataAsync,
-} from "../../services/data";
-import { Badge } from "../../components/Badges";
-import { MonthNames } from "../../services/helpers";
-import { getColour } from "../../services/colours"
+} from "../../repositories/FileRepository";
+import { GetColourForName } from "../../services/ColourHelpers";
+import { MonthNames } from "../../services/DateHelpers";
 
-const getTableData = async (year) => {
+const getTableData = async (year: number): Promise<YearModel[]> => {
   const yearData = await GetYearFiguresDataAsync();
   const data = yearData
     .filter((x) => `${x.Yr}` === `${year}`)
@@ -30,16 +32,16 @@ const getTableData = async (year) => {
   return data;
 };
 
-const getHighest = (arr) => {
+function getHighest(arr: Month[]) {
   const items = arr.reduce((result, item) => {
     const keys = Object.keys(item).filter((key) => item[key].length > 0);
     return [...result, ...keys];
   }, []);
-  const result = [...new Set(items)];
+  const result = new Array([...new Set(items)]);
   return result;
-};
+}
 
-const getMonthsForYear = async (year) => {
+const getMonthsForYear = async (year: YearModel): Promise<number[]> => {
   const monthlyPositions = await GetMonthlyPositionsDataAsync();
   const monthlyPositionsFilteredByYear = monthlyPositions.filter(
     (x) => x.Year === `${year}`
@@ -47,8 +49,8 @@ const getMonthsForYear = async (year) => {
   const mergedProperties = getHighest(monthlyPositionsFilteredByYear);
 
   const result = mergedProperties
-    .filter((x) => parseInt(x) > 0)
-    .map((x) => parseInt(x))
+    .filter((x) => parseInt(x as unknown as any) > 0)
+    .map((x) => parseInt(x as unknown as any))
     .sort((a, b) => a - b);
 
   return result;
@@ -74,20 +76,42 @@ const getLatestDate = async (year) => {
   return result;
 };
 
-const pad = (n, width, z) => {
+const pad = (n: string | number, width: number, z?: string): string => {
   z = z || "0";
   n = n + "";
   return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
 };
 
 const months = [...Array(12)].map((_, i) => ({
-  id: parseInt(i),
+  id: parseInt(i as unknown as any),
   name: MonthNames[i],
 }));
 
-const parseOrNull = (original) => (original === "" ? null : parseInt(original));
+function parseOrNull(original: any): number | null {
+  return original === "" ? null : parseInt(original);
+}
 
-const getChartData = async (year) => {
+type ChartData = {
+  data: {
+    name: string;
+    data: {
+      id: number;
+      name: string;
+      chips: number;
+      chipsCumulative: number;
+      points: number;
+      pointsCumulative: number;
+      monthPositions: {
+        name: string;
+        chipsCumulative: number;
+        pointsCumulative: number;
+      }[];
+      position: number;
+    }[];
+  }[];
+};
+
+async function getChartData(year): Promise<ChartData> {
   const rows = await GetMonthlyPositionsDataAsync();
   const monthRows = rows.filter((x) => parseInt(x.Year) === year);
   const names = monthRows.map((row) => row.Person);
@@ -121,7 +145,6 @@ const getChartData = async (year) => {
           position: position > -1 ? position + 1 : null,
         };
 
-        //console.debug(result);
         return result;
       });
 
@@ -132,9 +155,14 @@ const getChartData = async (year) => {
     });
 
   return { data };
+}
+
+type StaticPathsResult = {
+  paths: { params: { year: string } }[];
+  fallback: boolean;
 };
 
-export async function getStaticPaths() {
+export async function getStaticPaths(): Promise<StaticPathsResult> {
   const yearData = await GetYearFiguresDataAsync();
   const years = [...new Set(yearData.map((x) => x.Yr))].reverse();
   return {
@@ -147,10 +175,24 @@ export async function getStaticPaths() {
   };
 }
 
-export async function getStaticProps({ params }) {
+type StaticPropsResult = {
+  props: ComponentProps;
+};
+
+type ComponentProps = {
+  buildTimeDate: string;
+  chartData: ChartData;
+  earliestDate: string;
+  latestDate: string;
+  names: any[];
+  tableData: any[];
+  year: number;
+};
+
+export async function getStaticProps({ params }): Promise<StaticPropsResult> {
   const year = parseInt(params.year);
   const tableData = await getTableData(year);
-  const names = tableData.map(x => x.Person);
+  const names = tableData.map((x) => x.Person);
   const result = {
     props: {
       buildTimeDate: process.env.BUILD_TIME || new Date().toISOString(),
@@ -165,8 +207,42 @@ export async function getStaticProps({ params }) {
   return result;
 }
 
-export default function Year(props) {
+export type YearProps = {
+  year: string;
+  data: {
+    colour: { hex: string };
+    Person: string;
+    SRank: string;
+    Points: number;
+    Bonus: string;
+    Chips: string;
+  }[];
+};
+
+export default function Year(props: ComponentProps): ReactElement {
   const currentYear = new Date().getFullYear();
+  const [playerVisiblity, setPlayerVisibility] = useState(
+    props.names.map((x) => ({ name: x, visible: true }))
+  );
+  const [isAllVisible, setIsAllVisible] = useState(true);
+  const toggleShow = (name: string) => {
+    console.debug("toggleShow " + name);
+    const results = playerVisiblity.map((x) => ({
+      name: x.name,
+      visible: x.name === name ? !x.visible : x.visible,
+    }));
+    console.debug({ results });
+    setPlayerVisibility(results);
+  };
+  const toggleAll = (newValue: boolean) => {
+    const results = playerVisiblity.map((item) => ({
+      ...item,
+      visible: newValue,
+    }));
+    setIsAllVisible(newValue);
+    setPlayerVisibility(results);
+  };
+
   return (
     <div className="flex flex-col min-h-screen">
       <Head>
@@ -182,12 +258,11 @@ export default function Year(props) {
         <Breadcrumbs parent="Tournaments" parentLink="/tournaments">
           {props.year} Tournament
           {`${props.year}` === `${currentYear}` && (
-            <Badge className="bg-indigo-500 text-white">Current</Badge>
+            <Badge className="bg-indigo-500 text-white" title="Current Year">
+              Current
+            </Badge>
           )}
         </Breadcrumbs>
-
-        {/* <pre>{JSON.stringify(props.chartData, null, 2)}</pre> */}
-
         <Chart
           className="max-h-80 w-full pb-8"
           type="line"
@@ -214,14 +289,29 @@ export default function Year(props) {
               data: item.data.map((x) => x.position),
               yAxisID: "yAxis",
               tension: 0.3,
-              backgroundColor: getColour(item.name, props.names),
-              borderColor: getColour(item.name, props.names),
+              backgroundColor: GetColourForName(item.name, props.names),
+              borderColor: GetColourForName(item.name, props.names),
               pointRadius: 6,
+              hidden:
+                playerVisiblity.find((x) => x.name === item.name).visible ===
+                false,
             })),
           }}
         />
 
-        <TournamentResultsTable data={props.tableData} />
+        <TournamentResultsTable
+          names={props.names}
+          data={props.tableData.map((item) => ({
+            ...item,
+            isChecked:
+              playerVisiblity.find((x) => x.name === item.Person).visible ===
+              true,
+          }))}
+          onToggleAll={() => toggleAll(!isAllVisible)}
+          onRowClick={(name: string) => toggleShow(name)}
+          isAllChecked={isAllVisible}
+        />
+
         <p className="pt-1 pb-6 px-1">
           Showing data from{" "}
           {moment(props.earliestDate.substr(0, 10)).format("MMMM YYYY")} &rarr;{" "}

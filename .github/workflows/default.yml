@@ -23,11 +23,3 @@ jobs:
         run: |
           npm ci
           npm run deploy
-
-      # - name: Deploy
-      #   id: deploy
-      #   uses: cloudflare/wrangler-action@v3
-      #   with:
-      #     apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-      #     accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-      #     command: pages deploy app/out --project-name bucks-poker-com

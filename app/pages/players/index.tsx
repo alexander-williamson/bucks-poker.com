@@ -1,9 +1,9 @@
-import Head from 'next/head'
-import Footer from "../../components/Footer";
+import Head from "next/head";
+import { BronzeBadge, GoldBadge, SilverBadge } from "../../components/Badges";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import DataTable from "../../components/DataTable";
-import { GetYearFiguresDataAsync } from "../../services/data";
-import { BronzeBadge, GoldBadge, SilverBadge } from "../../components/Badges";
+import Footer from "../../components/Footer";
+import { GetYearFiguresDataAsync } from "../../repositories/FileRepository";
 
 async function getData() {
   const yearFiguresData = await GetYearFiguresDataAsync();
