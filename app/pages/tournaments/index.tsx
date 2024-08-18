@@ -39,7 +39,9 @@ export default function Tournaments(props) {
                 >
                   {year} Tournament{" "}
                   {year === `${currentYear}` ? (
-                    <Badge className="bg-indigo-500 text-white">Current</Badge>
+                    <Badge className="bg-indigo-500 text-white" title="Current">
+                      Current
+                    </Badge>
                   ) : (
                     ""
                   )}

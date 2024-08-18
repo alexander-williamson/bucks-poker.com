@@ -27,7 +27,10 @@ async function getData() {
 
   const getLastYear = (playerName) => {
     return Math.max(
-      ...yearFiguresData.filter((x) => x.Person === playerName).map((x) => x.Yr)
+      ...yearFiguresData
+        .filter((x) => x.Person === playerName)
+        .map((x) => x.Yr)
+        .map((x) => parseInt(x))
     );
   };
 
