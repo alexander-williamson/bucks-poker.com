@@ -1,16 +1,15 @@
 name: default
 run-name: ${{ github.actor }} is learning GitHub Actions
-on: [push]
+
+on:
+  push:
+    branches:
+      - main
+
 jobs:
   production-deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: eu-west-1
       - name: Checkout
         uses: actions/checkout@v4
       - name: Setup Node 18
@@ -19,5 +18,11 @@ jobs:
           node-version: "18"
       - name: Build
         run: npm ci
+          npm run build
       - name: Deploy
-        run: npm run deploy
+        id: deploy
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy ./app/out
