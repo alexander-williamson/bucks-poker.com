@@ -5,7 +5,7 @@
   "scripts": {
     "preinstall": "cd app && npm install",
     "deploy:build": "cd app && npm run build",
-    "deploy:pages": "npx wrangler pages deploy ./app/out",
+    "deploy:pages": "npx wrangler pages deploy ./app/out --project-name bucks-poker-com",
     "deploy": "npm run deploy:build && npm run deploy:pages",
     "dev": "cd app && npm run dev"
   },
@@ -21,6 +21,7 @@
   },
   "homepage": "https://bitbucket.org/alexander-williamson/bucks-poker.com#readme",
   "devDependencies": {
-    "fs-extra": "^10.1.0"
+    "fs-extra": "^10.1.0",
+    "wrangler": "^3.72.0"
   }
 }
