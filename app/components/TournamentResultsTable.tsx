@@ -52,14 +52,17 @@ export default function TournamentResultsTable(props: Props): ReactElement {
         </thead>
         <tbody className="bg-white">
           {props.data.map((row) => (
-            <tr className="text-gray-700 hover:bg-zinc-100" key={row.Person}>
+            <tr
+              className="text-gray-700 hover:bg-zinc-100"
+              onClick={() => props.onRowClick(row.Person)}
+              key={row.Person}
+            >
               <td>
                 <span className="px-2">
                   <ColourBadge
                     hex={GetColourForName(row.Person, props.names)}
                     title={row.Person}
                     isChecked={row.isChecked}
-                    onClick={() => props.onRowClick(row.Person)}
                   />
                 </span>
               </td>
