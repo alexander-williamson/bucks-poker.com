@@ -1,5 +1,5 @@
 name: default
-run-name: ${{ github.actor }} is learning GitHub Actions
+run-name: Deploy to Production
 
 on:
   push:
