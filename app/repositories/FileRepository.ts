@@ -4,30 +4,11 @@ import path from "path";
 import xlsx from "xlsx";
 import joi from "joi";
 import { Year } from "../models/Year";
-import { Month } from "../models/Month";
 
-export async function GetMonthlyPositionsDataAsync(): Promise<Month[]> {
-  const fullPath = await EnsureFilePath(monthlyPositionsPath);
-  const csvData = await GetCsvFromXlsx(fullPath);
-  const json = await csv().fromString(csvData);
-  const { value, error } = joi
-    .array<Month[]>()
-    .items(
-      joi
-        .object<Month>({
-          Year: joi.string().optional(),
-          Person: joi.string().optional(),
-        })
-        .unknown()
-        .optional()
-    )
-    .optional()
-    .validate(json);
-  if (error) {
-    throw error;
-  }
-  return value;
-}
+// https://nextjs.org/docs/basic-features/data-fetching#reading-files-use-processcwd
+const dataDir = path.join(process.cwd(), "data");
+const yearFiguresPath = path.join(dataDir, "Poker - Year Figures.xlsx");
+const yearHandsPath = path.join(dataDir, "Poker - Year Hands.xlsx");
 
 export async function GetYearFiguresDataAsync(): Promise<Year[]> {
   const fullPath = await EnsureFilePath(yearFiguresPath);
@@ -50,11 +31,15 @@ export async function GetYearFiguresDataAsync(): Promise<Year[]> {
           PersStatus: joi.string().required(),
           pers_personid: joi.string().required(),
         })
-        .unknown()
-        .required()
+        .required(),
     )
     .required()
     .validate(json);
+
+  if (error) {
+    throw error;
+  }
+
   return value;
 }
 
@@ -64,15 +49,6 @@ export async function GetYearHandsDataAsync() {
   const json = await csv().fromString(csvData);
   return json;
 }
-
-// https://nextjs.org/docs/basic-features/data-fetching#reading-files-use-processcwd
-const dataDir = path.join(process.cwd(), "data");
-const yearFiguresPath = path.join(dataDir, "Poker - Year Figures.xlsx");
-const yearHandsPath = path.join(dataDir, "Poker - Year Hands.xlsx");
-const monthlyPositionsPath = path.join(
-  dataDir,
-  "Poker - Monthly Positions.xlsx"
-);
 
 async function GetCsvFromXlsx(path) {
   const xslxPattern = /.+\.(xlsx)$/;

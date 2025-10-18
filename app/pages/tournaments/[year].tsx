@@ -7,14 +7,16 @@ import { Badge } from "../../components/Badges";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import Footer from "../../components/Footer";
 import TournamentResultsTable from "../../components/TournamentResultsTable";
-import { Month } from "../../models/Month";
 import { Year as YearModel } from "../../models/Year";
-import {
-  GetMonthlyPositionsDataAsync,
-  GetYearFiguresDataAsync,
-} from "../../repositories/FileRepository";
+import { GetYearFiguresDataAsync } from "../../repositories/FileRepository";
 import { GetColourForName } from "../../services/ColourHelpers";
 import { MonthNames } from "../../services/DateHelpers";
+import path from "path";
+import { GetYears, PokerMonthlyPosition, PokerMonthlyPositionsRepository } from "../../repositories/PokerMonthlyPositions";
+
+const monthlyPositionsRepository = new PokerMonthlyPositionsRepository({
+  dir: path.join(process.cwd(), "data"),
+});
 
 const getTableData = async (year: number): Promise<YearModel[]> => {
   const yearData = await GetYearFiguresDataAsync();
@@ -32,48 +34,27 @@ const getTableData = async (year: number): Promise<YearModel[]> => {
   return data;
 };
 
-function getHighest(arr: Month[]) {
-  const items = arr.reduce((result, item) => {
-    const keys = Object.keys(item).filter((key) => item[key].length > 0);
-    return [...result, ...keys];
-  }, []);
-  const result = new Array([...new Set(items)]);
-  return result;
+async function getMonthsForYear(year: number): Promise<number[]> {
+  const monthlyPositions = await monthlyPositionsRepository.getData();
+  const monthlyPositionsFilteredByYear = monthlyPositions.filter((x) => x.Year === year); // monthly positions for this year
+  const firstPerson = monthlyPositionsFilteredByYear[0]; // work with the first person
+  const monthKeys: string[] = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"];
+  const matchingKeys = Object.keys(firstPerson).filter((key) => monthKeys.find((mk) => mk === key)); // get the keys we care about
+  return matchingKeys.map((key) => parseInt(key));
 }
 
-const getMonthsForYear = async (year: YearModel): Promise<number[]> => {
-  const monthlyPositions = await GetMonthlyPositionsDataAsync();
-  const monthlyPositionsFilteredByYear = monthlyPositions.filter(
-    (x) => x.Year === `${year}`
-  );
-  const mergedProperties = getHighest(monthlyPositionsFilteredByYear);
-
-  const result = mergedProperties
-    .filter((x) => parseInt(x as unknown as any) > 0)
-    .map((x) => parseInt(x as unknown as any))
-    .sort((a, b) => a - b);
-
-  return result;
-};
-
-const getEarliestDate = async (year) => {
+const getEarliestDate = async (year: number) => {
   const monthsForYear = await getMonthsForYear(year);
   const lowestMonthNumber = monthsForYear[0];
   const month = lowestMonthNumber - 1;
-  const day = 1;
-  const result = new Date(Date.UTC(year, month, day))
-    .toISOString()
-    .substr(0, 10);
-  return result;
+  const date = new Date(Date.UTC(year, month, 1));
+  return date.toISOString().substr(0, 10);
 };
 
-const getLatestDate = async (year) => {
+const getLatestDate = async (year: number) => {
   const monthsForYear = await getMonthsForYear(year);
   const highestNumber = monthsForYear.reverse()[0];
-  const result = new Date(Date.UTC(year, highestNumber - 1, 1))
-    .toISOString()
-    .substring(0, 10);
-  return result;
+  return new Date(Date.UTC(year, highestNumber - 1, 1)).toISOString().substring(0, 10);
 };
 
 const pad = (n: string | number, width: number, z?: string): string => {
@@ -111,9 +92,9 @@ type ChartData = {
   }[];
 };
 
-async function getChartData(year): Promise<ChartData> {
-  const rows = await GetMonthlyPositionsDataAsync();
-  const monthRows = rows.filter((x) => parseInt(x.Year) === year);
+async function getChartData(year: number): Promise<ChartData> {
+  const rows = await monthlyPositionsRepository.getData();
+  const monthRows = rows.filter((x) => x.Year === year);
   const names = monthRows.map((row) => row.Person);
   const data = names
     .filter((_, i) => _ === _)
@@ -130,9 +111,7 @@ async function getChartData(year): Promise<ChartData> {
           .sort((a, b) => (a.chipsCumulative > b.chipsCumulative ? -1 : 1))
           .sort((a, b) => (a.pointsCumulative > b.pointsCumulative ? -1 : 1));
 
-        const position = allPositionsForThisMonth.indexOf(
-          allPositionsForThisMonth.find((x) => x.name === name)
-        );
+        const position = allPositionsForThisMonth.indexOf(allPositionsForThisMonth.find((x) => x.name === name));
 
         const result = {
           id: month.id,
@@ -163,8 +142,10 @@ type StaticPathsResult = {
 };
 
 export async function getStaticPaths(): Promise<StaticPathsResult> {
-  const yearData = await GetYearFiguresDataAsync();
-  const years = [...new Set(yearData.map((x) => x.Yr))].reverse();
+  const dir = path.join(process.cwd(), "data");
+  const monthlyPositionsRepository = new PokerMonthlyPositionsRepository({ dir });
+  const monthlyPositions = await monthlyPositionsRepository.getData();
+  const years = GetYears(monthlyPositions);
   return {
     paths: years.map((year) => ({
       params: {
@@ -221,20 +202,38 @@ export type YearProps = {
 
 export default function Year(props: ComponentProps): ReactElement {
   const currentYear = new Date().getFullYear();
-  const [playerVisiblity, setPlayerVisibility] = useState(
-    props.names.map((x) => ({ name: x, visible: true }))
-  );
+  const [playerVisiblity, setPlayerVisibility] = useState(props.names.map((x) => ({ name: x, visible: true })));
   const [isAllVisible, setIsAllVisible] = useState(true);
   const toggleShow = (name: string) => {
-    console.debug("toggleShow " + name);
-    const results = playerVisiblity.map((x) => ({
-      name: x.name,
-      visible: x.name === name ? !x.visible : x.visible,
-    }));
-    console.debug({ results });
-    setPlayerVisibility(results);
+    const isAllVisible = playerVisiblity.every((x) => x.visible === true);
+    const visibleCount = playerVisiblity.filter((x) => x.visible === false).length;
+    const isMemberCurrentlyVisible = playerVisiblity.find((x) => x.name === name && x.visible === true).visible;
+
+    if (isAllVisible) {
+      // if they are all visible, the user wants to see one user
+      const results = playerVisiblity.map((x) => ({
+        name: x.name,
+        visible: x.name === name,
+      }));
+      setPlayerVisibility(results);
+    } else if (visibleCount === playerVisiblity.length - 1 && isMemberCurrentlyVisible) {
+      // if only one item is visible and it's the user, set them all visible
+      const results = playerVisiblity.map((x) => ({
+        name: x.name,
+        visible: x.name === name ? !x.visible : x.visible,
+      }));
+      setPlayerVisibility(results);
+    } else {
+      // otherwise flip the toggle
+      const results = playerVisiblity.map((x) => ({
+        name: x.name,
+        visible: x.name === name ? !x.visible : x.visible,
+      }));
+      setPlayerVisibility(results);
+    }
   };
-  const toggleAll = (newValue: boolean) => {
+  const toggleAll = (_: boolean): void => {
+    const newValue = !playerVisiblity.every((x) => x.visible === true);
     const results = playerVisiblity.map((item) => ({
       ...item,
       visible: newValue,
@@ -247,10 +246,7 @@ export default function Year(props: ComponentProps): ReactElement {
     <div className="flex flex-col min-h-screen">
       <Head>
         <title>{props.year} Tournament</title>
-        <meta
-          name="description"
-          content={`Bucks Poker Tournament results for ${props.year}`}
-        />
+        <meta name="description" content={`Bucks Poker Tournament results for ${props.year}`} />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
@@ -292,9 +288,7 @@ export default function Year(props: ComponentProps): ReactElement {
               backgroundColor: GetColourForName(item.name, props.names),
               borderColor: GetColourForName(item.name, props.names),
               pointRadius: 6,
-              hidden:
-                playerVisiblity.find((x) => x.name === item.name).visible ===
-                false,
+              hidden: playerVisiblity.find((x) => x.name === item.name).visible === false,
             })),
           }}
         />
@@ -303,9 +297,7 @@ export default function Year(props: ComponentProps): ReactElement {
           names={props.names}
           data={props.tableData.map((item) => ({
             ...item,
-            isChecked:
-              playerVisiblity.find((x) => x.name === item.Person).visible ===
-              true,
+            isChecked: playerVisiblity.find((x) => x.name === item.Person).visible === true,
           }))}
           onToggleAll={() => toggleAll(!isAllVisible)}
           onRowClick={(name: string) => toggleShow(name)}
@@ -313,22 +305,11 @@ export default function Year(props: ComponentProps): ReactElement {
         />
 
         <p className="pt-1 pb-6 px-1">
-          Showing data from{" "}
-          {moment(props.earliestDate.substr(0, 10)).format("MMMM YYYY")} &rarr;{" "}
-          {moment(props.latestDate.substr(0, 10)).format("MMMM YYYY")}{" "}
-          inclusive.
+          Showing data from {moment(props.earliestDate.substr(0, 10)).format("MMMM YYYY")} &rarr; {moment(props.latestDate.substr(0, 10)).format("MMMM YYYY")} inclusive.
         </p>
-        {currentYear === props.year && (
-          <p className="pt-1 pb-6 px-1">
-            This is the current year so the values here may change.
-          </p>
-        )}
+        {currentYear === props.year && <p className="pt-1 pb-6 px-1">This is the current year so the values here may change.</p>}
         <p className="pt-1 pb-6 px-1">
-          This website was last updated{" "}
-          <span title={moment(props.buildTimeDate).format("LLLL")}>
-            {moment(props.buildTimeDate).fromNow()}
-          </span>
-          .
+          This website was last updated <span title={moment(props.buildTimeDate).format("LLLL")}>{moment(props.buildTimeDate).fromNow()}</span>.
         </p>
       </main>
 

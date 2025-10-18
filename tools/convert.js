@@ -7,7 +7,7 @@ const runAsync = async () => {
   const pattern = path.join(__dirname, "../app/data/**.xlsx");
   const files = await glob(pattern);
   for (const file of files) {
-    console.debug(file);
+    file;
     const workBook = xlsx.readFile(file);
     const outfile = file.replace(/.xlsx/, ".csv");
     if (fs.existsSync(file)) await fs.unlink(file);

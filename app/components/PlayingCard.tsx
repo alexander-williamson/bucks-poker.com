@@ -5,7 +5,6 @@ export function PlayingCard(data) {
   const getCardSuit = (original) => original[0];
   const getCardDigits = (original) => `${original}`.substring(1);
   const getColorStyleForSuit = (original) => {
-    // console.debug({ original, match: original.match(/♣/) });
     if (original.match(/♠/g)) {
       return "text-black-500";
     }
