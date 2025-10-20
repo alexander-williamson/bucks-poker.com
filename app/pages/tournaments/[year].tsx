@@ -1,6 +1,7 @@
 import "chart.js/auto";
 import moment from "moment";
 import Head from "next/head";
+import path from "path";
 import { ReactElement, useState } from "react";
 import { Chart } from "react-chartjs-2";
 import { Badge } from "../../components/Badges";
@@ -9,10 +10,9 @@ import Footer from "../../components/Footer";
 import TournamentResultsTable from "../../components/TournamentResultsTable";
 import { Year as YearModel } from "../../models/Year";
 import { GetYearFiguresDataAsync } from "../../repositories/FileRepository";
+import { GetYears, PokerMonthlyPositionsRepository } from "../../repositories/PokerMonthlyPositions";
 import { GetColourForName } from "../../services/ColourHelpers";
 import { MonthNames } from "../../services/DateHelpers";
-import path from "path";
-import { GetYears, PokerMonthlyPosition, PokerMonthlyPositionsRepository } from "../../repositories/PokerMonthlyPositions";
 
 const monthlyPositionsRepository = new PokerMonthlyPositionsRepository({
   dir: path.join(process.cwd(), "data"),
@@ -241,12 +241,13 @@ export default function Year(props: ComponentProps): ReactElement {
     setIsAllVisible(newValue);
     setPlayerVisibility(results);
   };
-
+  const title = `${props.year} Tournament`;
+  const description = `Bucks Poker Tournament results for ${String(props.year)}`;
   return (
     <div className="flex flex-col min-h-screen">
       <Head>
-        <title>{props.year} Tournament</title>
-        <meta name="description" content={`Bucks Poker Tournament results for ${props.year}`} />
+        <title>{title}</title>
+        <meta name="description" content={description} />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
@@ -293,7 +294,7 @@ export default function Year(props: ComponentProps): ReactElement {
           }}
         />
 
-        <TournamentResultsTable
+        {/* <TournamentResultsTable
           names={props.names}
           data={props.tableData.map((item) => ({
             ...item,
@@ -302,14 +303,14 @@ export default function Year(props: ComponentProps): ReactElement {
           onToggleAll={() => toggleAll(!isAllVisible)}
           onRowClick={(name: string) => toggleShow(name)}
           isAllChecked={isAllVisible}
-        />
+        /> */}
 
         <p className="pt-1 pb-6 px-1">
           Showing data from {moment(props.earliestDate.substr(0, 10)).format("MMMM YYYY")} &rarr; {moment(props.latestDate.substr(0, 10)).format("MMMM YYYY")} inclusive.
         </p>
         {currentYear === props.year && <p className="pt-1 pb-6 px-1">This is the current year so the values here may change.</p>}
         <p className="pt-1 pb-6 px-1">
-          This website was last updated <span title={moment(props.buildTimeDate).format("LLLL")}>{moment(props.buildTimeDate).fromNow()}</span>.
+          This website was generated <span title={moment(props.buildTimeDate).format("LLLL")}>{moment(props.buildTimeDate).fromNow()}</span>.
         </p>
       </main>
 
