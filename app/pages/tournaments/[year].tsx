@@ -230,8 +230,12 @@ export default function Year(props: ComponentProps): ReactElement {
             ...item,
             isChecked: playerVisiblity.find((x) => x.name === item.Person).visible === true,
           }))}
-          onToggleAll={() => toggleAll(!isAllVisible)}
-          onRowClick={(name: string) => toggleShow(name)}
+          onToggleAll={() => {
+            // toggleAll(!isAllVisible);
+          }}
+          onRowClick={(name: string) => {
+            // toggleShow(name);
+          }}
           isAllChecked={isAllVisible}
         />
 
