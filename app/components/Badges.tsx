@@ -1,9 +1,6 @@
 export function Badge({ title, className, children }) {
   return (
-    <span
-      title={title}
-      className={[className, "p-1 m-1 rounded-lg text-xs"].join(" ")}
-    >
+    <span title={title} className={[className, "p-1 m-1 rounded-lg text-xs"].join(" ")}>
       {children}
     </span>
   );
@@ -33,18 +30,10 @@ export function BronzeBadge({ title, children }) {
   );
 }
 
-export function ColourBadge(props: {
-  hex: string;
-  title: string;
-  isChecked: boolean;
-}) {
+export function ColourBadge(props: { hex: string; title: string; isChecked: boolean }) {
   return (
     <Badge className="text-black" title={props.title}>
-      <input
-        type="checkbox"
-        checked={props.isChecked}
-        style={{ accentColor: props.hex }}
-      />
+      <input type="checkbox" defaultChecked={props.isChecked} style={{ accentColor: props.hex }} />
     </Badge>
   );
 }

@@ -10,130 +10,30 @@ import Footer from "../../components/Footer";
 import TournamentResultsTable from "../../components/TournamentResultsTable";
 import { Year as YearModel } from "../../models/Year";
 import { GetYearFiguresDataAsync } from "../../repositories/FileRepository";
-import { GetYears, PokerMonthlyPositionsRepository } from "../../repositories/PokerMonthlyPositions";
+import { GetYears, PokerMonthlyPosition, MonthlyPositionsRepository } from "../../repositories/MonthlyPositionsRepository";
 import { GetColourForName } from "../../services/ColourHelpers";
-import { MonthNames } from "../../services/DateHelpers";
+import { ChartData, TournamentChartService } from "../../services/TournamentChartService";
+import fs from "fs-extra";
 
-const monthlyPositionsRepository = new PokerMonthlyPositionsRepository({
+const monthlyPositionsRepository = new MonthlyPositionsRepository({
   dir: path.join(process.cwd(), "data"),
 });
 
-const getTableData = async (year: number): Promise<YearModel[]> => {
-  const yearData = await GetYearFiguresDataAsync();
-  const data = yearData
-    .filter((x) => `${x.Yr}` === `${year}`)
-    .sort((a, b) => {
-      if (parseInt(a.SRank) < parseInt(b.SRank)) {
-        return -1;
-      }
-      if (parseInt(a.SRank) > parseInt(b.SRank)) {
-        return 1;
-      }
-      return 0;
-    });
-  return data;
-};
+const tournamentChartService = new TournamentChartService();
 
-async function getMonthsForYear(year: number): Promise<number[]> {
+export async function getStaticPaths(): Promise<StaticPathsResult> {
+  const dir = path.join(process.cwd(), "data");
+  const monthlyPositionsRepository = new MonthlyPositionsRepository({ dir });
   const monthlyPositions = await monthlyPositionsRepository.getData();
-  const monthlyPositionsFilteredByYear = monthlyPositions.filter((x) => x.Year === year); // monthly positions for this year
-  const firstPerson = monthlyPositionsFilteredByYear[0]; // work with the first person
-  const monthKeys: string[] = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"];
-  const matchingKeys = Object.keys(firstPerson).filter((key) => monthKeys.find((mk) => mk === key)); // get the keys we care about
-  return matchingKeys.map((key) => parseInt(key));
-}
-
-const getEarliestDate = async (year: number) => {
-  const monthsForYear = await getMonthsForYear(year);
-  const lowestMonthNumber = monthsForYear[0];
-  const month = lowestMonthNumber - 1;
-  const date = new Date(Date.UTC(year, month, 1));
-  return date.toISOString().substr(0, 10);
-};
-
-const getLatestDate = async (year: number) => {
-  const monthsForYear = await getMonthsForYear(year);
-  const highestNumber = monthsForYear.reverse()[0];
-  return new Date(Date.UTC(year, highestNumber - 1, 1)).toISOString().substring(0, 10);
-};
-
-const pad = (n: string | number, width: number, z?: string): string => {
-  z = z || "0";
-  n = n + "";
-  return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n;
-};
-
-const months = [...Array(12)].map((_, i) => ({
-  id: parseInt(i as unknown as any),
-  name: MonthNames[i],
-}));
-
-function parseOrNull(original: any): number | null {
-  return original === "" ? null : parseInt(original);
-}
-
-type ChartData = {
-  data: {
-    name: string;
-    data: {
-      id: number;
-      name: string;
-      chips: number;
-      chipsCumulative: number;
-      points: number;
-      pointsCumulative: number;
-      monthPositions: {
-        name: string;
-        chipsCumulative: number;
-        pointsCumulative: number;
-      }[];
-      position: number;
-    }[];
-  }[];
-};
-
-async function getChartData(year: number): Promise<ChartData> {
-  const rows = await monthlyPositionsRepository.getData();
-  const monthRows = rows.filter((x) => x.Year === year);
-  const names = monthRows.map((row) => row.Person);
-  const data = names
-    .filter((_, i) => _ === _)
-    .map((name) => {
-      const row = monthRows.find((x) => x.Person === name);
-      const data = months.map((month) => {
-        const allPositionsForThisMonth = monthRows
-          .map((x) => ({
-            name: x.Person,
-            chipsCumulative: parseOrNull(x[`${pad(month.id + 1, 2)}CC`]),
-            pointsCumulative: parseOrNull(x[`${pad(month.id + 1, 2)}PC`]),
-          }))
-          .filter((x) => x.chipsCumulative > 0 || x.pointsCumulative > 0)
-          .sort((a, b) => (a.chipsCumulative > b.chipsCumulative ? -1 : 1))
-          .sort((a, b) => (a.pointsCumulative > b.pointsCumulative ? -1 : 1));
-
-        const position = allPositionsForThisMonth.indexOf(allPositionsForThisMonth.find((x) => x.name === name));
-
-        const result = {
-          id: month.id,
-          name: month.name,
-          chips: parseOrNull(row[`${pad(month.id + 1, 2)}P`]),
-          chipsCumulative: parseOrNull(row[`${pad(month.id + 1, 2)}CC`]),
-          points: parseOrNull(row[`${pad(month.id + 1, 2)}P`]),
-          pointsCumulative: parseOrNull(row[`${pad(month.id + 1, 2)}PC`]),
-          monthPositions: allPositionsForThisMonth,
-          position: position > -1 ? position + 1 : null,
-        };
-
-        return result;
-      });
-
-      return {
-        name,
-        data,
-      };
-    });
-
-  return { data };
+  const years = GetYears(monthlyPositions);
+  return {
+    paths: years.map((year) => ({
+      params: {
+        year: year.toString(),
+      },
+    })),
+    fallback: false,
+  };
 }
 
 type StaticPathsResult = {
@@ -141,19 +41,27 @@ type StaticPathsResult = {
   fallback: boolean;
 };
 
-export async function getStaticPaths(): Promise<StaticPathsResult> {
-  const dir = path.join(process.cwd(), "data");
-  const monthlyPositionsRepository = new PokerMonthlyPositionsRepository({ dir });
+export async function getStaticProps({ params }): Promise<StaticPropsResult> {
+  const year = parseInt(params.year);
+  const tableData = await getTableData(year);
+  const names = tableData.map((x) => x.Person);
   const monthlyPositions = await monthlyPositionsRepository.getData();
-  const years = GetYears(monthlyPositions);
-  return {
-    paths: years.map((year) => ({
-      params: {
-        year: `${year}`,
-      },
-    })),
-    fallback: false,
+  await fs.writeFile("output.json", JSON.stringify(monthlyPositions));
+  const chartData = tournamentChartService.GetChartData(monthlyPositions, year);
+  const earliestDate = await getEarliestDate(year);
+  const latestDate = await getLatestDate(year);
+  const result = {
+    props: {
+      buildTimeDate: process.env.BUILD_TIME || new Date().toISOString(),
+      chartData,
+      earliestDate,
+      latestDate,
+      names,
+      tableData,
+      year,
+    },
   };
+  return result;
 }
 
 type StaticPropsResult = {
@@ -170,23 +78,45 @@ type ComponentProps = {
   year: number;
 };
 
-export async function getStaticProps({ params }): Promise<StaticPropsResult> {
-  const year = parseInt(params.year);
-  const tableData = await getTableData(year);
-  const names = tableData.map((x) => x.Person);
-  const result = {
-    props: {
-      buildTimeDate: process.env.BUILD_TIME || new Date().toISOString(),
-      chartData: await getChartData(year),
-      earliestDate: await getEarliestDate(year),
-      latestDate: await getLatestDate(year),
-      names,
-      tableData,
-      year,
-    },
-  };
-  return result;
+async function getTableData(year: number): Promise<YearModel[]> {
+  const yearData = await GetYearFiguresDataAsync();
+  const data = yearData
+    .filter((x) => `${x.Yr}` === `${year}`)
+    .sort((a, b) => {
+      if (parseInt(a.SRank) < parseInt(b.SRank)) {
+        return -1;
+      }
+      if (parseInt(a.SRank) > parseInt(b.SRank)) {
+        return 1;
+      }
+      return 0;
+    });
+  return data;
 }
+
+function getMonthsForYear(monthlyPositions: PokerMonthlyPosition[], year: number): number[] {
+  const monthlyPositionsFilteredByYear = monthlyPositions.filter((x) => x.Year === year); // monthly positions for this year
+  const firstPerson = monthlyPositionsFilteredByYear[0]; // work with the first person
+  const monthKeys: string[] = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"];
+  const matchingKeys = Object.keys(firstPerson).filter((key) => monthKeys.find((mk) => mk === key)); // get the keys we care about
+  return matchingKeys.map((key) => parseInt(key));
+}
+
+async function getEarliestDate(year: number) {
+  const positions = await monthlyPositionsRepository.getData();
+  const monthsForYear = getMonthsForYear(positions, year);
+  const lowestMonthNumber = monthsForYear[0];
+  const month = lowestMonthNumber - 1;
+  const date = new Date(Date.UTC(year, month, 1));
+  return date.toISOString().substr(0, 10);
+}
+
+const getLatestDate = async (year: number) => {
+  const positions = await monthlyPositionsRepository.getData();
+  const monthsForYear = getMonthsForYear(positions, year);
+  const highestNumber = monthsForYear.reverse()[0];
+  return new Date(Date.UTC(year, highestNumber - 1, 1)).toISOString().substring(0, 10);
+};
 
 export type YearProps = {
   year: string;
@@ -253,9 +183,9 @@ export default function Year(props: ComponentProps): ReactElement {
 
       <main className="main mb-10 container mx-auto flex-auto p-8">
         <Breadcrumbs parent="Tournaments" parentLink="/tournaments">
-          {props.year} Tournament
+          {title}
           {`${props.year}` === `${currentYear}` && (
-            <Badge className="bg-indigo-500 text-white" title="Current Year">
+            <Badge className="bg-indigo-500 text-white ml-2" title="Current Year">
               Current
             </Badge>
           )}
@@ -294,7 +224,7 @@ export default function Year(props: ComponentProps): ReactElement {
           }}
         />
 
-        {/* <TournamentResultsTable
+        <TournamentResultsTable
           names={props.names}
           data={props.tableData.map((item) => ({
             ...item,
@@ -303,7 +233,7 @@ export default function Year(props: ComponentProps): ReactElement {
           onToggleAll={() => toggleAll(!isAllVisible)}
           onRowClick={(name: string) => toggleShow(name)}
           isAllChecked={isAllVisible}
-        /> */}
+        />
 
         <p className="pt-1 pb-6 px-1">
           Showing data from {moment(props.earliestDate.substr(0, 10)).format("MMMM YYYY")} &rarr; {moment(props.latestDate.substr(0, 10)).format("MMMM YYYY")} inclusive.

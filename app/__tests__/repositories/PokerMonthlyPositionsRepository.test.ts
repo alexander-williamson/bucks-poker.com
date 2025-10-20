@@ -1,10 +1,10 @@
 import path from "path";
-import { GetYears, PokerMonthlyPositionsRepository } from "../../repositories/PokerMonthlyPositions";
+import { GetYears, MonthlyPositionsRepository } from "../../repositories/MonthlyPositionsRepository";
 
 const dir = path.join(process.cwd(), "app/__tests__/data");
 
 describe("PokerMonthlyPositionsRepository", () => {
-  const sut = new PokerMonthlyPositionsRepository({ dir });
+  const sut = new MonthlyPositionsRepository({ dir });
   describe("getData", () => {
     it("parses the columns", async () => {
       const result = await sut.getData();
