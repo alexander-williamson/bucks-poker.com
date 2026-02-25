@@ -8,7 +8,7 @@ import { FILENAME } from "../repositories/YearFiguresRepository";
 export async function getStaticProps() {
   const filePath = path.resolve(`data/${FILENAME}`);
   const yearFiguresData = await GetYearFiguresDataAsync(filePath);
-  const latestYear = Math.max(...yearFiguresData.map((x) => parseInt(x.Yr)));
+  const latestYear = Math.max(...yearFiguresData.map((x) => x.Yr));
   return {
     props: {
       latestYear,

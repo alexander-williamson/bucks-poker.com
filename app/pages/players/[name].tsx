@@ -26,7 +26,7 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({ params }) {
   const yearData = await GetYearFiguresDataAsync(filePath);
-  const arrYearPosition = yearData.filter((x) => x.Person === params.name).map((x) => ({ year: parseInt(x.Yr), position: parseInt(x.SRank) }));
+  const arrYearPosition = yearData.filter((x) => x.Person === params.name).map((x) => ({ year: x.Yr, position: x.SRank }));
 
   const tournamentWinCount = arrYearPosition.filter((x) => x.position === 1).length;
 
