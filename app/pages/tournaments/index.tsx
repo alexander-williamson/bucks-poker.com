@@ -2,11 +2,12 @@ import Head from "next/head";
 import Footer from "../../components/Footer";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import Link from "next/link";
-import { GetYearFiguresDataAsync } from "../../repositories/FileRepository";
 import { Badge } from "../../components/Badges";
+import { FILENAME, GetYearFiguresDataAsync } from "../../repositories/YearFiguresRepository";
+import path from "path";
 
 async function getYears(): Promise<string[]> {
-  const stats = await GetYearFiguresDataAsync();
+  const stats = await GetYearFiguresDataAsync(path.resolve(`data/${FILENAME}`));
   const years = [...new Set(stats.map((x) => x.Yr))];
   return years.reverse();
 }
@@ -33,10 +34,7 @@ export default function Tournaments(props) {
           {props.years.map((year) => {
             return (
               <li key={year}>
-                <Link
-                  href={`/tournaments/${encodeURIComponent(year)}`}
-                  className="block p-3 hover:bg-gray-100 rounded-lg"
-                >
+                <Link href={`/tournaments/${encodeURIComponent(year)}`} className="block p-3 hover:bg-gray-100 rounded-lg">
                   {year} Tournament{" "}
                   {year === `${currentYear}` ? (
                     <Badge className="bg-indigo-500 text-white" title="Current">

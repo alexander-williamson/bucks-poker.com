@@ -4,12 +4,15 @@ import { Chart } from "react-chartjs-2";
 import Breadcrumbs from "../../components/Breadcrumbs";
 import Footer from "../../components/Footer";
 import { StatsCard } from "../../components/StatsCards";
-import { GetYearFiguresDataAsync } from "../../repositories/FileRepository";
 import { GetColourForName } from "../../services/ColourHelpers";
 import { OrderSuffix } from "../../services/DateHelpers";
+import { FILENAME, GetYearFiguresDataAsync } from "../../repositories/YearFiguresRepository";
+import path from "path";
+
+const filePath = path.resolve(`data/${FILENAME}`);
 
 export async function getStaticPaths() {
-  const yearData = await GetYearFiguresDataAsync();
+  const yearData = await GetYearFiguresDataAsync(filePath);
   const names = [...new Set(yearData.map((x) => x.Person))].sort();
   return {
     paths: names.map((name) => ({
@@ -22,14 +25,10 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const yearData = await GetYearFiguresDataAsync();
-  const arrYearPosition = yearData
-    .filter((x) => x.Person === params.name)
-    .map((x) => ({ year: parseInt(x.Yr), position: parseInt(x.SRank) }));
+  const yearData = await GetYearFiguresDataAsync(filePath);
+  const arrYearPosition = yearData.filter((x) => x.Person === params.name).map((x) => ({ year: parseInt(x.Yr), position: parseInt(x.SRank) }));
 
-  const tournamentWinCount = arrYearPosition.filter(
-    (x) => x.position === 1
-  ).length;
+  const tournamentWinCount = arrYearPosition.filter((x) => x.position === 1).length;
 
   const winningStreakData = arrYearPosition
     .map((x) => (x.position === 1 ? 1 : 0))
@@ -39,7 +38,7 @@ export async function getStaticProps({ params }) {
         else res.push(0);
         return res;
       },
-      [0]
+      [0],
     );
   const winningStreak = Math.max(...winningStreakData);
 
@@ -56,7 +55,7 @@ export async function getStaticProps({ params }) {
         else res.push(0);
         return res;
       },
-      [0]
+      [0],
     );
   const yearsPlayedStreak = Math.max(...yearsPlayedData) + 1;
 
@@ -77,10 +76,7 @@ export default function Name(props) {
     <div className="flex flex-col min-h-screen">
       <Head>
         <title>{title}</title>
-        <meta
-          name="description"
-          content={`Bucks Poker Tournament results for ${props.year}`}
-        />
+        <meta name="description" content={`Bucks Poker Tournament results for ${props.year}`} />
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
@@ -124,37 +120,11 @@ export default function Name(props) {
           }}
         />
         <div className="flex flex-row flex-wrap w-full items-center content-center">
-          <StatsCard
-            title={
-              props.years.length === 1
-                ? "tournament entered"
-                : "tournaments entered"
-            }
-            value={props.years.length}
-            className={undefined}
-          />
-          <StatsCard
-            title={
-              props.years.length === 1 ? "tournament won" : "tournaments won"
-            }
-            value={props.tournamentWinCount}
-            className={undefined}
-          />
-          <StatsCard
-            title="best tournament result"
-            value={OrderSuffix(Math.min(...props.years.map((x) => x.position)))}
-            className={undefined}
-          />
-          <StatsCard
-            title="best winning streak"
-            value={props.winningStreak}
-            className={undefined}
-          />
-          <StatsCard
-            title="years played streak"
-            value={props.yearsPlayedStreak}
-            className={undefined}
-          />
+          <StatsCard title={props.years.length === 1 ? "tournament entered" : "tournaments entered"} value={props.years.length} className={undefined} />
+          <StatsCard title={props.years.length === 1 ? "tournament won" : "tournaments won"} value={props.tournamentWinCount} className={undefined} />
+          <StatsCard title="best tournament result" value={OrderSuffix(Math.min(...props.years.map((x) => x.position)))} className={undefined} />
+          <StatsCard title="best winning streak" value={props.winningStreak} className={undefined} />
+          <StatsCard title="years played streak" value={props.yearsPlayedStreak} className={undefined} />
         </div>
       </main>
 

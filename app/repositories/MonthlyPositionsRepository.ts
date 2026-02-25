@@ -1,78 +1,71 @@
 import joi from "joi";
-import path from "path";
 import csv from "csvtojson";
 import { EnsureFilePath, GetCsvFromXlsx } from "./RepositoryHelpers";
 
-export class MonthlyPositionsRepository {
-  private monthlyPositionsPath: string;
+export const FILENAME = "Poker - Monthly Positions.xlsx";
 
-  constructor(private readonly options: Options) {
-    this.monthlyPositionsPath = path.join(options.dir, "Poker - Monthly Positions.xlsx");
+export async function getMonthlyPositions(filePath: string): Promise<PokerMonthlyPosition[]> {
+  const fullPath = await EnsureFilePath(filePath);
+  const csvData = await GetCsvFromXlsx(fullPath);
+  const json = await csv().fromString(csvData);
+  const { error, value } = joi
+    .array<PokerMonthlyPosition[]>()
+    .items(
+      joi
+        .object({
+          Year: joi.number().required(),
+          Person: joi.string().required(),
+          PersStatus: joi.string().required(),
+          pers_personid: joi.number().integer().required(),
+          "01": joi.number().integer().optional().empty(""),
+          "02": joi.number().integer().optional().empty(""),
+          "03": joi.number().integer().optional().empty(""),
+          "04": joi.number().integer().optional().empty(""),
+          "05": joi.number().integer().optional().empty(""),
+          "06": joi.number().integer().optional().empty(""),
+          "07": joi.number().integer().optional().empty(""),
+          "08": joi.number().integer().optional().empty(""),
+          "09": joi.number().integer().optional().empty(""),
+          "10": joi.number().integer().optional().empty(""),
+          "11": joi.number().integer().optional().empty(""),
+          "12": joi.number().integer().optional().empty(""),
+          "01CC": joi.number().integer().optional().empty(""),
+          "02CC": joi.number().integer().optional().empty(""),
+          "03CC": joi.number().integer().optional().empty(""),
+          "04CC": joi.number().integer().optional().empty(""),
+          "05CC": joi.number().integer().optional().empty(""),
+          "06CC": joi.number().integer().optional().empty(""),
+          "07CC": joi.number().integer().optional().empty(""),
+          "08CC": joi.number().integer().optional().empty(""),
+          "09CC": joi.number().integer().optional().empty(""),
+          "10CC": joi.number().integer().optional().empty(""),
+          "11CC": joi.number().integer().optional().empty(""),
+          "12CC": joi.number().integer().optional().empty(""),
+          "01PC": joi.number().integer().optional().empty(""),
+          "02PC": joi.number().integer().optional().empty(""),
+          "03PC": joi.number().integer().optional().empty(""),
+          "04PC": joi.number().integer().optional().empty(""),
+          "05PC": joi.number().integer().optional().empty(""),
+          "06PC": joi.number().integer().optional().empty(""),
+          "07PC": joi.number().integer().optional().empty(""),
+          "08PC": joi.number().integer().optional().empty(""),
+          "09PC": joi.number().integer().optional().empty(""),
+          "10PC": joi.number().integer().optional().empty(""),
+          "11PC": joi.number().integer().optional().empty(""),
+          "12PC": joi.number().integer().optional().empty(""),
+        })
+        .preferences({ stripUnknown: true })
+        .required(),
+    )
+    .required()
+    .validate(json);
+
+  if (error) {
+    console.error(json[0]);
+    throw error;
   }
 
-  async getData(): Promise<PokerMonthlyPosition[]> {
-    const fullPath = await EnsureFilePath(this.monthlyPositionsPath);
-    const csvData = await GetCsvFromXlsx(fullPath);
-    const json = await csv().fromString(csvData);
-    const { error, value } = joi
-      .array<PokerMonthlyPosition[]>()
-      .items(
-        joi
-          .object({
-            Year: joi.number().required(),
-            Person: joi.string().required(),
-            PersStatus: joi.string().required(),
-            pers_personid: joi.number().integer().required(),
-            "01": joi.number().integer().optional().empty(""),
-            "02": joi.number().integer().optional().empty(""),
-            "03": joi.number().integer().optional().empty(""),
-            "04": joi.number().integer().optional().empty(""),
-            "05": joi.number().integer().optional().empty(""),
-            "06": joi.number().integer().optional().empty(""),
-            "07": joi.number().integer().optional().empty(""),
-            "08": joi.number().integer().optional().empty(""),
-            "09": joi.number().integer().optional().empty(""),
-            "10": joi.number().integer().optional().empty(""),
-            "11": joi.number().integer().optional().empty(""),
-            "12": joi.number().integer().optional().empty(""),
-            "01CC": joi.number().integer().optional().empty(""),
-            "02CC": joi.number().integer().optional().empty(""),
-            "03CC": joi.number().integer().optional().empty(""),
-            "04CC": joi.number().integer().optional().empty(""),
-            "05CC": joi.number().integer().optional().empty(""),
-            "06CC": joi.number().integer().optional().empty(""),
-            "07CC": joi.number().integer().optional().empty(""),
-            "08CC": joi.number().integer().optional().empty(""),
-            "09CC": joi.number().integer().optional().empty(""),
-            "10CC": joi.number().integer().optional().empty(""),
-            "11CC": joi.number().integer().optional().empty(""),
-            "12CC": joi.number().integer().optional().empty(""),
-            "01PC": joi.number().integer().optional().empty(""),
-            "02PC": joi.number().integer().optional().empty(""),
-            "03PC": joi.number().integer().optional().empty(""),
-            "04PC": joi.number().integer().optional().empty(""),
-            "05PC": joi.number().integer().optional().empty(""),
-            "06PC": joi.number().integer().optional().empty(""),
-            "07PC": joi.number().integer().optional().empty(""),
-            "08PC": joi.number().integer().optional().empty(""),
-            "09PC": joi.number().integer().optional().empty(""),
-            "10PC": joi.number().integer().optional().empty(""),
-            "11PC": joi.number().integer().optional().empty(""),
-            "12PC": joi.number().integer().optional().empty(""),
-          })
-          .preferences({ stripUnknown: true })
-          .required(),
-      )
-      .required()
-      .validate(json);
-
-    if (error) {
-      console.error(json[0]);
-      throw error;
-    }
-
-    return value;
-  }
+  return value;
 }
 
 export function GetYears(data: PokerMonthlyPosition[]): number[] {
@@ -120,8 +113,4 @@ export type PokerMonthlyPosition = {
   "10PC"?: number; // points cumulative (month number)
   "11PC"?: number; // points cumulative (month number)
   "12PC"?: number; // points cumulative (month number)
-};
-
-type Options = {
-  dir: string;
 };

@@ -9,22 +9,21 @@ import Breadcrumbs from "../../components/Breadcrumbs";
 import Footer from "../../components/Footer";
 import TournamentResultsTable from "../../components/TournamentResultsTable";
 import { Year as YearModel } from "../../models/Year";
-import { GetYearFiguresDataAsync } from "../../repositories/FileRepository";
-import { GetYears, PokerMonthlyPosition, MonthlyPositionsRepository } from "../../repositories/MonthlyPositionsRepository";
+import { GetYearFiguresDataAsync, FILENAME as YF } from "../../repositories/YearFiguresRepository";
+import { GetYears, PokerMonthlyPosition, FILENAME as MF, getMonthlyPositions } from "../../repositories/MonthlyPositionsRepository";
 import { GetColourForName } from "../../services/ColourHelpers";
 import { ChartData, TournamentChartService } from "../../services/TournamentChartService";
 import fs from "fs-extra";
 
-const monthlyPositionsRepository = new MonthlyPositionsRepository({
-  dir: path.join(process.cwd(), "data"),
-});
-
 const tournamentChartService = new TournamentChartService();
 
+async function GetMonthlyPositions(): Promise<PokerMonthlyPosition[]> {
+  const monthlyPositions = await getMonthlyPositions(path.resolve(`data/${MF}`));
+  return monthlyPositions;
+}
+
 export async function getStaticPaths(): Promise<StaticPathsResult> {
-  const dir = path.join(process.cwd(), "data");
-  const monthlyPositionsRepository = new MonthlyPositionsRepository({ dir });
-  const monthlyPositions = await monthlyPositionsRepository.getData();
+  const monthlyPositions = await GetMonthlyPositions();
   const years = GetYears(monthlyPositions);
   return {
     paths: years.map((year) => ({
@@ -45,7 +44,7 @@ export async function getStaticProps({ params }): Promise<StaticPropsResult> {
   const year = parseInt(params.year);
   const tableData = await getTableData(year);
   const names = tableData.map((x) => x.Person);
-  const monthlyPositions = await monthlyPositionsRepository.getData();
+  const monthlyPositions = await getMonthlyPositions(path.resolve(`data/${MF}`));
   await fs.writeFile("output.json", JSON.stringify(monthlyPositions));
   const chartData = tournamentChartService.GetChartData(monthlyPositions, year);
   const earliestDate = await getEarliestDate(year);
@@ -79,7 +78,7 @@ type ComponentProps = {
 };
 
 async function getTableData(year: number): Promise<YearModel[]> {
-  const yearData = await GetYearFiguresDataAsync();
+  const yearData = await GetYearFiguresDataAsync(path.resolve("data/" + YF));
   const data = yearData
     .filter((x) => `${x.Yr}` === `${year}`)
     .sort((a, b) => {
@@ -103,7 +102,7 @@ function getMonthsForYear(monthlyPositions: PokerMonthlyPosition[], year: number
 }
 
 async function getEarliestDate(year: number) {
-  const positions = await monthlyPositionsRepository.getData();
+  const positions = await GetMonthlyPositions();
   const monthsForYear = getMonthsForYear(positions, year);
   const lowestMonthNumber = monthsForYear[0];
   const month = lowestMonthNumber - 1;
@@ -112,7 +111,7 @@ async function getEarliestDate(year: number) {
 }
 
 const getLatestDate = async (year: number) => {
-  const positions = await monthlyPositionsRepository.getData();
+  const positions = await GetMonthlyPositions();
   const monthsForYear = getMonthsForYear(positions, year);
   const highestNumber = monthsForYear.reverse()[0];
   return new Date(Date.UTC(year, highestNumber - 1, 1)).toISOString().substring(0, 10);

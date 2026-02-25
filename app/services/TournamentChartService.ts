@@ -39,7 +39,7 @@ export class TournamentChartService {
             position: position > -1 ? position + 1 : null,
           };
 
-          console.debug({ result });
+          // console.debug({ result });
 
           return result;
         });

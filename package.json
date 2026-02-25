@@ -22,6 +22,6 @@
   "homepage": "https://bitbucket.org/alexander-williamson/bucks-poker.com#readme",
   "devDependencies": {
     "fs-extra": "^10.1.0",
-    "wrangler": "^3.72.0"
+    "wrangler": "^4.68.1"
   }
 }

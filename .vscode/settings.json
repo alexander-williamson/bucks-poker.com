@@ -3,5 +3,6 @@
   "editor.formatOnPaste": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.tabSize": 2,
-  "prettier.printWidth": 180
+  "prettier.printWidth": 180,
+  "workbench.colorTheme": "Kimbie Dark"
 }
