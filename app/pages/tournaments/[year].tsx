@@ -82,10 +82,10 @@ async function getTableData(year: number): Promise<YearModel[]> {
   const data = yearData
     .filter((x) => `${x.Yr}` === `${year}`)
     .sort((a, b) => {
-      if (parseInt(a.SRank) < parseInt(b.SRank)) {
+      if (a.SRank < b.SRank) {
         return -1;
       }
-      if (parseInt(a.SRank) > parseInt(b.SRank)) {
+      if (a.SRank > b.SRank) {
         return 1;
       }
       return 0;

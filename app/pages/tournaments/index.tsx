@@ -6,13 +6,13 @@ import { Badge } from "../../components/Badges";
 import { FILENAME, GetYearFiguresDataAsync } from "../../repositories/YearFiguresRepository";
 import path from "path";
 
-async function getYears(): Promise<string[]> {
+async function getYears(): Promise<number[]> {
   const stats = await GetYearFiguresDataAsync(path.resolve(`data/${FILENAME}`));
   const years = [...new Set(stats.map((x) => x.Yr))];
   return years.reverse();
 }
 
-type GetStaticProps = { props: { years: string[] } };
+type GetStaticProps = { props: { years: number[] } };
 export async function getStaticProps(): Promise<GetStaticProps> {
   const years = await getYears();
   return { props: { years } };
