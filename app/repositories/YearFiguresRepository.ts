@@ -15,17 +15,17 @@ export async function GetYearFiguresDataAsync(filePath: string): Promise<Year[]>
     .items(
       joi
         .object<Year>({
-          Yr: joi.string().required(),
-          Person: joi.string().required(),
-          SRank: joi.string().required(),
-          Points: joi.number().empty("").default(0).optional(), // sometimes can be empty (bug)
-          Bonus: joi.string().required(),
-          PointsBonus: joi.string().required(),
-          Chips: joi.string().required(),
-          Winnings: joi.string().required(),
-          Takehome: joi.string().required(),
-          PersStatus: joi.string().required(),
+          Bonus: joi.number().required(),
+          Chips: joi.number().required(),
           pers_personid: joi.string().required(),
+          Person: joi.string().required(),
+          PersStatus: joi.string().required(),
+          Points: joi.number().empty("").default(0).optional(), // sometimes can be empty (bug)
+          PointsBonus: joi.number().required(),
+          SRank: joi.number().required(),
+          Takehome: joi.number().required(),
+          Winnings: joi.number().required(),
+          Yr: joi.number().required(),
         })
         .required(),
     )

@@ -5,10 +5,10 @@ export class OverallPositionService {
 
   public getData(): GetDataResult {
     const allNames = [...new Set(this.yearData.map((x) => x.Person))].sort();
-    const latestYear = Math.max(...this.yearData.map((x) => parseInt(x.Yr)));
+    const latestYear = Math.max(...this.yearData.map((x) => x.Yr));
 
     const activePlayers = this.yearData
-      .filter((x) => x.Yr === `${latestYear}`)
+      .filter((x) => x.Yr === latestYear)
       .map((x) => x.Person)
       .map((name) => ({
         name,
@@ -70,21 +70,16 @@ export class OverallPositionService {
   }
 
   private getLastYear(playerName: string): number {
-    return Math.max(
-      ...this.yearData
-        .filter((item) => item.Person === playerName)
-        .map((item) => item.Yr)
-        .map((item) => parseInt(item)),
-    );
+    return Math.max(...this.yearData.filter((item) => item.Person === playerName).map((item) => item.Yr));
   }
 
   private getTotalChips(playerName: string): number {
-    const chipTotalsEachYear = this.yearData.filter((x) => x.Person === playerName).map((x) => parseInt(x.Chips));
+    const chipTotalsEachYear = this.yearData.filter((x) => x.Person === playerName).map((x) => x.Chips);
     return chipTotalsEachYear.reduce((a, b) => a + b, 0);
   }
 
   private getTotalPoints(playerName: string): number {
-    const pointsTotalEachYear = this.yearData.filter((item) => item.Person === playerName).map((x) => parseInt(x.Points));
+    const pointsTotalEachYear = this.yearData.filter((item) => item.Person === playerName).map((x) => x.Points);
     const result = pointsTotalEachYear.reduce((a, b) => a + b, 0);
     return result;
   }

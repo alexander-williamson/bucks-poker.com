@@ -1,13 +1,13 @@
 export type Year = {
-  Yr: string;
-  Person: string;
-  SRank: string;
-  Points: string;
-  Bonus: string;
-  PointsBonus: string;
-  Chips: string;
-  Winnings: string;
-  Takehome: string;
-  PersStatus: string;
+  Bonus: number;
+  Chips: number;
   pers_personid: string;
+  Person: string;
+  PersStatus: string;
+  Points: number;
+  PointsBonus: number;
+  SRank: number;
+  Takehome: number;
+  Winnings: number;
+  Yr: number;
 };
