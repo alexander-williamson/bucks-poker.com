@@ -52,14 +52,14 @@ export default function TournamentResultsTable(props: Props): ReactElement {
                 <a href={"/players/" + row.Person}>{row.Person}</a>
               </td>
               <td className="border-0 px-4 py-3 font-semibold">
-                {parseInt(row.SRank) > 3 && OrderSuffix(row.SRank)}
+                {row.SRank > 3 && OrderSuffix(row.SRank)}
                 {row.SRank === 1 && <GoldBadge title="1st Overall Points">1st</GoldBadge>}
                 {row.SRank === 2 && <SilverBadge title="2nd Overall Points">2nd</SilverBadge>}
                 {row.SRank === 3 && <BronzeBadge title="2nd Overall Points">3rd</BronzeBadge>}
               </td>
               <td className="border-0 px-4 py-3">
                 {Number(row.Points) + Number(row.Bonus)}
-                {row.Bonus !== "0" && (
+                {row.Bonus !== 0 && (
                   <>
                     <Badge className="bg-gray-400 text-white px-2" title="Bonus">
                       {row.Bonus}
