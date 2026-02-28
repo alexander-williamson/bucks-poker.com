@@ -1,28 +1,59 @@
 import Head from "next/head";
+import path from "path";
+import { ReactElement } from "react";
 import { BronzeBadge, GoldBadge, SilverBadge } from "../../components/Badges";
 import Breadcrumbs from "../../components/Breadcrumbs";
-import DataTable from "../../components/DataTable";
+import DataTable, { DataTableProps, HeaderDefinition } from "../../components/DataTable";
 import Footer from "../../components/Footer";
-import { GetYearFiguresDataAsync, FILENAME } from "../../repositories/YearFiguresRepository";
-import path from "path";
-import { Year } from "../../models/Year";
+import { FILENAME, GetYearFiguresDataAsync } from "../../repositories/YearFiguresRepository";
 import { OverallPositionService } from "../../services/OverallPositionService";
 
 export async function getStaticProps({ params }) {
   const yearData = await GetYearFiguresDataAsync(path.resolve(`data/${FILENAME}`));
   const service = new OverallPositionService(yearData);
-
   const { activePlayers, otherPlayers, overallRanking } = service.getData();
-  return {
-    props: {
-      activePlayers,
-      otherPlayers,
-      overallRanking,
-    },
-  };
+  return { props: { activePlayers, otherPlayers, overallRanking } };
 }
 
+type PlayerTableDataSchema = {
+  id: string;
+  name: string | ReactElement;
+  yearsPlayed: number;
+  totalLifetimePoints: number | string;
+  totalLifetimeChips: number | string;
+};
+
 export default function People(props) {
+  const headers: HeaderDefinition<PlayerTableDataSchema>[] = [
+    { key: "id", label: "", hidden: true },
+    { key: "name", label: "Name" },
+    { key: "yearsPlayed", label: "Years" },
+    { key: "totalLifetimePoints", label: "Total Lifetime Points" },
+    { key: "totalLifetimeChips", label: "Total Lifetime Chips" },
+  ];
+
+  const activePlayerTableData: DataTableProps<PlayerTableDataSchema> = {
+    headers,
+    rows: props.activePlayers.map((player) => ({
+      id: player.name,
+      playerName: <a href={player.name}>{player.name}</a>,
+      yearsPlayed: player.yearsPlayed,
+      totalLifetimePoints: player.totalPoints > 0 ? player.totalPoints : "(not recorded)",
+      totalLifetimeChips: player.totalChips > 0 ? player.totalChips : "(not recorded)",
+    })),
+  };
+
+  const overallRankingTableData: DataTableProps<PlayerTableDataSchema> = {
+    headers,
+    rows: props.overallRanking.map((player) => ({
+      id: player.name,
+      playerName: <a href={player.name}>{player.name}</a>,
+      yearsPlayed: player.yearsPlayed,
+      totalLifetimePoints: player.totalPoints > 0 ? player.totalPoints : "(not recorded)",
+      totalLifetimeChips: player.totalChips > 0 ? player.totalChips : "(not recorded)",
+    })),
+  };
+
   return (
     <div className="flex flex-col min-h-screen">
       <Head>
@@ -36,36 +67,11 @@ export default function People(props) {
 
         <h2 className="text-3xl font-bold font-sans pb-5">Active Players</h2>
         <p className="pb-5">Players that sat for at least one Game in the Current Tournament.</p>
-        <DataTable
-          headers={["Player Name", "Years Played", "Total Lifetime Points", "Total Lifetime Chips"]}
-          rows={props.activePlayers.map((player) => ({
-            id: player.name,
-            "Player Name": <a href={player.name}>{player.name}</a>,
-            "Years Played": player.yearsPlayed,
-            "Total Lifetime Points": player.totalPoints > 0 ? player.totalPoints : "(not recorded)",
-            "Total Lifetime Chips": player.totalChips > 0 ? player.totalChips : "(not recorded)",
-          }))}
-        />
+        <DataTable tableData={activePlayerTableData} />
 
         <h2 className="text-3xl font-bold font-sans pb-5">Overall Ranking</h2>
         <p className="pb-5">The best of the best. Calculated using most points from all tournaments,</p>
-        <DataTable
-          headers={["Player Name", "Years Played", "Total Lifetime Points", "Total Lifetime Chips"]}
-          rows={props.overallRanking.map((player) => ({
-            id: player.name,
-            "Player Name": <a href={player.name}>{player.name}</a>,
-            "Years Played": player.yearsPlayed,
-            "Total Lifetime Points": player.totalPoints > 0 ? player.totalPoints : "(not recorded)",
-            "Total Lifetime Chips": (
-              <>
-                {player.totalChips > 0 ? player.totalChips : "(not recorded)"}
-                {player.position === 0 && <GoldBadge title="1st Overall Points">1st</GoldBadge>}
-                {player.position === 1 && <SilverBadge title="2nd Overall Points">2nd</SilverBadge>}
-                {player.position === 2 && <BronzeBadge title="2nd Overall Points">3rd</BronzeBadge>}
-              </>
-            ),
-          }))}
-        />
+        <DataTable tableData={overallRankingTableData} />
       </main>
 
       <div className="justify-self-end">

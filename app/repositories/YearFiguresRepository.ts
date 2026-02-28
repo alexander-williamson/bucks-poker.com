@@ -11,7 +11,7 @@ export async function GetYearFiguresDataAsync(filePath: string): Promise<Year[]>
   const csvData = await GetCsvFromXlsx(fullPath);
   const json = await csv().fromString(csvData);
   const { value, error } = joi
-    .array<Year>()
+    .array<Year[]>()
     .items(
       joi
         .object<Year>({
@@ -35,6 +35,8 @@ export async function GetYearFiguresDataAsync(filePath: string): Promise<Year[]>
   if (error) {
     throw new Error(`GetYearFiguresDataAsync encountered an error ${filePath}): ${error.message}`);
   }
+
+  const sorted: Year[] = value.sort((a: Year, b: Year) => a.Yr - b.Yr);
 
   return value;
 }
