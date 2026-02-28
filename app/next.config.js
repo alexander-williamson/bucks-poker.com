@@ -7,7 +7,13 @@ const nextConfig = {
   env: {
     BUILD_TIME: new Date().toISOString(),
   },
-  output: "export"
+  output: "export",
+  turbopack: {
+    resolveAlias: {
+      fs: { browser: "./empty.js" },
+      "graceful-fs": { browser: "empty.js" },
+    },
+  },
 };
 
-module.exports = nextConfig
+module.exports = nextConfig;

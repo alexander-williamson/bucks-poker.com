@@ -13,7 +13,6 @@ import { GetYearFiguresDataAsync, FILENAME as YF } from "../../repositories/Year
 import { GetYears, PokerMonthlyPosition, FILENAME as MF, getMonthlyPositions } from "../../repositories/MonthlyPositionsRepository";
 import { GetColourForName } from "../../services/ColourHelpers";
 import { ChartData, TournamentChartService } from "../../services/TournamentChartService";
-import fs from "fs-extra";
 
 const tournamentChartService = new TournamentChartService();
 
@@ -45,6 +44,7 @@ export async function getStaticProps({ params }): Promise<StaticPropsResult> {
   const tableData = await getTableData(year);
   const names = tableData.map((x) => x.Person);
   const monthlyPositions = await getMonthlyPositions(path.resolve(`data/${MF}`));
+  const fs = await import("fs-extra");
   await fs.writeFile("output.json", JSON.stringify(monthlyPositions));
   const chartData = tournamentChartService.GetChartData(monthlyPositions, year);
   const earliestDate = await getEarliestDate(year);
@@ -129,7 +129,7 @@ export type YearProps = {
   }[];
 };
 
-export default function Year(props: ComponentProps): ReactElement {
+export default function Year(props: ComponentProps): ReactElement<any> {
   const currentYear = new Date().getFullYear();
   const [playerVisiblity, setPlayerVisibility] = useState(props.names.map((x) => ({ name: x, visible: true })));
   const [isAllVisible, setIsAllVisible] = useState(true);

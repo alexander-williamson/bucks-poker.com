@@ -17,7 +17,7 @@ export async function getStaticProps({ params }) {
 
 type PlayerTableDataSchema = {
   id: string;
-  name: string | ReactElement;
+  name: string | ReactElement<any>;
   yearsPlayed: number;
   totalLifetimePoints: number | string;
   totalLifetimeChips: number | string;

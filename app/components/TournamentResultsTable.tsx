@@ -20,7 +20,7 @@ export type Props = {
   isAllChecked: boolean;
 };
 
-export default function TournamentResultsTable(props: Props): ReactElement {
+export default function TournamentResultsTable(props: Props): ReactElement<any> {
   const { error } = joi.object().required().validate(props);
   if (error) {
     throw error;

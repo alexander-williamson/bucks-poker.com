@@ -1,5 +1,4 @@
 import csv from "csvtojson";
-import fs from "fs-extra";
 import path from "path";
 import xlsx from "xlsx";
 
@@ -31,6 +30,7 @@ async function GetCsvFromXlsx(path) {
 }
 
 async function EnsureFilePath(path) {
+  const fs = await import("fs-extra");
   if (!(await fs.pathExists(path))) {
     throw new Error(`Could not find file ${path}`);
   }
