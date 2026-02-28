@@ -13,7 +13,7 @@
     "@types/react": "^18.3.3",
     "chart.js": "^4.4.0",
     "chroma-js": "^2.4.2",
-    "csvtojson": "^2.0.10",
+    "csvtojson": "^2.0.14",
     "fs-extra": "^11.3.3",
     "joi": "^18.0.2",
     "moment": "^2.29.4",
@@ -32,7 +32,7 @@
     "autoprefixer": "^10.4.27",
     "eslint": "^10.0.2",
     "eslint-config-next": "^16.1.6",
-    "npm-check-updates": "^19.5.0",
+    "npm-check-updates": "^19.6.3",
     "postcss": "^8.4.31",
     "tailwindcss": "^3.3.3",
     "ts-jest": "^29.4.6"
