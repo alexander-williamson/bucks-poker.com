@@ -2,6 +2,7 @@ name: default
 run-name: Deploy to Production
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - main
