@@ -1,0 +1,11 @@
+# Code owners for bucks-poker.com
+
+# Order matters: the LAST matching pattern wins.
+
+# Everything is owned by Alex by default.
+
+- @alexander-williamson
+
+# The poker spreadsheets are deliberately left unowned, so others can upload
+
+/app/data/
